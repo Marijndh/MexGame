@@ -1,0 +1,26 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1720607513
+icon.svg::CompressedTexture2D::4996056373192913632::1719845438::1719845446::1::::<><>::
+::res://Fonts/::1720182515
+Coffee Spark.ttf::FontFile::6207036753515381643::1720082007::1720082123::1::::<><>::
+coolvetica rg.otf::FontFile::5580967071547219781::1720182511::1720182515::1::::<><>::
+This Cafe.ttf::FontFile::5355677934013388397::1720081955::1720082123::1::::<><>::
+::res://Objects/::1720080103
+::res://Scripts/::1720104138
+Main.cs::CSharpScript::-1::1720106155::0::1::::<>Node<>::
+SelectPlayerNames.cs::CSharpScript::-1::1720104138::0::1::::<>CanvasLayer<>::
+StartUI.cs::CSharpScript::-1::1720102896::0::1::::<>CanvasLayer<>::
+::res://Singletons/::1720100721
+Global.cs::CSharpScript::-1::1720100094::0::1::::<>Node<>::
+Signals.cs::CSharpScript::-1::1720100793::0::1::::<>Node<>::
+::res://Sprites/::1720612421
+AddPlayerBar.png::CompressedTexture2D::6007296692416785815::1720612421::1720612452::1::::<><>::
+delete_button.png::CompressedTexture2D::2736027327817942990::1720610686::1720610688::1::::<><>::
+info.png::CompressedTexture2D::7928768056283144365::1720086021::1720086025::1::::<><>::
+::res://Windows/::1720611981
+Main.tscn::PackedScene::6248558434559406061::1720611980::0::1::::<><>::res://Scripts/Main.cs<>uid://duwmwl38on26w::::res://Windows/StartUI.tscn<>uid://c5s0kqbe3s6s1::::res://Windows/SelectPlayerNames.tscn
+NameInput.tscn::PackedScene::3250672517877205766::1720611980::0::1::::<><>::uid://clrpyhnn6lcxh::::res://Fonts/coolvetica rg.otf
+DeletePlayerInputButton.tscn::PackedScene::970950333233986821::1720610694::0::1::::<><>::uid://be8l78ywnny1c::::res://Sprites/delete_button.png
+AddPlayerInputButton.tscn::PackedScene::3953192297466064166::1720611981::0::1::::<><>::uid://crt8kfp5dq7sd::::res://Sprites/AddPlayerBar.png
+SelectPlayerNames.tscn::PackedScene::6917202100996769930::1720611980::0::1::::<><>::res://Scripts/SelectPlayerNames.cs<>uid://cuoy8uw4mb52v::::res://Fonts/Coffee Spark.ttf<>uid://bmkwdpjaijeos::::res://Windows/NameInput.tscn<>uid://n3ln7d1qjug8::::res://Windows/DeletePlayerInputButton.tscn<>uid://bwk7q8reh8vp3::::res://Windows/AddPlayerInputButton.tscn
+StartUI.tscn::PackedScene::8609223748338367368::1720611980::0::1::::<><>::uid://ciklh6pynu5cb::::res://Fonts/This Cafe.ttf<>res://Scripts/StartUI.cs<>uid://cuoy8uw4mb52v::::res://Fonts/Coffee Spark.ttf<>uid://dk70wfd0qcwg0::::res://Sprites/info.png

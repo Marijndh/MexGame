@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmkwdpjaijeos"]
+
+[ext_resource type="FontFile" uid="uid://clrpyhnn6lcxh" path="res://Fonts/coolvetica rg.otf" id="1_2ejcu"]
+
+[node name="NameInput" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -580.0
+offset_bottom = -1861.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 75.0
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.0
+offset_top = -28.5
+offset_right = 245.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_2ejcu")
+theme_override_font_sizes/font_size = 40
+placeholder_text = ". . . . . . . . ."
+alignment = 1
+flat = true
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(0, 0.347826)
+scale = Vector2(1, 1.17391)
+points = PackedVector2Array(0, 65, 500, 65, 500, 0, -1, 0, 0, 0)
+closed = true
+width = 2.0
+default_color = Color(0, 0, 0, 1)

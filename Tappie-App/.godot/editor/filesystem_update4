@@ -1,0 +1,15 @@
+res://Windows/NameInput.tscn
+res://Windows/SelectPlayerNames.tscn
+res://Windows/StartUI.tscn
+res://Windows/Main.tscn
+res://Windows/AddPlayerInputButton.tscn
+res://Windows/DeletePlayerInputButton.tscn
+res://Scripts/AddPlayerInputButton.cs
+res://Singletons/Global.cs
+res://Scripts/SelectPlayerNames.cs
+res://Scripts/StartUI.cs
+res://Scripts/Main.cs
+res://Singletons/Signals.cs
+res://Windows/DeletePlayerInputButton.cs
+res://Scripts/DeletePlayerInputButton.cs
+res://Singletons/SceneSwitcher.cs

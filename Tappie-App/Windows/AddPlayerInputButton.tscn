@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwk7q8reh8vp3"]
+
+[ext_resource type="Texture2D" uid="uid://crt8kfp5dq7sd" path="res://Sprites/AddPlayerBar.png" id="1_gmhq8"]
+[ext_resource type="Script" path="res://Scripts/AddPlayerInputButton.cs" id="2_clnfe"]
+
+[sub_resource type="Animation" id="Animation_nb3yn"]
+resource_name = "pop_out"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(465, 114), Vector2(480, 118), Vector2(465, 114)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wfcmm"]
+_data = {
+"pop_out": SubResource("Animation_nb3yn")
+}
+
+[node name="AddPlayerInputButton" type="TextureButton"]
+offset_left = -1.83165
+offset_right = 463.168
+offset_bottom = 114.0
+size_flags_horizontal = 6
+size_flags_vertical = 2
+action_mode = 0
+texture_normal = ExtResource("1_gmhq8")
+stretch_mode = 4
+script = ExtResource("2_clnfe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wfcmm")
+}
+autoplay = "pop_out"
+
+[connection signal="pressed" from="." to="." method="OnPressed"]
