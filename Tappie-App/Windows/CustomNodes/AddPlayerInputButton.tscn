@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwk7q8reh8vp3"]
 
 [ext_resource type="Texture2D" uid="uid://crt8kfp5dq7sd" path="res://Sprites/AddPlayerBar.png" id="1_gmhq8"]
-[ext_resource type="Script" path="res://Scripts/AddPlayerInputButton.cs" id="2_clnfe"]
+[ext_resource type="Script" path="res://Scripts/PlayerInputScripts/AddPlayerInputButton.cs" id="2_clnfe"]
 
 [sub_resource type="Animation" id="Animation_nb3yn"]
 resource_name = "pop_out"

@@ -9,7 +9,13 @@ public partial class SceneSwitcher : Node
         var root = GetTree().Root;
         currentScene = root.GetChild(root.GetChildCount() - 1);
     }
-
+    public void SwitchToGame(){
+        switch (Global.current_game){
+            case "mexen" or "hardcore_mexen":
+                SwitchScene("res://Windows/Mexen.tscn");
+                break;
+        }
+    }
     public void SwitchScene(string resPath)
     {
         CallDeferred(nameof(DeferredSwitchScene), resPath);

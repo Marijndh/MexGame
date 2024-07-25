@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://duwmwl38on26w"]
+[gd_scene load_steps=13 format=3 uid="uid://duwmwl38on26w"]
 
 [ext_resource type="FontFile" uid="uid://ciklh6pynu5cb" path="res://Fonts/This Cafe.ttf" id="1_eailu"]
 [ext_resource type="Script" path="res://Scripts/StartUI.cs" id="1_h3lei"]
 [ext_resource type="FontFile" uid="uid://cuoy8uw4mb52v" path="res://Fonts/Coffee Spark.ttf" id="1_nndea"]
 [ext_resource type="Texture2D" uid="uid://dk70wfd0qcwg0" path="res://Sprites/info.png" id="1_opr3f"]
+[ext_resource type="PackedScene" uid="uid://dg4ax5i8o51fa" path="res://Windows/Background.tscn" id="2_ixo5p"]
 
 [sub_resource type="Animation" id="Animation_fcibs"]
 length = 2.0
@@ -138,13 +139,7 @@ _data = {
 [node name="StartUI" type="CanvasLayer"]
 script = ExtResource("1_h3lei")
 
-[node name="Background" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.517647, 1, 1)
+[node name="Background" parent="." instance=ExtResource("2_ixo5p")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

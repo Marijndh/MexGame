@@ -1,2 +1,2 @@
-﻿54274
+﻿52240
 C:/Program Files (x86)/Godot/Godot.exe

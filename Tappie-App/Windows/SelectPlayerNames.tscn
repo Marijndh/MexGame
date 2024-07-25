@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://c5s0kqbe3s6s1"]
 
-[ext_resource type="Script" path="res://Scripts/SelectPlayerNames.cs" id="1_pih5j"]
+[ext_resource type="Script" path="res://Scripts/PlayerInputScripts/SelectPlayerNames.cs" id="1_pih5j"]
+[ext_resource type="PackedScene" uid="uid://dg4ax5i8o51fa" path="res://Windows/Background.tscn" id="2_2qw2k"]
 [ext_resource type="FontFile" uid="uid://cuoy8uw4mb52v" path="res://Fonts/Coffee Spark.ttf" id="2_kr0e8"]
-[ext_resource type="PackedScene" uid="uid://bmkwdpjaijeos" path="res://Windows/NameInput.tscn" id="3_ebe08"]
-[ext_resource type="PackedScene" uid="uid://bwk7q8reh8vp3" path="res://Windows/AddPlayerInputButton.tscn" id="5_s0crm"]
+[ext_resource type="PackedScene" uid="uid://doaruktuv2ec0" path="res://Windows/CustomNodes/PlayerInputsContainer.tscn" id="4_e5xk7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ig6jt"]
 
@@ -12,13 +12,7 @@
 [node name="SelectPlayerNames" type="CanvasLayer"]
 script = ExtResource("1_pih5j")
 
-[node name="Background" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.517647, 1, 1)
+[node name="Background" parent="." instance=ExtResource("2_2qw2k")]
 
 [node name="SubTitle" type="Label" parent="."]
 anchors_preset = 5
@@ -30,8 +24,8 @@ offset_right = 410.5
 offset_bottom = 458.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_kr0e8")
-theme_override_font_sizes/font_size = 60
-text = "Wie gaan er naar de getver?"
+theme_override_font_sizes/font_size = 57
+text = "Wie gaan er naar de getver? (Max 8)"
 
 [node name="Continue" type="Button" parent="."]
 anchors_preset = 7
@@ -66,24 +60,6 @@ theme_override_fonts/font = ExtResource("2_kr0e8")
 theme_override_font_sizes/font_size = 200
 text = "Spelers"
 
-[node name="PlayerInputs" type="VBoxContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -434.0
-offset_right = 250.0
-offset_bottom = 590.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 135
-
-[node name="Speler 1" parent="PlayerInputs" instance=ExtResource("3_ebe08")]
-layout_mode = 2
-
-[node name="AddPlayerInputButton" parent="PlayerInputs" instance=ExtResource("5_s0crm")]
-layout_mode = 2
+[node name="PlayerInputs" parent="." instance=ExtResource("4_e5xk7")]
 
 [connection signal="pressed" from="Continue" to="." method="OnContinuePressed"]

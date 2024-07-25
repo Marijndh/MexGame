@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://n3ln7d1qjug8"]
 
 [ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Sprites/delete_button.png" id="1_7rmun"]
-[ext_resource type="Script" path="res://Scripts/DeletePlayerInputButton.cs" id="2_466j5"]
+[ext_resource type="Script" path="res://Scripts/PlayerInputScripts/DeletePlayerInputButton.cs" id="2_466j5"]
 
 [node name="TextureButton" type="TextureButton"]
 anchors_preset = 1

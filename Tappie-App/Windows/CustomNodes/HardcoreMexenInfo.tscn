@@ -1,0 +1,299 @@
+[gd_scene load_steps=12 format=3 uid="uid://b6h54mm1sqg2c"]
+
+[ext_resource type="Texture2D" uid="uid://c6yl6ams0n6aq" path="res://Sprites/continue.png" id="1_3bhoo"]
+[ext_resource type="Script" path="res://Scripts/CustomNodes/InfoPanel.cs" id="1_fr0ve"]
+[ext_resource type="FontFile" uid="uid://clrpyhnn6lcxh" path="res://Fonts/coolvetica rg.otf" id="2_x01cq"]
+[ext_resource type="Texture2D" uid="uid://8aafmn1jj2vf" path="res://Sprites/game info.png" id="3_tf5pk"]
+[ext_resource type="PackedScene" uid="uid://dynf6a5178ecx" path="res://Windows/UINodes/CloseButton.tscn" id="4_2qqtv"]
+[ext_resource type="FontFile" uid="uid://cuoy8uw4mb52v" path="res://Fonts/Coffee Spark.ttf" id="5_l5jfe"]
+[ext_resource type="Theme" uid="uid://ccu20bhhfu6pb" path="res://Themes And Settings/TextSpacing.tres" id="6_hwygp"]
+[ext_resource type="LabelSettings" uid="uid://dp7tudlf4om4p" path="res://Themes And Settings/Header2.tres" id="7_63l4i"]
+[ext_resource type="Theme" uid="uid://dca3m3ltblswj" path="res://Themes And Settings/tabbar.tres" id="7_la61w"]
+[ext_resource type="Theme" uid="uid://bjvgeiqcxao4q" path="res://Themes And Settings/TextSpacingLeft.tres" id="8_j43wq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y6owf"]
+font = ExtResource("2_x01cq")
+font_size = 25
+outline_size = 6
+outline_color = Color(0.219608, 0.219608, 0.219608, 0.701961)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 1)
+
+[node name="hardcore_mexen" type="CanvasLayer"]
+script = ExtResource("1_fr0ve")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_la61w")
+
+[node name="ContinueButton" type="TextureButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -262.0
+offset_top = -370.0
+offset_right = 262.0
+offset_bottom = -203.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("1_3bhoo")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Panel/ContinueButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 17.0
+offset_right = -2.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0.894118, 1)
+theme_override_fonts/font = ExtResource("2_x01cq")
+theme_override_font_sizes/font_size = 80
+text = "Spelen"
+horizontal_alignment = 1
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -439.0
+offset_top = -815.0
+offset_right = 439.0
+offset_bottom = 533.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tf5pk")
+expand_mode = 1
+
+[node name="CloseButton" parent="Background" instance=ExtResource("4_2qqtv")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 808.0
+offset_top = -48.0
+offset_right = 912.0
+offset_bottom = 56.0
+grow_horizontal = 1
+
+[node name="Titel" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.5
+offset_top = 100.0
+offset_right = 125.5
+offset_bottom = 215.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.791999, 0.791999, 0.791999, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("5_l5jfe")
+theme_override_font_sizes/font_size = 85
+text = "Hardcore Mexen"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitel" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 101.0
+offset_top = -457.0
+offset_right = -95.0
+offset_bottom = -379.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.800491, 0.800491, 0.800491, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("5_l5jfe")
+theme_override_font_sizes/font_size = 24
+text = "Stap in de wereld van Hardcore Mexen, waar de regels strenger zijn, de straffen zwaarder, en alleen de dappersten zullen overleven!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -339.0
+offset_top = -344.0
+offset_right = 341.0
+offset_bottom = 573.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_la61w")
+theme_override_fonts/font = ExtResource("2_x01cq")
+theme_override_font_sizes/font_size = 25
+tab_alignment = 1
+current_tab = 2
+clip_tabs = false
+tabs_rearrange_group = 0
+
+[node name="Gooien" type="VBoxContainer" parent="Background/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Spacing-Top" type="Label" parent="Background/TabContainer/Gooien"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_hwygp")
+label_settings = ExtResource("7_63l4i")
+uppercase = true
+
+[node name="Title" type="Label" parent="Background/TabContainer/Gooien"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_hwygp")
+text = "Verplichte Worpen"
+label_settings = ExtResource("7_63l4i")
+uppercase = true
+
+[node name="Text" type="Label" parent="Background/TabContainer/Gooien"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = ExtResource("8_j43wq")
+text = "In Hardcore Mexen kun je niet terugkrabbelen! Elke speler móet drie keer gooien met twee dobbelstenen. Dit is geen spel voor twijfelaars, maar voor doorzetters. De laatste worp is jouw eindscore, het hoogste getal word het eerste getal en de laagste de tweede. 
+
+Let op: Honderdtallen zijn te gooien door twee keer hetzelfde getal te gooien, dan gaat dat getal keer 100.
+
+Voorbeelden :  2 en 6 =  62,  4 en 4 =  400,  2 en 1 =  21"
+label_settings = SubResource("LabelSettings_y6owf")
+autowrap_mode = 2
+
+[node name="Spacing-Middle" type="Label" parent="Background/TabContainer/Gooien"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = ExtResource("8_j43wq")
+label_settings = SubResource("LabelSettings_y6owf")
+autowrap_mode = 2
+
+[node name="Title2" type="Label" parent="Background/TabContainer/Gooien"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_hwygp")
+text = "Extra Kansen"
+label_settings = ExtResource("7_63l4i")
+uppercase = true
+
+[node name="Text2" type="Label" parent="Background/TabContainer/Gooien"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = ExtResource("8_j43wq")
+text = "Heb je een 2 en een 1 gegooid, maar geen Mex? Laat de 1 of 2 liggen en gooi nog een keer met de andere steen, dit telt niet als een extra worp. Dit kan je redding zijn of je ondergang. Spannend, toch? Gooi je daarna 21? Dan is jouw beurd direct voorbij. Maar pas op, al gooi je 32 (het allerlaagste) is je beurt ook gelijk voorbij en ben je één van de verliezers."
+label_settings = SubResource("LabelSettings_y6owf")
+autowrap_mode = 2
+
+[node name="Ridder" type="VBoxContainer" parent="Background/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Spacing-Top" type="Label" parent="Background/TabContainer/Ridder"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_hwygp")
+label_settings = ExtResource("7_63l4i")
+uppercase = true
+
+[node name="Title" type="Label" parent="Background/TabContainer/Ridder"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_hwygp")
+text = "De Ridder"
+label_settings = ExtResource("7_63l4i")
+uppercase = true
+
+[node name="Text" type="Label" parent="Background/TabContainer/Ridder"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = ExtResource("8_j43wq")
+text = "De ridder speelt een nog grotere rol in Hardcore Mexen. De eerste speler die 100 gooit, wordt de Ridder. Als de Ridder zelf een getal tussen de 200 en 500 gooit, krijgt hij de kans om 1 strafpunt uit te delen aan een medespeler. Maar als een andere speler een strafpunt gooit, dan krijgt de Ridder zelf 1 strafpunt! 
+
+Maar hier komt de twist: als de Ridder al Ridder is, nemen de straffen toe! Dit betekent dat als je meerdere keren Ridder bent, de straffen vermenigvuldigen, ook degene die je mag uitdelen. Bereid je voor op chaos! "
+label_settings = SubResource("LabelSettings_y6owf")
+autowrap_mode = 2
+
+[node name="Straffen" type="VBoxContainer" parent="Background/TabContainer"]
+layout_mode = 2
+
+[node name="Spacing-Top" type="Label" parent="Background/TabContainer/Straffen"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_hwygp")
+label_settings = ExtResource("7_63l4i")
+uppercase = true
+
+[node name="Title" type="Label" parent="Background/TabContainer/Straffen"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_hwygp")
+text = "De Straffen"
+label_settings = ExtResource("7_63l4i")
+uppercase = true
+
+[node name="Text" type="Label" parent="Background/TabContainer/Straffen"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = ExtResource("8_j43wq")
+text = "Word er 21 gegooid (Mex), dan worden er 3 strafpunten bij opgeteld! In Hardcore Mexen begin je niet met 2, maar met 3 strafpunten. En geloof ons, dit kan snel oplopen door de extra kansen die iedereen heeft. Degene met de laagste score is de verliezer en krijgt deze strafpunten aan het einde van de ronde.
+
+Meerdere spelers met dezelfde waarde? Dan mag elk een dobbelsteen gooien, degene met het hoogste getal is de verliezer.
+
+Strafpunten na ronde = 3 * aantal keer Mex
+"
+label_settings = SubResource("LabelSettings_y6owf")
+autowrap_mode = 2
+
+[node name="Spacing-Middle" type="Label" parent="Background/TabContainer/Straffen"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = ExtResource("8_j43wq")
+label_settings = SubResource("LabelSettings_y6owf")
+autowrap_mode = 2
+
+[node name="Title2" type="Label" parent="Background/TabContainer/Straffen"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_hwygp")
+text = "Extra straffen"
+label_settings = ExtResource("7_63l4i")
+uppercase = true
+
+[node name="Text2" type="Label" parent="Background/TabContainer/Straffen"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = ExtResource("8_j43wq")
+text = "•	   31 :   Heb je 31 gegooid? Dan mag je 1 strafpunt uitdelen aan een medespeler naar keuze. Deze kan echter snel weer terugkomen, dus speel strategisch!
+•	   600 :    Deze worp zorgt voor opschudding! Iedereen krijgt 1 strafpunt. Niemand ontsnapt aan deze massale straf.
+"
+label_settings = SubResource("LabelSettings_y6owf")
+autowrap_mode = 2
+
+[connection signal="pressed" from="Panel/ContinueButton" to="." method="OnContinueButtonPressed"]
+[connection signal="pressed" from="Background/CloseButton" to="." method="OnCloseButtonPressed"]
