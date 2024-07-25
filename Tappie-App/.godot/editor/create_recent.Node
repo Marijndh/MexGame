@@ -1,3 +1,5 @@
+Button
+CanvasLayer
 Node3D
 RayCast3D
 CollisionShape3D
@@ -7,9 +9,7 @@ Area3D
 RigidBody3D
 OmniLight3D
 MeshInstance3D
-CanvasLayer
 Camera3D
 Label
 VBoxContainer
 TabContainer
-ColorRect

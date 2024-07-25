@@ -4,18 +4,16 @@ using System.Collections.Generic;
 
 public partial class Die : RigidBody3D
 {
-	public int die_index;
 	public int value;
 	private Signals _signals;
 	private int _rollStrength = 20;
 
-	public bool isRolling = false;
+	private bool _isRolling = false;
 
 	private List<DieRayCast> _rays = new List<DieRayCast>();
 
 	public override void _Ready()
 	{
-		die_index = Int32.Parse(Name);
 		_signals = GetNode<Signals>("/root/Signals");
 		Node3D rayParent = GetNode<Node3D>("RayCasts");
 			foreach (Node child in rayParent.GetChildren())
@@ -61,25 +59,31 @@ public partial class Die : RigidBody3D
 		ApplyCentralImpulse(throwDirection * throwStrength);
 
 		// Set rolling state
-		isRolling = true;
+		_isRolling = true;
 
 	}
 
-	public void OnSleepingStateChanged() {
-		if (Sleeping){
-			bool landedOnSide = false;
-			foreach (DieRayCast ray in _rays){
-				if (ray.IsColliding()){
-					value = ray.opposite_side;
-					isRolling = false;
-					landedOnSide = true;
-				}
-			}
-			if(!landedOnSide){
-				DieRayCast closestRay = null;
-				float minDistance = float.MaxValue;
+	public void SnapRotation()
+    {
+        Vector3 rotationDegrees = RotationDegrees;
+		float SnapAngle = 90.0f;
 
-				foreach (DieRayCast ray in _rays)
+		if(value == 6) rotationDegrees.Y = 90;
+		else rotationDegrees.Y = 0;
+
+        // Bereken de dichtstbijzijnde veelvoud van SnapAngle voor x en z rotaties
+        rotationDegrees.X = Mathf.Round(rotationDegrees.X / SnapAngle) * SnapAngle;
+        rotationDegrees.Z = Mathf.Round(rotationDegrees.Z / SnapAngle) * SnapAngle;
+
+        // Zet de nieuwe rotatie terug
+        RotationDegrees = rotationDegrees;
+    }
+
+	private void OnSleepingStateChanged() {
+		if (Sleeping && _isRolling){
+			DieRayCast closestRay = null;
+			float minDistance = float.MaxValue;
+			foreach (DieRayCast ray in _rays)
 				{
 					// Get the y-coordinate of the ray's origin
 					float yOrigin = ray.GlobalTransform.Origin.Y;
@@ -94,9 +98,10 @@ public partial class Die : RigidBody3D
 						closestRay = ray;
 					}
 				}
-				if (closestRay != null){
-					value = closestRay.opposite_side;
-				}
+			if (closestRay != null){
+				value = closestRay.opposite_side;
+				_isRolling = false;
+				_signals.EmitSignal(nameof(_signals.RollFinished));
 			}
 		}
 	}

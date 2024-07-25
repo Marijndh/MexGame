@@ -98,10 +98,6 @@ public partial class SelectPlayerNames : CanvasLayer
 		_playerInputs.GetChild(index).AddChild(deleteButton);
 	}
 
-	private void SelectFirstEmptyInput(){
-
-	}
-
 	private void AddPLayerInput(){
 		if (IsInstanceValid(_playerInputs) && _playerInputs.GetChildCount() <= 8) {
 			int index = _playerInputs.GetChildCount();
