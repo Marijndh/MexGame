@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tappie")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5115e49800e2e0e15fd73be601af3c02ff94dfd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9793289d7698032f53c459b1662e8d4839181760")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tappie")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tappie")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

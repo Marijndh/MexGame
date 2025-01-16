@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c2y0junnjbbu6"]
 
-[ext_resource type="Script" path="res://Scripts/PopUp.cs" id="1_kls0h"]
+[ext_resource type="Script" path="res://Scripts/CustomNodes/PopUp.cs" id="1_kls0h"]
 [ext_resource type="Texture2D" uid="uid://c08fjt0pn34o5" path="res://Sprites/pop-up.png" id="1_rvuvs"]
 [ext_resource type="FontFile" uid="uid://clrpyhnn6lcxh" path="res://Fonts/coolvetica rg.otf" id="2_3yy37"]
 [ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Sprites/delete_button.png" id="3_xy6ke"]

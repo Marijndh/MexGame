@@ -1,5 +1,8 @@
-Button
+Label
+TextureRect
 CanvasLayer
+Panel
+Button
 Node3D
 RayCast3D
 CollisionShape3D
@@ -9,7 +12,3 @@ Area3D
 RigidBody3D
 OmniLight3D
 MeshInstance3D
-Camera3D
-Label
-VBoxContainer
-TabContainer

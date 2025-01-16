@@ -17,6 +17,59 @@ public static class NodeCreator
 		return popUp;
 	}
 
+    internal static Node getKnightPopUp(string name, int amount, bool isGiving) {
+        string text;
+        if (isGiving) {
+            text = name + "\n Mag " + amount + " strafpunt(en) uitdelen!";
+        }
+        else text = name + "\n Krijgt " + amount + " strafpunt(en)!";
+		// Load the custom scene
+        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/KnightPopUp.tscn");
+        
+		// Instance the custom scene
+		Node popUp = scene.Instantiate();
+
+		Label textLabel = popUp.GetChild(1).GetNode<Label>("Text");
+
+		textLabel.Text = text;
+
+		return popUp;
+	}
+
+    internal static Node getKnightPopUpEverybodyDrinks() {
+        string text = "Iedereen krijgt 1 strafpunt!";
+		// Load the custom scene
+        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/KnightPopUp.tscn");
+        
+		// Instance the custom scene
+		Node popUp = scene.Instantiate();
+
+		Label textLabel = popUp.GetChild(1).GetNode<Label>("Text");
+
+		textLabel.Text = text;
+
+		return popUp;
+	}
+
+    internal static Node getPunishmentPopUp(string name, int amount, bool isGiving) {
+        string text;
+        if (isGiving) {
+            text = name + "\n Mag " + amount + " strafpunt(en) uitdelen!";
+        }
+        else text = name + "\n Krijgt " + amount + " strafpunt(en)!";
+		// Load the custom scene
+        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/PunishmentPopUp.tscn");
+        
+		// Instance the custom scene
+		Node popUp = scene.Instantiate();
+
+		Label textLabel = popUp.GetChild(1).GetNode<Label>("Text");
+
+		textLabel.Text = text;
+
+		return popUp;
+        }
+
 		public static Node getNameInput(int index, string customName = "") {
 		// Load the custom scene
         PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/NameInput.tscn");

@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch7sst61rrrj7"]
+
+[ext_resource type="Texture2D" uid="uid://bjc3n4xnwl0vs" path="res://Sprites/knight-pop-up.png" id="1_y6aen"]
+[ext_resource type="FontFile" uid="uid://clrpyhnn6lcxh" path="res://Fonts/coolvetica rg.otf" id="2_h1gwr"]
+[ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Sprites/delete_button.png" id="3_bq74p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yo78t"]
+
+[sub_resource type="Theme" id="Theme_vrx1u"]
+default_font = ExtResource("2_h1gwr")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0.764706, 0.364706, 0, 0.588235)
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = 5
+Label/constants/outline_size = 20
+Label/constants/shadow_offset_x = 3
+Label/constants/shadow_offset_y = 4
+Label/constants/shadow_outline_size = 1
+Label/font_sizes/font_size = 26
+Label/styles/normal = SubResource("StyleBoxEmpty_yo78t")
+
+[node name="KnightPopUp" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -564.0
+offset_top = -1474.0
+offset_right = 451.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_y6aen")
+stretch_mode = 4
+
+[node name="Text" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -309.5
+offset_top = -711.0
+offset_right = 420.5
+offset_bottom = -556.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_vrx1u")
+theme_override_fonts/font = ExtResource("2_h1gwr")
+theme_override_font_sizes/font_size = 54
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 2
+
+[node name="CloseButton" type="TextureButton" parent="Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.979
+anchor_right = 1.0
+anchor_bottom = 0.022
+offset_left = -47.496
+offset_top = -22.0
+offset_right = 35.0
+offset_bottom = 46.472
+grow_horizontal = 0
+texture_normal = ExtResource("3_bq74p")
+stretch_mode = 4
