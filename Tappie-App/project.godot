@@ -11,15 +11,14 @@ config_version=5
 [application]
 
 config/name="Tappie"
-run/main_scene="res://Windows/MexScene.tscn"
+run/main_scene="res://Scenes/Home.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://Singletons/Global.cs"
-Signals="*res://Singletons/Signals.cs"
-SceneSwitcher="*res://Singletons/SceneSwitcher.cs"
+EventManager="*res://Managers/EventManager.cs"
+SceneManager="*res://Managers/SceneManager.cs"
 
 [display]
 

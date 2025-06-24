@@ -1,131 +1,52 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public static class NodeCreator 
+public static class NodeCreator
 {
-	internal static Node getPopUp(string text) {
-		// Load the custom scene
-        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/PopUp.tscn");
-        
-		// Instance the custom scene
-		Node popUp = scene.Instantiate();
+	private const string SceneBasePath = "res://Nodes/CustomNodes";
 
-		Label textLabel = popUp.GetChild(1).GetNode<Label>("Text");
+	public static Node CreateNode(string sceneFileName, Dictionary<string, object> namedProperties = null, string nodeName = null)
+	{
+		string scenePath = SceneBasePath + sceneFileName + ".tscn";
+		PackedScene scene = ResourceLoader.Load<PackedScene>(scenePath);
 
-		textLabel.Text = text;
+		if (scene == null)
+		{
+			GD.PrintErr($"Scene not found: {scenePath}");
+			return null;
+		}
 
-		return popUp;
+		Node instance = scene.Instantiate();
+		if (!string.IsNullOrEmpty(nodeName))
+			instance.Name = nodeName;
+
+		if (namedProperties != null)
+		{
+			foreach (KeyValuePair<string, object> pair in namedProperties)
+			{
+				Node subNode = instance.GetNodeOrNull(pair.Key);
+				if (subNode == null)
+				{
+					GD.PrintErr($"Subnode '{pair.Key}' not found in scene '{scenePath}'.");
+					continue;
+				}
+
+				switch (subNode)
+				{
+					case Label label when pair.Value is string str:
+						label.Text = str;
+						break;
+					case LineEdit input when pair.Value is string strInput:
+						input.Text = strInput;
+						break;
+					// Add support for other types here
+					default:
+						GD.PrintErr($"Unsupported node or property type at '{pair.Key}'");
+						break;
+				}
+			}
+		}
+		return instance;
 	}
-
-    internal static Node getKnightPopUp(string name, int amount, bool isGiving) {
-        string text;
-        if (isGiving) {
-            text = name + "\n Mag " + amount + " strafpunt(en) uitdelen!";
-        }
-        else text = name + "\n Krijgt " + amount + " strafpunt(en)!";
-		// Load the custom scene
-        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/KnightPopUp.tscn");
-        
-		// Instance the custom scene
-		Node popUp = scene.Instantiate();
-
-		Label textLabel = popUp.GetChild(1).GetNode<Label>("Text");
-
-		textLabel.Text = text;
-
-		return popUp;
-	}
-
-    internal static Node getKnightPopUpEverybodyDrinks() {
-        string text = "Iedereen krijgt 1 strafpunt!";
-		// Load the custom scene
-        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/KnightPopUp.tscn");
-        
-		// Instance the custom scene
-		Node popUp = scene.Instantiate();
-
-		Label textLabel = popUp.GetChild(1).GetNode<Label>("Text");
-
-		textLabel.Text = text;
-
-		return popUp;
-	}
-
-    internal static Node getPunishmentPopUp(string name, int amount, bool isGiving) {
-        string text;
-        if (isGiving) {
-            text = name + "\n Mag " + amount + " strafpunt(en) uitdelen!";
-        }
-        else text = name + "\n Krijgt " + amount + " strafpunt(en)!";
-		// Load the custom scene
-        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/PunishmentPopUp.tscn");
-        
-		// Instance the custom scene
-		Node popUp = scene.Instantiate();
-
-		Label textLabel = popUp.GetChild(1).GetNode<Label>("Text");
-
-		textLabel.Text = text;
-
-		return popUp;
-        }
-
-		public static Node getNameInput(int index, string customName = "") {
-		// Load the custom scene
-        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/NameInput.tscn");
-        
-        // Instance the custom scene
-        Node nameInput = scene.Instantiate();
-        
-        // Add the custom object at the second to last position
-        nameInput.Name = index+"";
-        nameInput.GetChild(0).GetNode<LineEdit>("LineEdit").Text = customName;
-
-		return nameInput;
-	}
-
-    internal static Node getDeleteButton()
-    {
-        // Load the custom scene
-        PackedScene myCustomScene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/DeletePlayerInputButton.tscn");
-        
-        // Instance the custom scene
-        return myCustomScene.Instantiate();
-    }
-
-    internal static Node getMexenInfo()
-    {
-        // Load the custom scene
-        PackedScene myCustomScene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/MexenInfo.tscn");
-        
-        // Instance the custom scene
-        return myCustomScene.Instantiate();
-    }
-
-    internal static Node getHardcoreMexenInfo()
-    {
-        // Load the custom scene
-        PackedScene myCustomScene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/HardcoreMexenInfo.tscn");
-        
-        // Instance the custom scene
-        return myCustomScene.Instantiate();
-    }
-
-    internal static Node getAddButton()
-    {
-        // Load the custom scene
-        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/AddPlayerInputButton.tscn");
-        
-        // Instance the custom scene
-        return scene.Instantiate();
-    }
-
-        internal static VBoxContainer getPlayerInputsContainer()
-    {
-        // Load the custom scene
-        PackedScene scene = (PackedScene)ResourceLoader.Load("res://Windows/CustomNodes/PlayerInputsContainer.tscn");
-        
-        // Instance the custom scene
-        return (VBoxContainer)scene.Instantiate();
-    }
 }
