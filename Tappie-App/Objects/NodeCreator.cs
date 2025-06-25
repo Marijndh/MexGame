@@ -1,12 +1,12 @@
 using Godot;
 using System;
+using Godot.Collections;
 using System.Collections.Generic;
-
 public static class NodeCreator
 {
-	private const string SceneBasePath = "res://Nodes/CustomNodes";
+	private const string SceneBasePath = "res://Nodes/CustomNodes/";
 
-	public static Node CreateNode(string sceneFileName, Dictionary<string, object> namedProperties = null, string nodeName = null)
+	public static Node CreateNode(string sceneFileName, Godot.Collections.Dictionary<string, Variant> namedProperties = null, string nodeName = null)
 	{
 		string scenePath = SceneBasePath + sceneFileName + ".tscn";
 		PackedScene scene = ResourceLoader.Load<PackedScene>(scenePath);
@@ -23,7 +23,7 @@ public static class NodeCreator
 
 		if (namedProperties != null)
 		{
-			foreach (KeyValuePair<string, object> pair in namedProperties)
+			foreach (KeyValuePair<string, Variant> pair in namedProperties)
 			{
 				Node subNode = instance.GetNodeOrNull(pair.Key);
 				if (subNode == null)
@@ -34,13 +34,12 @@ public static class NodeCreator
 
 				switch (subNode)
 				{
-					case Label label when pair.Value is string str:
-						label.Text = str;
+					case Label label when pair.Value.VariantType == Variant.Type.String:
+						label.Text = pair.Value.AsString();
 						break;
-					case LineEdit input when pair.Value is string strInput:
-						input.Text = strInput;
+					case LineEdit input when pair.Value.VariantType == Variant.Type.String:
+						input.Text = pair.Value.AsString();
 						break;
-					// Add support for other types here
 					default:
 						GD.PrintErr($"Unsupported node or property type at '{pair.Key}'");
 						break;

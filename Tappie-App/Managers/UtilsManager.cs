@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 public static class UtilsManager {
-    internal static void ShuffleList<T>(List<T> list)
+    internal static List<T> ShuffleList<T>(List<T> list)
     {
         Random random = new Random();
         int n = list.Count;
@@ -16,5 +16,6 @@ public static class UtilsManager {
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
         }
-    }
+        return list;
+	}
 }

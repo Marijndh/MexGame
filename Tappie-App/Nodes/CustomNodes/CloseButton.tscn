@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dynf6a5178ecx"]
 
-[ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Sprites/delete_button.png" id="1_nls5a"]
-[ext_resource type="Script" path="res://Scripts/CustomNodes/CloseButton.cs" id="2_hsb6f"]
+[ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Assets/Sprites/delete_button.png" id="1_nls5a"]
+[ext_resource type="Script" path="res://UI-Scripts/PopUp.cs" id="2_7qujg"]
 
 [node name="CloseButton" type="TextureButton"]
 anchors_preset = 1
@@ -14,6 +14,6 @@ offset_bottom = 60.0
 grow_horizontal = 0
 texture_normal = ExtResource("1_nls5a")
 stretch_mode = 4
-script = ExtResource("2_hsb6f")
+script = ExtResource("2_7qujg")
 
 [connection signal="pressed" from="." to="." method="OnPressed"]

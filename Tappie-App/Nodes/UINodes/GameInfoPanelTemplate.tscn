@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Windows/UINodes/InfoPanel.cs" id="1_5lvfd"]
 [ext_resource type="Texture2D" uid="uid://8aafmn1jj2vf" path="res://Assets/Sprites/game info.png" id="1_j4hiu"]
-[ext_resource type="PackedScene" uid="uid://dynf6a5178ecx" path="res://Nodes/UINodes/CloseButton.tscn" id="2_5g175"]
+[ext_resource type="PackedScene" uid="uid://dynf6a5178ecx" path="res://Nodes/CustomNodes/CloseButton.tscn" id="2_5g175"]
 [ext_resource type="Texture2D" uid="uid://c6yl6ams0n6aq" path="res://Assets/Sprites/continue.png" id="3_0uate"]
 [ext_resource type="FontFile" path="res://Fonts/Coffee Spark.ttf" id="3_6wpae"]
 [ext_resource type="FontFile" path="res://Fonts/coolvetica rg.otf" id="4_dsqmp"]

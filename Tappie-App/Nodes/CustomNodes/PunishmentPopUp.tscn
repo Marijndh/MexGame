@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8unfa2288ddr"]
+[gd_scene load_steps=7 format=3 uid="uid://c8unfa2288ddr"]
 
-[ext_resource type="Texture2D" uid="uid://33153fprmb6e" path="res://Sprites/PunishmentPopUp.png" id="1_j4c63"]
-[ext_resource type="FontFile" uid="uid://clrpyhnn6lcxh" path="res://Fonts/coolvetica rg.otf" id="2_oqsxc"]
-[ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Sprites/delete_button.png" id="3_qepss"]
+[ext_resource type="Texture2D" uid="uid://33153fprmb6e" path="res://Assets/Sprites/PunishmentPopUp.png" id="1_j4c63"]
+[ext_resource type="Script" path="res://UI-Scripts/PopUp.cs" id="1_srf6o"]
+[ext_resource type="FontFile" uid="uid://cuoy8uw4mb52v" path="res://Assets/Fonts/Coffee Spark.ttf" id="2_oqsxc"]
+[ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Assets/Sprites/delete_button.png" id="3_qepss"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yo78t"]
 
@@ -20,6 +21,7 @@ Label/font_sizes/font_size = 70
 Label/styles/normal = SubResource("StyleBoxEmpty_yo78t")
 
 [node name="PunishmentPopUp" type="CanvasLayer"]
+script = ExtResource("1_srf6o")
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 15
@@ -75,3 +77,5 @@ offset_bottom = 335.432
 grow_horizontal = 0
 texture_normal = ExtResource("3_qepss")
 stretch_mode = 4
+
+[connection signal="pressed" from="Background/CloseButton" to="." method="OnCloseButtonPressed"]

@@ -5,6 +5,13 @@ using System.Collections.Generic;
 public partial class EventManager : Node
 {
 	[Signal]
+	public delegate void PopupClosedEventHandler();
+
+	[Signal]
+
+	public delegate void NewKnightEventHandler(string name);
+
+	[Signal]
 
 	public delegate void RollFinishedEventHandler();
 

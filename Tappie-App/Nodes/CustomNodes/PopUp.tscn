@@ -1,45 +1,66 @@
 [gd_scene load_steps=5 format=3 uid="uid://c2y0junnjbbu6"]
 
-[ext_resource type="Script" path="res://Scripts/CustomNodes/PopUp.cs" id="1_kls0h"]
-[ext_resource type="Texture2D" uid="uid://c08fjt0pn34o5" path="res://Sprites/pop-up.png" id="1_rvuvs"]
-[ext_resource type="FontFile" uid="uid://clrpyhnn6lcxh" path="res://Fonts/coolvetica rg.otf" id="2_3yy37"]
-[ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Sprites/delete_button.png" id="3_xy6ke"]
+[ext_resource type="Texture2D" uid="uid://c08fjt0pn34o5" path="res://Assets/Sprites/pop-up.png" id="1_rvuvs"]
+[ext_resource type="FontFile" uid="uid://cuoy8uw4mb52v" path="res://Assets/Fonts/Coffee Spark.ttf" id="2_3yy37"]
+[ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Assets/Sprites/delete_button.png" id="3_xy6ke"]
+[ext_resource type="Script" path="res://UI-Scripts/PopUp.cs" id="4_yjdai"]
 
 [node name="PopUp" type="CanvasLayer"]
-script = ExtResource("1_kls0h")
+script = ExtResource("4_yjdai")
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 917.0
+offset_bottom = 959.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.568493, 0.68)
 
 [node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -540.0
-offset_top = -481.0
-offset_right = 484.0
-offset_bottom = 543.0
+offset_left = -456.5
+offset_top = -477.5
+offset_right = 456.5
+offset_bottom = 477.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_rvuvs")
 
-[node name="Text" type="Label" parent="Background"]
+[node name="CloseButton" type="TextureButton" parent="Background"]
 layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.999
+anchor_right = 0.999
+anchor_bottom = 0.001
+offset_left = -72.9761
+offset_top = -34.0
+offset_right = 31.0239
+offset_bottom = 68.976
+grow_horizontal = 0
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_xy6ke")
+stretch_mode = 4
+
+[node name="Text" type="Label" parent="."]
+top_level = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -94.0
-offset_top = -482.0
-offset_right = 492.0
-offset_bottom = -234.0
+offset_left = -122.0
+offset_top = -451.0
+offset_right = 464.0
+offset_bottom = -203.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -49,19 +70,5 @@ theme_override_font_sizes/font_size = 50
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 2
-
-[node name="CloseButton" type="TextureButton" parent="Background"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.979
-anchor_right = 1.0
-anchor_bottom = 0.022
-offset_left = -47.496
-offset_top = -22.0
-offset_right = 35.0
-offset_bottom = 46.472
-grow_horizontal = 0
-texture_normal = ExtResource("3_xy6ke")
-stretch_mode = 4
 
 [connection signal="pressed" from="Background/CloseButton" to="." method="OnCloseButtonPressed"]

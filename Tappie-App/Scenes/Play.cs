@@ -1,34 +1,28 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
-public partial class MexScene : Node3D
+public partial class Play : Node3D
 {
 	private EventManager _eventManager;
 	private SceneManager _sceneSwitcher;
+	private GameManager _gameManager;
 
 	private List<Die> dice; 
 
 	private int amountDiceRolled;
-
 	private int amountDiceWantedToRoll;
 
 	private Vector3 highestRollDiePosition = new Vector3(-0.5f, 0.5f, -0.3f);
-
 	private Vector3 lowestRollDiePosition = new Vector3(-0.5f, 0.5f, 0.3f);
 
 	private Label _scoreLabel;
-
-	private Label _nameLabel;
-
-	private GameManager gameManager;
+	private Label _nameLabel;	
 
 	public override void _Ready()
 	{	
 		_eventManager = GetNode<EventManager>("/root/EventManager");
 		_sceneSwitcher = GetNode<SceneManager>("/root/SceneManager");
+		_gameManager = GetNode<GameManager>("/root/GameManager");
 
 		_eventManager.RollFinished += OnRollFinished;
 		_eventManager.Penalty += PenaltyPopUp;
@@ -37,11 +31,23 @@ public partial class MexScene : Node3D
 		_scoreLabel = GetChild(0).GetNode<Label>("Score");
 		_nameLabel = GetChild(0).GetNode<Label>("Name");		
 
-		// Get the dice
-		dice = new List<Die>{GetNode<Die>("1"),GetNode<Die>("2")};
+		LoadDice();
+	}
 
-		gameManager = new GameManager();
-		_nameLabel.Text = gameManager.GetCurrentPlayerName() + ",\n Jij bent nu aan de beurt!";
+	private void LoadDice()
+	{
+		dice = new List<Die>();
+
+		for (int i = 1; i <= 2; i++)
+		{
+			Die dieNode = GetNodeOrNull<Die>(i.ToString());
+			if (dieNode == null)
+			{
+				GD.PrintErr($"Die node '{i}' not found!");
+				continue;
+			}
+			dice.Add(dieNode);
+		}
 	}
 
 	private void OnNewKnight(string name) {
@@ -63,7 +69,7 @@ public partial class MexScene : Node3D
 
 			resultPopUp = NodeCreator.CreateNode(
 				"KnightPopUp",
-				new Dictionary<string, object>
+				new Godot.Collections.Dictionary<string, Variant>
 				{
 				{ "Text", text }
 				}
@@ -77,7 +83,7 @@ public partial class MexScene : Node3D
 
 			resultPopUp = NodeCreator.CreateNode(
 				"PunishmentPopUp",
-				new Dictionary<string, object>
+				new Godot.Collections.Dictionary<string, Variant>
 				{
 				{ "Text", text }
 				}
@@ -87,56 +93,66 @@ public partial class MexScene : Node3D
 			AddChild(resultPopUp);
 	}
 
-
-	private void RollDice(){
-		foreach(Die die in dice){
-			amountDiceWantedToRoll++;
-			die.Roll();
-		}
-	}
-
 	private int GetDiceResult(int highest, int lowest){
 		string resultString = highest.ToString() + lowest.ToString();
 		return int.Parse(resultString);
 	}
 
-	public int FetchRollResultAndSetPosition(){
-        int result;
-        Die die1 = dice[0];
+	public int FetchRollResultAndSetPosition()
+	{
+		Die die1 = dice[0];
 		Die die2 = dice[1];
-        if (die1.Value > die2.Value)
-        {
-            result = GetDiceResult(die1.Value, die2.Value);
-            die1.Position = highestRollDiePosition;
-            die2.Position = lowestRollDiePosition;
-        }
-        else if (die1.Value < die2.Value)
-        {
-            result = GetDiceResult(die2.Value, die1.Value);
-            die2.Position = highestRollDiePosition;
-            die1.Position = lowestRollDiePosition;
-        }
-        else
-        {
-            result = die1.Value * 100;
-            die1.Position = highestRollDiePosition;
-            die2.Position = lowestRollDiePosition;
-        }
-		foreach(Die die in dice) {
+
+		int result;
+		if (die1.Value > die2.Value)
+		{
+			result = GetDiceResult(die1.Value, die2.Value);
+			die1.Position = highestRollDiePosition;
+			die2.Position = lowestRollDiePosition;
+		}
+		else if (die1.Value < die2.Value)
+		{
+			result = GetDiceResult(die2.Value, die1.Value);
+			die2.Position = highestRollDiePosition;
+			die1.Position = lowestRollDiePosition;
+		}
+		else
+		{
+			result = die1.Value * 100;
+			die1.Position = highestRollDiePosition;
+			die2.Position = lowestRollDiePosition;
+		}
+
+		foreach (Die die in dice)
+		{
 			die.Freeze = true;
 			die.SnapRotation();
 		}
+
 		return result;
 	}
 
+
 	private void OnRollFinished() {
+		GD.Print("Roll finished!");
 		amountDiceRolled++;
 		if (amountDiceRolled == amountDiceWantedToRoll) {
+			GD.Print("All dice rolled!");
 			int result = FetchRollResultAndSetPosition();
 			_scoreLabel.Text = result+"";
-			gameManager.HandleDiceResult(result, _nameLabel);
+			//_gameManager.HandleDiceResult(result, _nameLabel);
 		}
 	}
+
+	private void RollDice()
+	{
+		foreach (Die die in dice)
+		{
+			amountDiceWantedToRoll++;
+			die.Roll();
+		}
+	}
+
 
 	public override void _Input(InputEvent @event)
     {
