@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://qfucrf5i7vbx"]
+
+[ext_resource type="Script" path="res://UI-Scripts/ScoreContainer.cs" id="1_t8hbo"]
+
+[node name="Container" type="HBoxContainer"]
+offset_right = 800.0
+offset_bottom = 400.0
+script = ExtResource("1_t8hbo")
+
+[node name="Left" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Right" type="VBoxContainer" parent="."]
+layout_mode = 2

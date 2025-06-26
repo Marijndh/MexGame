@@ -67,8 +67,10 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.233925, 0.233925, 0.233925, 1)
 theme_override_fonts/font = ExtResource("2_3yy37")
 theme_override_font_sizes/font_size = 50
+text = "Je mag 1 strafpunt uitdelen"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 text_overrun_behavior = 2
 
 [connection signal="pressed" from="Background/CloseButton" to="." method="OnCloseButtonPressed"]

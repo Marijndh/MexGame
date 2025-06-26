@@ -13,8 +13,7 @@ public partial class GameManager : Node
 	private int amountMexx = 0;
 	private int knightStrenght = 1;
 	private int penaltyPoints = 2;
-
-	private Label nameLabel;
+	public GameState CurrentState { get; private set; } = GameState.Idle;
 
 	public override void _Ready()
 	{
@@ -27,10 +26,15 @@ public partial class GameManager : Node
 		}
 	}
 
-	public void StartRound(Label nameLabel)
+	private void ChangeState(GameState newState, Dictionary context)
 	{
-		this.nameLabel = nameLabel;
+		CurrentState = newState;
+		_eventManager.EmitSignal(nameof(_eventManager.GameStateChanged), Variant.From(newState), context);
+	}
 
+
+	public void StartRound()
+	{
 		playerIndex = 0;
 		amountMexx = 0;
 
@@ -40,7 +44,11 @@ public partial class GameManager : Node
 		players = UtilsManager.ShuffleList(players);
 		currentPlayer = players[0];
 
-		nameLabel.Text = currentPlayer.Name + ",\n Jij bent nu aan de beurt!";
+		// Passing the signal that the player can start their turn
+		ChangeState(GameState.RoundStarting, new Dictionary
+		{
+			{ "Player", currentPlayer.Name },
+		});
 	}
 
 	public void SetPlayers(List<string> names)
@@ -86,34 +94,27 @@ public partial class GameManager : Node
 			{ 
 				currentPlayer = players[playerIndex];
 
-				Godot.Collections.Dictionary<int, string> messages = new()
+				ChangeState(GameState.PlayerFinished, new Dictionary
 				{
-					{ 21, "Kassa!\nHet hoogste!" },
-					{ 32, "Jammer!\nLager kan niet" }
-				};
-
-				string extraText = messages.TryGetValue(finishedPlayer.Score, out string msg)
-					? msg
-					: $"Eindscore: {finishedPlayer.Score}";
-
-				nameLabel.Text = $"{extraText}\nVolgende speler:\n{currentPlayer.Name}";
+					{ "Player", currentPlayer.Name },
+					{"Score", finishedPlayer.Score },
+				});
 			}
 			else
 			{
-				nameLabel.Text = "De ronde is voorbij \n Wil je opnieuw?";
+				ChangeState(GameState.RoundFinished, new Dictionary{});
 				DetermineLoser();
-				_eventManager.EmitSignal(nameof(_eventManager.RoundFinished));
 			}
 		}
 		else
 		{
 			int throwsLeft = currentPlayer.GetThrowsLeft();
-			string throwText = throwsLeft == 1 ? "worp" : "worpen";
-			string scoreText = currentPlayer.Score == result
-				? "Nieuwe hoge score:"
-				: $"Hoogste score: {currentPlayer.Score}";
-
-			nameLabel.Text = $"Nog {throwsLeft} {throwText}!\n\n{scoreText}";
+			ChangeState(GameState.PlayerTurn, new Dictionary 
+			{ 
+				{ "ThrowsLeft", throwsLeft },
+				{ "Score", result },
+				{ "HighScore", currentPlayer.Score}
+			});
 		}
 	}
 
@@ -155,22 +156,21 @@ public partial class GameManager : Node
 		string getWord = names.Count > 1 ? "krijgen" : "krijgt";
 		string text;
 
-		if (knight)
+		if (all)
 		{
-			text = all
-				? "Iedereen krijgt 1 strafpunt!"
-				: give
-					? $"Je mag {penalty} {pointWord} uitdelen!"
-					: $"{joinedNames}\n{getWord} {penalty} {pointWord}!";
-			SendPopup("KnightPopUp", text);
+			text = "Iedereen krijgt 1 strafpunt!";
+		}
+		else if (give)
+		{
+			text = $"Je mag {penalty} {pointWord} uitdelen!";
 		}
 		else
 		{
-			text = give
-				? $"{joinedNames}\nMag {penalty} \n {pointWord} \n uitdelen!"
-				: $"{joinedNames}\nKrijgt {penalty} \n {pointWord}!";
-			SendPopup("PopUp", text);
+			text = $"{joinedNames}\n{getWord} {penalty} {pointWord}!";
 		}
+
+		string popupType = knight ? "KnightPopUp" : "PopUp";
+		SendPopup(popupType, text);
 	}
 
 	private void SendPopup(string sceneName, string text)

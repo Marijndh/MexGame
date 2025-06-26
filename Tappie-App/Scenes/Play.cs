@@ -1,6 +1,5 @@
 using Godot;
 using Godot.Collections;
-using System;
 using System.Collections.Generic;
 
 public partial class Play : Node3D
@@ -21,6 +20,7 @@ public partial class Play : Node3D
 
 	private Label _scoreLabel;
 	private Label _nameLabel;
+	private Label _infoLabel;
 
 	private Button _closeButton;
 	private Button _continueButton; 
@@ -46,14 +46,15 @@ public partial class Play : Node3D
 		_gameManager = GetNode<GameManager>("/root/GameManager");
 
 		_eventManager.RollFinished += OnRollFinished;
-		_eventManager.RoundFinished += () => SetButtonsVisible(true);
 		_eventManager.PopupRequested += OnPopupRequested;
+		_eventManager.GameStateChanged += OnGameStateChanged;
 
 		_eventManager.PopupClosed += () => { popUpIsOpen = false; };
 
 		CanvasLayer canvasLayer = GetNode<CanvasLayer>("Canvas");
 		_scoreLabel = canvasLayer.GetNode<Label>("Score");
 		_nameLabel = canvasLayer.GetNode<Label>("Name");
+		_infoLabel = canvasLayer.GetNode<Label>("Info");
 		_closeButton = canvasLayer.GetNode<Button>("Close");
 		_continueButton = canvasLayer.GetNode<Button>("Continue");
 
@@ -62,99 +63,18 @@ public partial class Play : Node3D
 		_closeButton.Pressed += () => _sceneSwitcher.SwitchScene("SelectPlayers");
 		_continueButton.Pressed += () => { 
 			SetButtonsVisible(false);
-			_scoreLabel.Text = "";
-			_gameManager.StartRound(_nameLabel);
+			_gameManager.StartRound();
 		};
 
 		LoadDice();
-		_gameManager.StartRound(_nameLabel);
+		_gameManager.StartRound();
 	}
 
 	public override void _ExitTree()
 	{
 		_eventManager.RollFinished -= OnRollFinished;
-		_eventManager.RoundFinished -= () => SetButtonsVisible(true);
 		_eventManager.PopupRequested -= OnPopupRequested;
-
 		_eventManager.PopupClosed -= () => { popUpIsOpen = false; };
-	}
-
-	private void LoadDice()
-	{
-		dice = new List<Die>();
-
-		for (int i = 1; i <= 2; i++)
-		{
-			Die dieNode = GetNodeOrNull<Die>(i.ToString());
-			if (dieNode == null)
-			{
-				continue;
-			}
-			dice.Add(dieNode);
-		}
-	}
-
-	private int GetDiceResult(int highest, int lowest){
-		string resultString = highest.ToString() + lowest.ToString();
-		return int.Parse(resultString);
-	}
-
-	public int FetchRollResultAndSetPosition()
-	{
-		Die die1 = dice[0];
-		Die die2 = dice[1];
-
-		int result;
-		if (die1.Value > die2.Value)
-		{
-			result = GetDiceResult(die1.Value, die2.Value);
-			die1.Position = highestRollDiePosition;
-			die2.Position = lowestRollDiePosition;
-		}
-		else if (die1.Value < die2.Value)
-		{
-			result = GetDiceResult(die2.Value, die1.Value);
-			die2.Position = highestRollDiePosition;
-			die1.Position = lowestRollDiePosition;
-		}
-		else
-		{
-			result = die1.Value * 100;
-			die1.Position = highestRollDiePosition;
-			die2.Position = lowestRollDiePosition;
-		}
-
-		foreach (Die die in dice)
-		{
-			die.Freeze = true;
-			die.SnapRotation();
-		}
-
-		return result;
-	}
-
-
-	private void OnRollFinished() {
-		amountDiceRolled++;
-		if (amountDiceRolled == amountDiceWantedToRoll) {
-			int result = FetchRollResultAndSetPosition();
-			_scoreLabel.Text = result+"";
-			_gameManager.HandleThrow(result);
-		}
-	}
-
-	private void ThrowDice(Vector3 direction, float strength = 5f)
-	{
-		_scoreLabel.Text = "";
-		_nameLabel.Text = "";
-		foreach (Die die in dice)
-		{
-			if (die.IsRolling) continue;
-
-			die.Reset(); 
-			die.Throw(direction, strength);
-			amountDiceWantedToRoll++;
-		}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -180,7 +100,7 @@ public partial class Play : Node3D
 		}
 		else
 		{
-			if (Input.IsActionJustPressed("ui_select")) 
+			if (Input.IsActionJustPressed("ui_select"))
 			{
 				ThrowDice(Vector3.Forward, 20);
 			}
@@ -238,6 +158,123 @@ public partial class Play : Node3D
 			ThrowDice(throwDir, strength);
 		}
 	}
+
+	private void OnGameStateChanged(GameState state, Dictionary context)
+	{
+		switch (state)
+		{
+			case GameState.RoundStarting:
+				_nameLabel.Text = $"{context["Player"]},\nJij bent nu aan de beurt!";
+				break;
+
+			case GameState.PlayerFinished:
+				Godot.Collections.Dictionary<int, string> messages = new()
+				{
+					{ 21, "Kassa!\nHet hoogste!" },
+					{ 32, "Jammer!\nLager kan niet\n Je bent wel gelijk klaar!" }
+				};
+
+				int score = context.ContainsKey("Score") ? context["Score"].AsInt32() : 0; // Fix: Convert Variant to int
+				_infoLabel.Text = messages.TryGetValue(score, out string msg)
+				? msg
+				: $"Eindscore: {score}";
+				_nameLabel.Text = $"\nVolgende speler: {context["Player"]}";
+				break;
+
+			case GameState.RoundFinished:
+				_nameLabel.Text = "De ronde is voorbij.\nWil je opnieuw?";
+				SetButtonsVisible(true);
+				break;
+
+			case GameState.PlayerTurn:
+				_infoLabel.Text = (context["HighScore"].AsInt32() == context["Score"].AsInt32()
+				? "Nieuw record: "
+				: $"Hoogste score: ") + context["Score"];
+				_nameLabel.Text = $"Gooi nog {context["ThrowsLeft"]} keer!";
+				break;
+		}
+	}
+
+	private void LoadDice()
+	{
+		dice = new List<Die>();
+
+		for (int i = 1; i <= 2; i++)
+		{
+			Die dieNode = GetNodeOrNull<Die>(i.ToString());
+			if (dieNode == null)
+			{
+				continue;
+			}
+			dice.Add(dieNode);
+		}
+	}
+
+	private void ThrowDice(Vector3 direction, float strength = 5f)
+	{
+		_scoreLabel.Text = "";
+		_nameLabel.Text = "";
+		_infoLabel.Text = "";
+		foreach (Die die in dice)
+		{
+			if (die.IsRolling) continue;
+
+			die.Reset();
+			die.Throw(direction, strength);
+			amountDiceWantedToRoll++;
+		}
+	}
+
+	private void OnRollFinished()
+	{
+		amountDiceRolled++;
+		if (amountDiceRolled == amountDiceWantedToRoll)
+		{
+			int result = HandleRolledDice();
+			_scoreLabel.Text = result + "";
+			_gameManager.HandleThrow(result);
+		}
+	}
+
+	private int GetDiceResult(int highest, int lowest){
+		string resultString = highest.ToString() + lowest.ToString();
+		return int.Parse(resultString);
+	}
+
+	public int HandleRolledDice()
+	{
+		Die die1 = dice[0];
+		Die die2 = dice[1];
+
+		int result;
+		if (die1.Value > die2.Value)
+		{
+			result = GetDiceResult(die1.Value, die2.Value);
+			die1.Position = highestRollDiePosition;
+			die2.Position = lowestRollDiePosition;
+		}
+		else if (die1.Value < die2.Value)
+		{
+			result = GetDiceResult(die2.Value, die1.Value);
+			die2.Position = highestRollDiePosition;
+			die1.Position = lowestRollDiePosition;
+		}
+		else
+		{
+			result = die1.Value * 100;
+			die1.Position = highestRollDiePosition;
+			die2.Position = lowestRollDiePosition;
+		}
+
+		foreach (Die die in dice)
+		{
+			die.Freeze = true;
+			die.SnapRotation();
+		}
+
+		return result;
+	}
+
 
 	private void OnPopupRequested(Node popup)
 	{

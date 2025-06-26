@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://dh3af3r7ya32j"]
+
+[ext_resource type="Script" path="res://UI-Scripts/ScoreBar.cs" id="1_lmvgo"]
+[ext_resource type="FontFile" uid="uid://cka0jccye22n1" path="res://Assets/Fonts/WDXLLubrifontSC-Regular.ttf" id="2_lefhf"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Score/first.png" id="3_rxlt4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3t55"]
+bg_color = Color(0.992576, 0.337742, 0.39245, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Theme" id="Theme_aqft6"]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(0.860369, 0.860369, 0.860369, 0.776471)
+Label/constants/outline_size = 5
+Label/constants/shadow_offset_x = 2
+Label/constants/shadow_offset_y = 2
+Label/constants/shadow_outline_size = 2
+Label/font_sizes/font_size = 40
+Label/fonts/font = ExtResource("2_lefhf")
+
+[sub_resource type="Theme" id="Theme_bcoco"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0.980392, 0.980392, 0.980392, 1)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 7
+Label/constants/shadow_offset_x = 0
+Label/constants/shadow_offset_y = 0
+Label/constants/shadow_outline_size = 5
+Label/font_sizes/font_size = 40
+Label/fonts/font = ExtResource("2_lefhf")
+
+[sub_resource type="Theme" id="Theme_cm2v3"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(1, 1, 1, 1)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 7
+Label/constants/shadow_offset_x = 3
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 3
+Label/font_sizes/font_size = 50
+Label/fonts/font = ExtResource("2_lefhf")
+
+[node name="Panel" type="Panel"]
+offset_right = 350.0
+offset_bottom = 70.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o3t55")
+script = ExtResource("1_lmvgo")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.5
+offset_top = -35.0
+offset_right = 92.5
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_aqft6")
+text = "Marijn"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_right = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_bcoco")
+text = "600"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Position" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -24.0
+offset_right = 90.0
+offset_bottom = 24.0
+grow_vertical = 2
+theme = SubResource("Theme_cm2v3")
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Image" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = -29.0
+offset_right = 88.0
+offset_bottom = 64.0
+grow_vertical = 2
+texture = ExtResource("3_rxlt4")
+expand_mode = 1

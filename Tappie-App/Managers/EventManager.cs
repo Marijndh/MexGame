@@ -14,5 +14,5 @@ public partial class EventManager : Node
 	public delegate void RollFinishedEventHandler();
 
 	[Signal]
-	public delegate void RoundFinishedEventHandler();
+	public delegate void GameStateChangedEventHandler(GameState newState, Dictionary gameStateContext);
 }
