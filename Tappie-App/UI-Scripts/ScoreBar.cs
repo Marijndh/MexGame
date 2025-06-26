@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 public partial class ScoreBar : Panel
 {
@@ -31,8 +32,13 @@ public partial class ScoreBar : Panel
 		StyleBoxFlat styleBox = new();
 		styleBox.CornerDetail = 10;
 		styleBox.BgColor = color;
+		styleBox.SetBorderWidthAll(2);
+		styleBox.BorderColor = Colors.Black;
 
-		this.Set("custom_styles/panel", styleBox);
+
+		this.Set("panel", styleBox);
+		QueueRedraw();
+
 	}
 
 	private void SetImageOrPosition(int position, bool last)
@@ -53,31 +59,39 @@ public partial class ScoreBar : Panel
 		if (_positionLabel.Text == "") _positionLabel.Hide();
 	}
 
-	private Color GetColorFromScore(int score)
+	private static readonly int[] ScoreRanking = new int[]
 	{
-		// Clamp score to valid range
-		score = Mathf.Clamp(score, 21, 600);
+		21,
+		600, 500, 400, 300, 200, 100,
+		65, 64, 63, 62, 61,
+		54, 53, 52, 51,
+		43, 42, 41,
+		32, 31
+	};
 
-		// Normalize the score to a 0–1 range
-		float t = (score - 21f) / (600f - 21f);
-
-		if (t < 0.33f)
+private Color GetColorFromScore(int score)
+	{
+		int index = Array.IndexOf(ScoreRanking, score);
+		if (index == -1)
 		{
-			// Red to Yellow
-			float localT = t / 0.33f;
-			return new Color(1, localT, 0); // (Red to Yellow)
+			GD.PrintErr($"Invalid score: {score}");
+			return new Color(1, 0, 1); // Magenta for debugging  
 		}
-		else if (t < 0.66f)
+
+		float t = index / (float)(ScoreRanking.Length - 1); // 0 = best, 1 = worst  
+
+		if (t < 0.5f)
 		{
-			// Yellow to Green
-			float localT = (t - 0.33f) / 0.33f;
-			return new Color(1 - localT, 1, 0); // (Yellow to Green)
+			// Green to Yellow  
+			float localT = t / 0.5f;
+			return new Color(1f * localT, 1f, 0f);
 		}
 		else
 		{
-			// Green to Blue
-			float localT = (t - 0.66f) / 0.34f;
-			return new Color(0, 1 - localT, localT); // (Green to Blue)
+			// Yellow to Red  
+			float localT = (t - 0.5f) / 0.5f;
+			return new Color(1f, 1f - localT, 0f);
 		}
 	}
+
 }
