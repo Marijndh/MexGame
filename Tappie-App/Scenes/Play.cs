@@ -1,4 +1,6 @@
 using Godot;
+using Godot.Collections;
+using System;
 using System.Collections.Generic;
 
 public partial class Play : Node3D
@@ -6,6 +8,8 @@ public partial class Play : Node3D
 	private EventManager _eventManager;
 	private SceneManager _sceneSwitcher;
 	private GameManager _gameManager;
+
+	private bool popUpIsOpen = false;
 
 	private List<Die> dice; 
 
@@ -16,7 +20,10 @@ public partial class Play : Node3D
 	private Vector3 lowestRollDiePosition = new Vector3(-0.5f, 0.5f, 0.3f);
 
 	private Label _scoreLabel;
-	private Label _nameLabel;	
+	private Label _nameLabel;
+
+	private Button _closeButton;
+	private Button _continueButton;
 
 	public override void _Ready()
 	{	
@@ -27,11 +34,38 @@ public partial class Play : Node3D
 		_eventManager.RollFinished += OnRollFinished;
 		_eventManager.Penalty += PenaltyPopUp;
 		_eventManager.NewKnight += OnNewKnight;
+		_eventManager.RoundFinished += () => SetButtonsVisible(true);
 
-		_scoreLabel = GetChild(0).GetNode<Label>("Score");
-		_nameLabel = GetChild(0).GetNode<Label>("Name");		
+		_eventManager.PopupOpened += () => { popUpIsOpen = true; };
+		_eventManager.PopupClosed += () => { popUpIsOpen = false; };
+
+		CanvasLayer canvasLayer = GetNode<CanvasLayer>("Canvas");
+		_scoreLabel = canvasLayer.GetNode<Label>("Score");
+		_nameLabel = canvasLayer.GetNode<Label>("Name");
+		_closeButton = canvasLayer.GetNode<Button>("Close");
+		_continueButton = canvasLayer.GetNode<Button>("Continue");
+
+		SetButtonsVisible(false);
+
+		_closeButton.Pressed += () => _sceneSwitcher.SwitchScene("SelectPlayers");
+		_continueButton.Pressed += () => { 
+			SetButtonsVisible(false);
+			_scoreLabel.Text = "";
+			_gameManager.StartRound(_nameLabel);
+		};
 
 		LoadDice();
+		_gameManager.StartRound(_nameLabel);
+	}
+
+	public override void _ExitTree()
+	{
+		_eventManager.RollFinished -= OnRollFinished;
+		_eventManager.Penalty -= PenaltyPopUp;
+		_eventManager.NewKnight -= OnNewKnight;
+		_eventManager.RoundFinished -= () => SetButtonsVisible(true);
+		_eventManager.PopupOpened -= () => { popUpIsOpen = true; };
+		_eventManager.PopupClosed -= () => { popUpIsOpen = false; };
 	}
 
 	private void LoadDice()
@@ -43,29 +77,45 @@ public partial class Play : Node3D
 			Die dieNode = GetNodeOrNull<Die>(i.ToString());
 			if (dieNode == null)
 			{
-				GD.PrintErr($"Die node '{i}' not found!");
 				continue;
 			}
 			dice.Add(dieNode);
 		}
 	}
 
-	private void OnNewKnight(string name) {
+	private void OnNewKnight()
+	{
+		Node knightPopUp = NodeCreator.CreateNode(
+			"KnightPopUp",
+			new Godot.Collections.Dictionary<string, Variant>
+			{
+			{ "Text", "Je bent nu de nieuwe ridder!" }
+			}
+		);
 
+		if (knightPopUp != null)
+			AddChild(knightPopUp);
 	}
 
-	private void PenaltyPopUp(int penalty, string name, bool give, bool knight)
+	private void PenaltyPopUp(int penalty, Array<string> names, bool give, bool knight)
 	{
 		Node resultPopUp = null;
+		string joinedNames = string.Join(", ", names);
+		string pointWord = penalty == 1 ? "strafpunt" : "strafpunten";
 		string text;
 
 		if (knight)
 		{
-			text = name == "all"
-				? "Iedereen krijgt 1 strafpunt!"
-				: (give
-					? $"{name}\n Mag {penalty} strafpunt(en) uitdelen!"
-					: $"{name}\n Krijgt {penalty} strafpunt(en)!");
+			if (joinedNames == "all")
+			{
+				text = $"Iedereen krijgt 1 strafpunt!";
+			}
+			else
+			{
+				text = give
+					? $"{joinedNames}\nMag {penalty} {pointWord} uitdelen!"
+					: $"{joinedNames}\nKrijgen {penalty} {pointWord}!";
+			}
 
 			resultPopUp = NodeCreator.CreateNode(
 				"KnightPopUp",
@@ -78,17 +128,18 @@ public partial class Play : Node3D
 		else
 		{
 			text = give
-				? $"{name}\n Mag {penalty} strafpunt(en) uitdelen!"
-				: $"{name}\n Krijgt {penalty} strafpunt(en)!";
+				? $"{joinedNames}\nMag {penalty} \n {pointWord} \n uitdelen!"
+				: $"{joinedNames}\nKrijgt {penalty} \n {pointWord}!";
 
 			resultPopUp = NodeCreator.CreateNode(
-				"PunishmentPopUp",
+				"PopUp",
 				new Godot.Collections.Dictionary<string, Variant>
 				{
 				{ "Text", text }
 				}
 			);
 		}
+
 		if (resultPopUp != null)
 			AddChild(resultPopUp);
 	}
@@ -134,13 +185,11 @@ public partial class Play : Node3D
 
 
 	private void OnRollFinished() {
-		GD.Print("Roll finished!");
 		amountDiceRolled++;
 		if (amountDiceRolled == amountDiceWantedToRoll) {
-			GD.Print("All dice rolled!");
 			int result = FetchRollResultAndSetPosition();
 			_scoreLabel.Text = result+"";
-			//_gameManager.HandleDiceResult(result, _nameLabel);
+			_gameManager.HandleThrow(result);
 		}
 	}
 
@@ -149,18 +198,29 @@ public partial class Play : Node3D
 		foreach (Die die in dice)
 		{
 			amountDiceWantedToRoll++;
+			if (die.IsRolling)
+			{
+				continue;
+			}
 			die.Roll();
 		}
 	}
 
-
 	public override void _Input(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
-        {
+	{
+		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && !popUpIsOpen && !_closeButton.Visible && !_continueButton.Visible)
+		{
 			RollDice();
 			_scoreLabel.Text = "";
 			_nameLabel.Text = "";
-        }
-    }
+		}
+	}
+	private void SetButtonsVisible(bool visible)
+	{
+
+		_closeButton.Visible = visible;
+		_continueButton.Visible = visible;
+		_closeButton.Disabled = !visible;
+		_continueButton.Disabled = !visible;
+	}
 }

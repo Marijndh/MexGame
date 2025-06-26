@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dwp8iqbg3evhh"]
+[gd_scene load_steps=28 format=3 uid="uid://dwp8iqbg3evhh"]
 
 [ext_resource type="Script" path="res://Scenes/Play.cs" id="1_corqm"]
 [ext_resource type="FontFile" uid="uid://ciklh6pynu5cb" path="res://Assets/Fonts/This Cafe.ttf" id="2_8dqwo"]
@@ -25,6 +25,32 @@ Label/constants/shadow_offset_y = 9
 Label/constants/shadow_outline_size = 30
 Label/font_sizes/font_size = 100
 Label/fonts/font = ExtResource("2_8dqwo")
+
+[sub_resource type="Theme" id="Theme_7b38r"]
+default_font = ExtResource("2_8dqwo")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5cmj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fknnw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pxdvm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqx72"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tpngu"]
+
+[sub_resource type="Theme" id="Theme_uube7"]
+default_font = ExtResource("2_8dqwo")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4g2h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ujf7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e215d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rvptf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqbdq"]
 
 [sub_resource type="Environment" id="Environment_4nsnb"]
 background_energy_multiplier = 0.0
@@ -57,9 +83,9 @@ size = Vector3(4.22576, 0.2, 2.36963)
 [node name="MexScene" type="Node3D"]
 script = ExtResource("1_corqm")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Canvas" type="CanvasLayer" parent="."]
 
-[node name="Score" type="Label" parent="CanvasLayer"]
+[node name="Score" type="Label" parent="Canvas"]
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -73,19 +99,73 @@ theme = SubResource("Theme_ev1af")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Name" type="Label" parent="CanvasLayer"]
+[node name="Name" type="Label" parent="Canvas"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 6.0
+offset_left = 82.0
 offset_top = 105.0
-offset_right = 6.0
+offset_right = -84.0
 offset_bottom = -1449.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_i45ji")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Continue" type="Button" parent="Canvas"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.394444
+anchor_top = 0.5
+anchor_right = 0.514815
+anchor_bottom = 0.522396
+offset_left = -374.0
+offset_top = 493.0
+offset_right = 10.0
+offset_bottom = 650.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7b38r")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j5cmj")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fknnw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pxdvm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wqx72")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tpngu")
+text = "Doorgaan"
+metadata/_edit_use_anchors_ = true
+
+[node name="Close" type="Button" parent="Canvas"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.572
+offset_left = 81.0
+offset_top = 486.0
+offset_right = 499.0
+offset_bottom = 562.76
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_uube7")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_q4g2h")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5ujf7")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_e215d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rvptf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vqbdq")
+text = "Sluiten"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, 1, -3.59989e-21, 4.37114e-08, 1.91069e-15, 1, 1, 4.37114e-08, -4.37114e-08, 0, 2.9, 0)

@@ -9,12 +9,63 @@ public partial class NameInputContainer : VBoxContainer
 {
 	private List<NameInput> _nameInputs;
 	private TextureButton _addButton;
+
+	private GameManager _gameManager;
 	public override void _Ready()
 	{
-		_nameInputs = GetAllNameInputs();
+		_gameManager =  GetNode<GameManager>("/root/GameManager");
+
 		_addButton = GetNode<TextureButton>("AddButton");
-		_addButton.Pressed += AddPLayerInput;
-		_nameInputs[0].Focus();
+		_addButton.Pressed += () => AddPlayerInput();
+
+		_nameInputs = GetAllNameInputs();
+
+		List<Player> players = _gameManager.GetPlayers();
+		
+		for (int i = 0; i < players.Count; i++)
+		{
+			if (i < _nameInputs.Count)
+			{
+				_nameInputs[i].SetName(players[i].Name);
+			}
+			else
+			{
+				AddPlayerInput(players[i].Name);
+			}
+		}
+
+		SelectFirstEmpty();
+	}
+
+	private void AddPlayerInput(string name = null)
+	{
+		int index = _nameInputs.Count;
+
+		if (index < 8)
+		{
+			NameInput nameInput = (NameInput)NodeCreator.CreateNode(
+				"NameInput",
+				new Godot.Collections.Dictionary<string, Variant> { },
+				index.ToString()
+			);
+			_nameInputs.Add(nameInput);
+
+			AddChild(nameInput);
+			MoveChild(nameInput, index);
+			nameInput.SetName(name ?? string.Empty);
+			nameInput.Focus();
+
+			// If limit is reached, remove add button
+			if (_nameInputs.Count == 8 && _addButton.IsInsideTree())
+			{
+				RemoveChild(_addButton);
+			}
+		}
+
+		if (_nameInputs.Count == 2)
+		{
+			_nameInputs[0].EnableDeleteButton();
+		}
 	}
 
 	public void SelectFirstEmpty()

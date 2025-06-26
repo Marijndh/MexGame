@@ -45,26 +45,6 @@ grow_vertical = 0
 texture = ExtResource("1_y6aen")
 stretch_mode = 4
 
-[node name="Text" type="Label" parent="Background"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -309.5
-offset_top = -711.0
-offset_right = 420.5
-offset_bottom = -556.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_vrx1u")
-theme_override_fonts/font = ExtResource("2_h1gwr")
-theme_override_font_sizes/font_size = 54
-horizontal_alignment = 1
-vertical_alignment = 1
-text_overrun_behavior = 2
-
 [node name="CloseButton" type="TextureButton" parent="Background"]
 layout_mode = 1
 anchors_preset = -1
@@ -78,3 +58,24 @@ offset_bottom = 46.472
 grow_horizontal = 0
 texture_normal = ExtResource("3_bq74p")
 stretch_mode = 4
+
+[node name="Text" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -366.0
+offset_top = -474.0
+offset_right = 364.0
+offset_bottom = -319.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_vrx1u")
+theme_override_fonts/font = ExtResource("2_h1gwr")
+theme_override_font_sizes/font_size = 54
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 2
+
+[connection signal="pressed" from="Background/CloseButton" to="." method="OnCloseButtonPressed"]

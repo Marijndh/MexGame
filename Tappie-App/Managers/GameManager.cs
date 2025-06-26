@@ -1,16 +1,16 @@
 using Godot;
-
+using Godot.Collections;
 using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
 	private EventManager _eventManager;
 
-    private Player currentKnight = null; 
+	private Player currentKnight = null;
 
 	private Player currentPlayer = null;
 
-	private List<Player> players;
+	private List<Player> players = new List<Player>();
 
 	private int playerIndex;
 
@@ -20,47 +20,110 @@ public partial class GameManager : Node
 
 	private int penaltyPoints = 2;
 
-	public override void _Ready(){
+	private Label nameLabel;
+
+	public override void _Ready()
+	{
 		_eventManager = GetNode<EventManager>("/root/EventManager");
 	}
+
+	public void StartRound(Label nameLabel)
+	{
+		this.nameLabel = nameLabel;
+
+		playerIndex = 0;
+		amountMexx = 0;
+		currentPlayer = players[0];
+		foreach (Player player in players)
+		{
+			player.Reset();
+		}
+		players = UtilsManager.ShuffleList(players);
+		currentPlayer = players[0];
+		nameLabel.Text = currentPlayer.Name + ",\n Jij bent nu aan de beurt!";
+	}
+
 	public void SetPlayers(List<string> names)
 	{
-		players = new List<Player>();
+		if (players == null)
+			players = new List<Player>();
+
+		var oldNamesSet = new HashSet<string>(players.ConvertAll(p => p.Name));
+		var newNamesSet = new HashSet<string>(names);
+
+		bool playersChanged = !oldNamesSet.SetEquals(newNamesSet);
+
+		players.RemoveAll(p => !newNamesSet.Contains(p.Name));
+
 		foreach (string name in names)
 		{
-			Player player = new Player(name);
-			players.Add(player);
+			if (!players.Exists(p => p.Name == name))
+			{
+				players.Add(new Player(name));
+			}
 		}
+
+		if (playersChanged)
+		{
+			currentKnight = null;
+		}
+
+		if (players.Count < 2)
+		{
+			throw new System.InvalidOperationException("At least two players are required.");
+		}
+
 		players = UtilsManager.ShuffleList(players);
 		currentPlayer = players[0];
 	}
 
-	public string GetCurrentPlayerName(){
-        return currentPlayer.Name;
-    }
+	public List<Player> GetPlayers() => players;
 
-	public void HandleDiceResult(int result, Label nameLabel)
+	public void HandleThrow(int result)
 	{
-		handleSpecialResults(result);
+		HandleResult(result);
 		currentPlayer.addScore(result);
 		if (currentPlayer.isFinished)
 		{
 			playerIndex++;
-			string playerThrowName = currentPlayer.Name;
+			Player finishedPlayer = currentPlayer;
 			if (playerIndex < players.Count)
 			{
 				currentPlayer = players[playerIndex];
-				nameLabel.Text = "Mooie worp, " + playerThrowName + "!\nDe volgende speler is:\n" + currentPlayer.Name;
+
+				Godot.Collections.Dictionary<int, string> messages = new ()
+				{
+					{ 21, "Kassa!\nHet hoogste!" },
+					{ 32, "Jammer!\nLager kan niet" }
+				};
+
+				string extraText = messages.TryGetValue(finishedPlayer.Score, out string message)
+					? message
+					: $"Eindscore: {finishedPlayer.Score}";
+
+				nameLabel.Text = $"{extraText}\nVolgende speler:\n{currentPlayer.Name}";
 			}
 			else
 			{
-				nameLabel.Text = "Mooie worp, " + playerThrowName + "!\nDe ronde is voorbij";
-				DetermineLoser(nameLabel);
+				nameLabel.Text = "De ronde is voorbij \n Wil je opnieuw?";
+				DetermineLoser();
+				_eventManager.EmitSignal(nameof(_eventManager.RoundFinished));
 			}
+		}
+		else
+		{
+			int throwsLeft = currentPlayer.GetThrowsLeft();
+			string throwText = throwsLeft == 1 ? "worp" : "worpen";
+
+			string scoreText = currentPlayer.Score == result
+				? "Nieuwe hoge score:"
+				: $"Hoogste score: {currentPlayer.Score}";
+
+			nameLabel.Text = $"Nog {throwsLeft} {throwText}!\n\n{scoreText}";
 		}
 	}
 
-	private void handleSpecialResults(int result)
+	private void HandleResult(int result)
 	{
 		if (result == 21)
 		{
@@ -68,29 +131,42 @@ public partial class GameManager : Node
 		}
 		else if (result == 31)
 		{
-			_eventManager.EmitSignal(nameof(_eventManager.Penalty), 1, currentPlayer.Name, true, false);
+			_eventManager.EmitSignal(nameof(_eventManager.Penalty), 1, new Array<string>() { currentPlayer.Name }, true, false);
 		}
 		else if (result == 100)
 		{
 			currentKnight = currentPlayer;
+			_eventManager.EmitSignal(nameof(_eventManager.NewKnight));
 		}
 		else if (result == 600)
 		{
-			_eventManager.EmitSignal(nameof(_eventManager.Penalty), 1, "all", true, false);
+			_eventManager.EmitSignal(nameof(_eventManager.Penalty), 1, new Array<string>() { "all" }, true, false);
 		}
 		else if (result % 100 == 0)
 		{
-			if (currentKnight != null && currentPlayer == currentKnight)
+			if (currentKnight != null)
 			{
-				_eventManager.EmitSignal(nameof(_eventManager.Penalty), knightStrenght, currentKnight.Name, true, true);
+				int multiplier = result / 100;
+				if (currentPlayer == currentKnight)
+				{
+					_eventManager.EmitSignal(nameof(_eventManager.Penalty), knightStrenght * multiplier, new Array<string> { currentKnight.Name }, true, true);
+				}
+				else
+				{
+					_eventManager.EmitSignal(nameof(_eventManager.Penalty), knightStrenght * multiplier, new Array<string> { currentKnight.Name }, false, true);
+				}
 			}
-			else _eventManager.EmitSignal(nameof(_eventManager.Penalty), knightStrenght, currentKnight.Name, false, true);
 		}
 	}
 
-	private List<Player> getLosers()
+	private int CalculatePenalty()
 	{
-		List<Player> losers = new List<Player>();
+		return penaltyPoints * (amountMexx + 1);
+	}
+
+	private Array<string> GetLosers()
+	{
+		var loserNames = new Array<string>();
 		int lowestScore = int.MaxValue;
 		foreach (Player player in players)
 		{
@@ -103,45 +179,16 @@ public partial class GameManager : Node
 		{
 			if (player.Score == lowestScore)
 			{
-				losers.Add(player);
+				loserNames.Add(player.Name);
 			}
 		}
-		return losers;
+		return loserNames;
 	}
 
-	private int CalculatePenalty()
+	private void DetermineLoser()
 	{
-		return penaltyPoints * (amountMexx + 1);
-	}
-
-	private void RefreshRound(Player loser)
-	{
-		playerIndex = 0;
-		foreach (Player player in players)
-		{
-			player.Reset();
-		}
-		players.Remove(loser);
-		UtilsManager.ShuffleList(players);
-		players.Insert(0, loser);
-		currentPlayer = loser;
-	}
-
-
-	private void DetermineLoser(Label nameLabel)
-	{
-		List<Player> losers = getLosers();
-		int penalty = CalculatePenalty();
-		if (losers.Count > 1)
-		{
-			_eventManager.EmitSignal(nameof(_eventManager.DetermineLoser), penalty);
-		}
-		else
-		{
-			Player loser = losers[0];
-			RefreshRound(loser);
-			_eventManager.EmitSignal(nameof(_eventManager.Penalty), penalty, loser.Name);
-			nameLabel.Text = "Jammer " + loser.Name + "!\nJe mag nu wel\nals eerste werpen!";
-		}
+		Array<string> losers = GetLosers();
+		int penalty = CalculatePenalty();		
+		_eventManager.EmitSignal(nameof(_eventManager.Penalty), penalty, losers, false, false);
 	}
 }

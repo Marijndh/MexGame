@@ -1,18 +1,24 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public partial class Die : RigidBody3D
 {
 	private int value;
 	public int Value
 	{
-		get { return Value; }
+		get { return value; }
 	}
 	private EventManager _eventManager;
 	private int _rollStrength = 20;
 
 	private bool _isRolling = false;
+
+	public bool IsRolling
+	{
+		get { return _isRolling; }
+	}
 
 	private List<DieRayCast> _rays = new List<DieRayCast>();
 
@@ -20,14 +26,15 @@ public partial class Die : RigidBody3D
 	{
 		_eventManager = GetNode<EventManager>("/root/EventManager");
 		Node3D rayParent = GetNode<Node3D>("RayCasts");
-			foreach (Node child in rayParent.GetChildren())
+		foreach (Node child in rayParent.GetChildren())
+		{
+			DieRayCast raycast = child as DieRayCast;
+			if (raycast != null)
 			{
-				DieRayCast raycast = child as DieRayCast;
-				if (raycast != null)
-				{
-					_rays.Add(raycast);
-				}
+				_rays.Add(raycast);
 			}
+		}
+		SleepingStateChanged += OnSleepingStateChanged;
 	}
 
     public void Roll(){
@@ -68,7 +75,7 @@ public partial class Die : RigidBody3D
 	}
 
 	public void SnapRotation()
-    {
+     {
         Vector3 rotationDegrees = RotationDegrees;
 		float SnapAngle = 90.0f;
 

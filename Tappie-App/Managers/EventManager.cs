@@ -1,24 +1,24 @@
 using Godot;
-using System;
-using System.Collections.Generic;
+using Godot.Collections;
+
 
 public partial class EventManager : Node
 {
 	[Signal]
 	public delegate void PopupClosedEventHandler();
 
+	[Signal] 
+	public delegate void PopupOpenedEventHandler();
+
 	[Signal]
-
-	public delegate void NewKnightEventHandler(string name);
-
-	[Signal]
-
 	public delegate void RollFinishedEventHandler();
 
 	[Signal]
-	public delegate void PenaltyEventHandler(int penalty, string name, bool give, bool knight);
+	public delegate void NewKnightEventHandler();
 
 	[Signal]
-	public delegate void DetermineLoserEventHandler(int penalty);
+	public delegate void PenaltyEventHandler(int penalty, Array<string> names, bool give, bool knight);
 
+	[Signal]
+	public delegate void RoundFinishedEventHandler();
 }

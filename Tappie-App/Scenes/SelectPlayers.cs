@@ -17,6 +17,13 @@ public partial class SelectPlayers : CanvasLayer
 		_eventManager.PopupClosed += _container.SelectFirstEmpty;
 	}
 
+	public override void _ExitTree()
+	{
+		// Clean up event subscriptions
+		if (_eventManager != null)
+			_eventManager.PopupClosed -= _container.SelectFirstEmpty;
+	}
+
 	private void OnContinuePressed()
 	{
 		(List<string> players, int amountEmpty) = _container.GetNames();

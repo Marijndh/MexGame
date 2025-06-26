@@ -31,9 +31,14 @@ public partial class NameInput : Control
 		}
 	}
 
-	public string GetName()
+	public string GetName() => _nameInput.Text;
+
+	public void SetName(string name)
 	{
-		return _nameInput.Text;
+		if (_nameInput != null)
+		{
+			_nameInput.Text = name;
+		}
 	}
 
 	public void DisableDeleteButton()
