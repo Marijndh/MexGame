@@ -16,27 +16,39 @@ public partial class Play : Node3D
 	private int amountDiceRolled;
 	private int amountDiceWantedToRoll;
 
-	private Vector3 highestRollDiePosition = new Vector3(-0.5f, 0.5f, -0.3f);
-	private Vector3 lowestRollDiePosition = new Vector3(-0.5f, 0.5f, 0.3f);
+	private Vector3 highestRollDiePosition = new Vector3(-0.325f, 3.5f, 0.4f);
+	private Vector3 lowestRollDiePosition = new Vector3(0.325f, 3.5f, 0.4f);
 
 	private Label _scoreLabel;
 	private Label _nameLabel;
 
 	private Button _closeButton;
-	private Button _continueButton;
+	private Button _continueButton; 
+
+	// Shake detection variables
+	private Vector3 _lastAccel = Vector3.Zero;
+	private float _shakeThreshold = 3.0f;
+	private float _shakeCooldown = 1.0f;
+	private float _shakeTimer = 0f;
+
+	// Drag and drop variables
+	private bool isDragging = false;
+	private Vector2 dragStartPos;
+	private Vector2 dragEndPos;
+	private Camera3D camera;
 
 	public override void _Ready()
-	{	
+	{
+		camera = GetViewport().GetCamera3D();
+
 		_eventManager = GetNode<EventManager>("/root/EventManager");
 		_sceneSwitcher = GetNode<SceneManager>("/root/SceneManager");
 		_gameManager = GetNode<GameManager>("/root/GameManager");
 
 		_eventManager.RollFinished += OnRollFinished;
-		_eventManager.Penalty += PenaltyPopUp;
-		_eventManager.NewKnight += OnNewKnight;
 		_eventManager.RoundFinished += () => SetButtonsVisible(true);
+		_eventManager.PopupRequested += OnPopupRequested;
 
-		_eventManager.PopupOpened += () => { popUpIsOpen = true; };
 		_eventManager.PopupClosed += () => { popUpIsOpen = false; };
 
 		CanvasLayer canvasLayer = GetNode<CanvasLayer>("Canvas");
@@ -61,10 +73,9 @@ public partial class Play : Node3D
 	public override void _ExitTree()
 	{
 		_eventManager.RollFinished -= OnRollFinished;
-		_eventManager.Penalty -= PenaltyPopUp;
-		_eventManager.NewKnight -= OnNewKnight;
 		_eventManager.RoundFinished -= () => SetButtonsVisible(true);
-		_eventManager.PopupOpened -= () => { popUpIsOpen = true; };
+		_eventManager.PopupRequested -= OnPopupRequested;
+
 		_eventManager.PopupClosed -= () => { popUpIsOpen = false; };
 	}
 
@@ -81,67 +92,6 @@ public partial class Play : Node3D
 			}
 			dice.Add(dieNode);
 		}
-	}
-
-	private void OnNewKnight()
-	{
-		Node knightPopUp = NodeCreator.CreateNode(
-			"KnightPopUp",
-			new Godot.Collections.Dictionary<string, Variant>
-			{
-			{ "Text", "Je bent nu de nieuwe ridder!" }
-			}
-		);
-
-		if (knightPopUp != null)
-			AddChild(knightPopUp);
-	}
-
-	private void PenaltyPopUp(int penalty, Array<string> names, bool give, bool knight)
-	{
-		Node resultPopUp = null;
-		string joinedNames = string.Join(", ", names);
-		string pointWord = penalty == 1 ? "strafpunt" : "strafpunten";
-		string text;
-
-		if (knight)
-		{
-			if (joinedNames == "all")
-			{
-				text = $"Iedereen krijgt 1 strafpunt!";
-			}
-			else
-			{
-				text = give
-					? $"{joinedNames}\nMag {penalty} {pointWord} uitdelen!"
-					: $"{joinedNames}\nKrijgen {penalty} {pointWord}!";
-			}
-
-			resultPopUp = NodeCreator.CreateNode(
-				"KnightPopUp",
-				new Godot.Collections.Dictionary<string, Variant>
-				{
-				{ "Text", text }
-				}
-			);
-		}
-		else
-		{
-			text = give
-				? $"{joinedNames}\nMag {penalty} \n {pointWord} \n uitdelen!"
-				: $"{joinedNames}\nKrijgt {penalty} \n {pointWord}!";
-
-			resultPopUp = NodeCreator.CreateNode(
-				"PopUp",
-				new Godot.Collections.Dictionary<string, Variant>
-				{
-				{ "Text", text }
-				}
-			);
-		}
-
-		if (resultPopUp != null)
-			AddChild(resultPopUp);
 	}
 
 	private int GetDiceResult(int highest, int lowest){
@@ -193,28 +143,111 @@ public partial class Play : Node3D
 		}
 	}
 
-	private void RollDice()
+	private void ThrowDice(Vector3 direction, float strength = 5f)
 	{
+		_scoreLabel.Text = "";
+		_nameLabel.Text = "";
 		foreach (Die die in dice)
 		{
+			if (die.IsRolling) continue;
+
+			die.Reset(); 
+			die.Throw(direction, strength);
 			amountDiceWantedToRoll++;
-			if (die.IsRolling)
+		}
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		bool isMobile = OS.HasFeature("mobile");
+
+		if (_closeButton.Visible || _continueButton.Visible || popUpIsOpen)
+			return;
+
+		if (isMobile)
+		{
+			_shakeTimer -= (float)delta;
+			Vector3 currentAccel = Input.GetAccelerometer();
+			Vector3 deltaAccel = currentAccel - _lastAccel;
+
+			if (deltaAccel.Length() > _shakeThreshold && _shakeTimer <= 0f)
 			{
-				continue;
+				ThrowDice(Vector3.Forward);
+				_shakeTimer = _shakeCooldown;
 			}
-			die.Roll();
+
+			_lastAccel = currentAccel;
+		}
+		else
+		{
+			if (Input.IsActionJustPressed("ui_select")) 
+			{
+				ThrowDice(Vector3.Forward, 20);
+			}
 		}
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && !popUpIsOpen && !_closeButton.Visible && !_continueButton.Visible)
+		if (_closeButton.Visible || _continueButton.Visible || popUpIsOpen)
+			return;
+
+		if (@event is InputEventMouseButton mouseBtn && mouseBtn.ButtonIndex == MouseButton.Left)
 		{
-			RollDice();
-			_scoreLabel.Text = "";
-			_nameLabel.Text = "";
+			if (mouseBtn.Pressed)
+				StartDrag(mouseBtn.Position);
+			else if (isDragging)
+				EndDrag(mouseBtn.Position);
+		}
+		else if (@event is InputEventScreenTouch touch)
+		{
+			if (touch.Pressed)
+				StartDrag(touch.Position);
+			else if (isDragging)
+				EndDrag(touch.Position);
+		}
+		else if (@event is InputEventScreenDrag drag)
+		{
+			if (isDragging)
+				UpdateDrag(drag.Position);
 		}
 	}
+
+	private void StartDrag(Vector2 position)
+	{
+		isDragging = true;
+		dragStartPos = position;
+		dragEndPos = position;
+	}
+
+	private void UpdateDrag(Vector2 position)
+	{
+		dragEndPos = position;
+	}
+
+	private void EndDrag(Vector2 position)
+	{
+		dragEndPos = position;
+		isDragging = false;
+
+		Vector2 dragVector = dragEndPos - dragStartPos;
+		if (dragVector.Length() > 20f)
+		{
+			Vector3 throwDir = new Vector3(dragVector.X, 0, dragVector.Y).Normalized();
+			float strength = Mathf.Min(dragVector.Length() * 0.02f, 35f);
+			ThrowDice(throwDir, strength);
+		}
+	}
+
+	private void OnPopupRequested(Node popup)
+	{
+		if (popup != null)
+		{
+			popUpIsOpen = true;
+			AddChild(popup);
+		}
+	}
+
 	private void SetButtonsVisible(bool visible)
 	{
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5s0kqbe3s6s1"]
+[gd_scene load_steps=7 format=3 uid="uid://g5se3pm0mbpl"]
 
 [ext_resource type="Script" path="res://Scenes/SelectPlayers.cs" id="1_pih5j"]
 [ext_resource type="PackedScene" uid="uid://dg4ax5i8o51fa" path="res://Nodes/UINodes/Background.tscn" id="2_2qw2k"]

@@ -7,7 +7,6 @@ public partial class PopUp : Node
 	public override void _Ready()
 	{
 		_eventManager = GetNode<EventManager>("/root/EventManager");
-		_eventManager.EmitSignal(nameof(_eventManager.PopupOpened));
 	}
 	private void OnCloseButtonPressed()
 	{

@@ -7,17 +7,11 @@ public partial class GameManager : Node
 	private EventManager _eventManager;
 
 	private Player currentKnight = null;
-
 	private Player currentPlayer = null;
-
 	private List<Player> players = new List<Player>();
-
 	private int playerIndex;
-
 	private int amountMexx = 0;
-
 	private int knightStrenght = 1;
-
 	private int penaltyPoints = 2;
 
 	private Label nameLabel;
@@ -25,6 +19,12 @@ public partial class GameManager : Node
 	public override void _Ready()
 	{
 		_eventManager = GetNode<EventManager>("/root/EventManager");
+
+		bool isTest = ProjectSettings.HasSetting("test/test_mode") && (bool)ProjectSettings.GetSetting("test/test_mode");
+		if (isTest)
+		{
+			SetPlayers(new List<string> { "Speler 1", "Speler 2", "Speler 3" });
+		}
 	}
 
 	public void StartRound(Label nameLabel)
@@ -33,13 +33,13 @@ public partial class GameManager : Node
 
 		playerIndex = 0;
 		amountMexx = 0;
-		currentPlayer = players[0];
+
 		foreach (Player player in players)
-		{
 			player.Reset();
-		}
+
 		players = UtilsManager.ShuffleList(players);
 		currentPlayer = players[0];
+
 		nameLabel.Text = currentPlayer.Name + ",\n Jij bent nu aan de beurt!";
 	}
 
@@ -52,26 +52,19 @@ public partial class GameManager : Node
 		var newNamesSet = new HashSet<string>(names);
 
 		bool playersChanged = !oldNamesSet.SetEquals(newNamesSet);
-
 		players.RemoveAll(p => !newNamesSet.Contains(p.Name));
 
 		foreach (string name in names)
 		{
 			if (!players.Exists(p => p.Name == name))
-			{
 				players.Add(new Player(name));
-			}
 		}
 
 		if (playersChanged)
-		{
 			currentKnight = null;
-		}
 
 		if (players.Count < 2)
-		{
 			throw new System.InvalidOperationException("At least two players are required.");
-		}
 
 		players = UtilsManager.ShuffleList(players);
 		currentPlayer = players[0];
@@ -83,22 +76,24 @@ public partial class GameManager : Node
 	{
 		HandleResult(result);
 		currentPlayer.addScore(result);
+
 		if (currentPlayer.isFinished)
 		{
 			playerIndex++;
 			Player finishedPlayer = currentPlayer;
+
 			if (playerIndex < players.Count)
-			{
+			{ 
 				currentPlayer = players[playerIndex];
 
-				Godot.Collections.Dictionary<int, string> messages = new ()
+				Godot.Collections.Dictionary<int, string> messages = new()
 				{
 					{ 21, "Kassa!\nHet hoogste!" },
 					{ 32, "Jammer!\nLager kan niet" }
 				};
 
-				string extraText = messages.TryGetValue(finishedPlayer.Score, out string message)
-					? message
+				string extraText = messages.TryGetValue(finishedPlayer.Score, out string msg)
+					? msg
 					: $"Eindscore: {finishedPlayer.Score}";
 
 				nameLabel.Text = $"{extraText}\nVolgende speler:\n{currentPlayer.Name}";
@@ -114,7 +109,6 @@ public partial class GameManager : Node
 		{
 			int throwsLeft = currentPlayer.GetThrowsLeft();
 			string throwText = throwsLeft == 1 ? "worp" : "worpen";
-
 			string scoreText = currentPlayer.Score == result
 				? "Nieuwe hoge score:"
 				: $"Hoogste score: {currentPlayer.Score}";
@@ -131,32 +125,62 @@ public partial class GameManager : Node
 		}
 		else if (result == 31)
 		{
-			_eventManager.EmitSignal(nameof(_eventManager.Penalty), 1, new Array<string>() { currentPlayer.Name }, true, false);
+			SendPenaltyPopup(1, new Array<string> { currentPlayer.Name }, true);
 		}
 		else if (result == 100)
 		{
 			currentKnight = currentPlayer;
-			_eventManager.EmitSignal(nameof(_eventManager.NewKnight));
+			SendPopup("KnightPopUp", "Je bent nu de nieuwe ridder!");
 		}
 		else if (result == 600)
 		{
-			_eventManager.EmitSignal(nameof(_eventManager.Penalty), 1, new Array<string>() { "all" }, true, false);
+			SendPenaltyPopup(1, new Array<string> {}, true, true, true);
 		}
 		else if (result % 100 == 0)
 		{
 			if (currentKnight != null)
 			{
 				int multiplier = result / 100;
-				if (currentPlayer == currentKnight)
-				{
-					_eventManager.EmitSignal(nameof(_eventManager.Penalty), knightStrenght * multiplier, new Array<string> { currentKnight.Name }, true, true);
-				}
-				else
-				{
-					_eventManager.EmitSignal(nameof(_eventManager.Penalty), knightStrenght * multiplier, new Array<string> { currentKnight.Name }, false, true);
-				}
+				int penalty = knightStrenght * multiplier;
+				string name = currentKnight.Name;
+				SendPenaltyPopup(penalty, new Array<string> { name }, currentPlayer == currentKnight, true);
 			}
 		}
+	}
+
+	private void SendPenaltyPopup(int penalty, Array<string> names, bool give = false, bool knight = false, bool all = false)
+	{
+		string joinedNames = string.Join(", ", names);
+		string pointWord = penalty == 1 ? "strafpunt" : "strafpunten";
+		string getWord = names.Count > 1 ? "krijgen" : "krijgt";
+		string text;
+
+		if (knight)
+		{
+			text = all
+				? "Iedereen krijgt 1 strafpunt!"
+				: give
+					? $"Je mag {penalty} {pointWord} uitdelen!"
+					: $"{joinedNames}\n{getWord} {penalty} {pointWord}!";
+			SendPopup("KnightPopUp", text);
+		}
+		else
+		{
+			text = give
+				? $"{joinedNames}\nMag {penalty} \n {pointWord} \n uitdelen!"
+				: $"{joinedNames}\nKrijgt {penalty} \n {pointWord}!";
+			SendPopup("PopUp", text);
+		}
+	}
+
+	private void SendPopup(string sceneName, string text)
+	{
+		var popup = NodeCreator.CreateNode(sceneName, new Godot.Collections.Dictionary<string, Variant> {
+			{ "Text", text }
+		});
+
+		if (popup != null)
+			_eventManager.EmitSignal(nameof(_eventManager.PopupRequested), popup);
 	}
 
 	private int CalculatePenalty()
@@ -168,27 +192,26 @@ public partial class GameManager : Node
 	{
 		var loserNames = new Array<string>();
 		int lowestScore = int.MaxValue;
+
 		foreach (Player player in players)
 		{
 			if (player.Score < lowestScore && player.Score != 21)
-			{
 				lowestScore = player.Score;
-			}
 		}
+
 		foreach (Player player in players)
 		{
 			if (player.Score == lowestScore)
-			{
 				loserNames.Add(player.Name);
-			}
 		}
+
 		return loserNames;
 	}
 
 	private void DetermineLoser()
 	{
 		Array<string> losers = GetLosers();
-		int penalty = CalculatePenalty();		
-		_eventManager.EmitSignal(nameof(_eventManager.Penalty), penalty, losers, false, false);
+		int penalty = CalculatePenalty();
+		SendPenaltyPopup(penalty, losers, false, false);
 	}
 }
