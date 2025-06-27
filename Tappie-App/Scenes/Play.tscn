@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://dwp8iqbg3evhh"]
+[gd_scene load_steps=27 format=3 uid="uid://dwp8iqbg3evhh"]
 
 [ext_resource type="Script" path="res://Scenes/Play.cs" id="1_corqm"]
 [ext_resource type="FontFile" uid="uid://ciklh6pynu5cb" path="res://Assets/Fonts/This Cafe.ttf" id="2_8dqwo"]
 [ext_resource type="PackedScene" uid="uid://bhcdqjrql7133" path="res://Nodes/GameNodes/Die.tscn" id="3_2k1rp"]
+[ext_resource type="PackedScene" uid="uid://qfucrf5i7vbx" path="res://Nodes/CustomNodes/ScoreContainer.tscn" id="3_jagrv"]
 
 [sub_resource type="Theme" id="Theme_e1ext"]
 default_font = ExtResource("2_8dqwo")
@@ -184,6 +185,12 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_e215d")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_rvptf")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vqbdq")
 text = "Sluiten"
+
+[node name="Container" parent="Canvas" instance=ExtResource("3_jagrv")]
+offset_left = 90.0
+offset_top = 1300.0
+offset_right = 990.0
+offset_bottom = 1800.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8, 0)

@@ -29,14 +29,22 @@ public partial class ScoreBar : Panel
 	private void SetStyleBox(int score)
 	{
 		Color color = GetColorFromScore(score);
-		StyleBoxFlat styleBox = new();
-		styleBox.CornerDetail = 10;
-		styleBox.BgColor = color;
-		styleBox.SetBorderWidthAll(2);
-		styleBox.BorderColor = Colors.Black;
+		StyleBoxFlat styleBox = new StyleBoxFlat
+		{
+			BgColor = color,
+			BorderColor = Colors.Black,
+			BorderWidthBottom = 5,
+			BorderWidthLeft = 3,
+			BorderWidthRight = 5,
+			BorderWidthTop = 3,
+			CornerRadiusTopLeft = 20,
+			CornerRadiusTopRight = 20,
+			CornerRadiusBottomLeft = 20,
+			CornerRadiusBottomRight = 20
+		};
 
 
-		this.Set("panel", styleBox);
+		AddThemeStyleboxOverride("panel", styleBox);
 		QueueRedraw();
 
 	}
@@ -45,7 +53,7 @@ public partial class ScoreBar : Panel
 	{
 		if (last)
 		{
-			_image.Texture = GD.Load<Texture2D>(_imagePath + "last.png");
+			_image.Texture = GD.Load<Texture2D>(_imagePath + "last.svg");
 		}
 		else if (position > 2)
 		{
@@ -53,32 +61,22 @@ public partial class ScoreBar : Panel
 		}
 		else
 		{
-			_image.Texture = GD.Load<Texture2D>(_imagePath + position + ".png");
+			_image.Texture = GD.Load<Texture2D>(_imagePath + position + ".svg");
 		}
 
 		if (_positionLabel.Text == "") _positionLabel.Hide();
 	}
 
-	private static readonly int[] ScoreRanking = new int[]
+	private Color GetColorFromScore(int score)
 	{
-		21,
-		600, 500, 400, 300, 200, 100,
-		65, 64, 63, 62, 61,
-		54, 53, 52, 51,
-		43, 42, 41,
-		32, 31
-	};
-
-private Color GetColorFromScore(int score)
-	{
-		int index = Array.IndexOf(ScoreRanking, score);
+		int index = Array.IndexOf(ScoreUtils.ScoreRanking, score);
 		if (index == -1)
 		{
 			GD.PrintErr($"Invalid score: {score}");
 			return new Color(1, 0, 1); // Magenta for debugging  
 		}
 
-		float t = index / (float)(ScoreRanking.Length - 1); // 0 = best, 1 = worst  
+		float t = index / (float)(ScoreUtils.ScoreRanking.Length - 1); // 0 = best, 1 = worst  
 
 		if (t < 0.5f)
 		{

@@ -9,7 +9,7 @@ public partial class GameManager : Node
 	private Player currentKnight = null;
 	private Player currentPlayer = null;
 	private List<Player> players = new List<Player>();
-	private int playerIndex;
+	private int playerIndex = 0;
 	private int amountMexx = 0;
 	private int knightStrenght = 1;
 	private int penaltyPoints = 2;
@@ -35,14 +35,13 @@ public partial class GameManager : Node
 
 	public void StartRound()
 	{
-		playerIndex = 0;
+		playerIndex = GD.RandRange(0, players.Count - 1);
 		amountMexx = 0;
 
 		foreach (Player player in players)
 			player.Reset();
 
-		players = UtilsManager.ShuffleList(players);
-		currentPlayer = players[0];
+		currentPlayer = players[playerIndex];
 
 		// Passing the signal that the player can start their turn
 		ChangeState(GameState.RoundStarting, new Dictionary
@@ -73,9 +72,6 @@ public partial class GameManager : Node
 
 		if (players.Count < 2)
 			throw new System.InvalidOperationException("At least two players are required.");
-
-		players = UtilsManager.ShuffleList(players);
-		currentPlayer = players[0];
 	}
 
 	public List<Player> GetPlayers() => players;
@@ -87,25 +83,28 @@ public partial class GameManager : Node
 
 		if (currentPlayer.isFinished)
 		{
-			playerIndex++;
 			Player finishedPlayer = currentPlayer;
 
-			if (playerIndex < players.Count)
-			{ 
-				currentPlayer = players[playerIndex];
+			// Move to the next player index, wrapping around
+			playerIndex = (playerIndex + 1) % players.Count;
+			currentPlayer = players[playerIndex];
 
+			// Check if the next player is also finished
+			if (!currentPlayer.isFinished)
+			{
 				ChangeState(GameState.PlayerFinished, new Dictionary
 				{
 					{ "Player", currentPlayer.Name },
-					{"Score", finishedPlayer.Score },
+					{ "Score", finishedPlayer.Score },
 				});
 			}
 			else
 			{
-				ChangeState(GameState.RoundFinished, new Dictionary{});
+				ChangeState(GameState.RoundFinished, new Dictionary { });
 				DetermineLoser();
 			}
 		}
+
 		else
 		{
 			int throwsLeft = currentPlayer.GetThrowsLeft();

@@ -9,8 +9,8 @@ HBoxContainer/constants/separation = 20
 VBoxContainer/constants/separation = 15
 
 [node name="Container" type="HBoxContainer"]
-offset_right = 800.0
-offset_bottom = 400.0
+offset_right = 900.0
+offset_bottom = 500.0
 theme = SubResource("Theme_4kl0c")
 script = ExtResource("1_t8hbo")
 

@@ -25,6 +25,8 @@ public partial class Play : Node3D
 	private Button _closeButton;
 	private Button _continueButton; 
 
+	private ScoreContainer _scoreContainer;
+
 	// Shake detection variables
 	private Vector3 _lastAccel = Vector3.Zero;
 	private float _shakeThreshold = 3.0f;
@@ -48,7 +50,6 @@ public partial class Play : Node3D
 		_eventManager.RollFinished += OnRollFinished;
 		_eventManager.PopupRequested += OnPopupRequested;
 		_eventManager.GameStateChanged += OnGameStateChanged;
-
 		_eventManager.PopupClosed += () => { popUpIsOpen = false; };
 
 		CanvasLayer canvasLayer = GetNode<CanvasLayer>("Canvas");
@@ -57,6 +58,7 @@ public partial class Play : Node3D
 		_infoLabel = canvasLayer.GetNode<Label>("Info");
 		_closeButton = canvasLayer.GetNode<Button>("Close");
 		_continueButton = canvasLayer.GetNode<Button>("Continue");
+		_scoreContainer = canvasLayer.GetNode<ScoreContainer>("Container");
 
 		SetButtonsVisible(false);
 
@@ -179,6 +181,8 @@ public partial class Play : Node3D
 				? msg
 				: $"Eindscore: {score}";
 				_nameLabel.Text = $"\nVolgende speler: {context["Player"]}";
+				_scoreContainer.LoadScores();
+				_scoreContainer.Show();
 				break;
 
 			case GameState.RoundFinished:
@@ -215,6 +219,7 @@ public partial class Play : Node3D
 		_scoreLabel.Text = "";
 		_nameLabel.Text = "";
 		_infoLabel.Text = "";
+		_scoreContainer.Hide();
 		foreach (Die die in dice)
 		{
 			if (die.IsRolling) continue;
@@ -236,32 +241,25 @@ public partial class Play : Node3D
 		}
 	}
 
-	private int GetDiceResult(int highest, int lowest){
-		string resultString = highest.ToString() + lowest.ToString();
-		return int.Parse(resultString);
-	}
-
 	public int HandleRolledDice()
 	{
 		Die die1 = dice[0];
 		Die die2 = dice[1];
 
-		int result;
+		int result = ScoreUtils.CalculateRollResult(die1.Value, die2.Value);
+
 		if (die1.Value > die2.Value)
 		{
-			result = GetDiceResult(die1.Value, die2.Value);
 			die1.Position = highestRollDiePosition;
 			die2.Position = lowestRollDiePosition;
 		}
 		else if (die1.Value < die2.Value)
 		{
-			result = GetDiceResult(die2.Value, die1.Value);
 			die2.Position = highestRollDiePosition;
 			die1.Position = lowestRollDiePosition;
 		}
 		else
 		{
-			result = die1.Value * 100;
 			die1.Position = highestRollDiePosition;
 			die2.Position = lowestRollDiePosition;
 		}
@@ -274,7 +272,6 @@ public partial class Play : Node3D
 
 		return result;
 	}
-
 
 	private void OnPopupRequested(Node popup)
 	{
