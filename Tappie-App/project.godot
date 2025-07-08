@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 EventManager="*res://Managers/EventManager.cs"
 SceneManager="*res://Managers/SceneManager.cs"
+GameManager="*res://Managers/GameManager.cs"
 
 [display]
 
@@ -37,3 +38,7 @@ project/assembly_name="Tappie"
 [rendering]
 
 renderer/rendering_method="mobile"
+
+[test]
+
+test_mode=true

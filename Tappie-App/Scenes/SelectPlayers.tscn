@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5s0kqbe3s6s1"]
+[gd_scene load_steps=7 format=3 uid="uid://g5se3pm0mbpl"]
 
-[ext_resource type="Script" path="res://Scripts/SelectPlayerNames.cs" id="1_pih5j"]
+[ext_resource type="Script" path="res://Scenes/SelectPlayers.cs" id="1_pih5j"]
 [ext_resource type="PackedScene" uid="uid://dg4ax5i8o51fa" path="res://Nodes/UINodes/Background.tscn" id="2_2qw2k"]
-[ext_resource type="FontFile" path="res://Fonts/Coffee Spark.ttf" id="2_kr0e8"]
-[ext_resource type="PackedScene" uid="uid://doaruktuv2ec0" path="res://Nodes/CustomNodes/PlayerInputsContainer.tscn" id="4_e5xk7"]
-
+[ext_resource type="FontFile" uid="uid://cuoy8uw4mb52v" path="res://Assets/Fonts/Coffee Spark.ttf" id="2_kr0e8"]
+[ext_resource type="PackedScene" uid="uid://doaruktuv2ec0" path="res://Nodes/CustomNodes/NameInputContainer.tscn" id="4_e5xk7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ig6jt"]
 

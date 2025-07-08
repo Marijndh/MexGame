@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class StartUI : CanvasLayer
+public partial class Home : CanvasLayer
 {
 	private SceneManager _switcher;
 

@@ -135,7 +135,7 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oftbm"]
 
-[node name="StartUI" type="CanvasLayer"]
+[node name="Home" type="CanvasLayer"]
 script = ExtResource("1_h3lei")
 
 [node name="Background" parent="." instance=ExtResource("2_ixo5p")]

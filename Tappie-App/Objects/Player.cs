@@ -8,11 +8,11 @@ public class Player {
         set { name = value; }
 	}
 
-	private int score;
+	private int highestScore;
     public int Score
     {
-        get { return score; }
-        set { score = value; }
+        get { return highestScore; }
+        set { highestScore = value; }
     }
 
 	private List<int> scores;
@@ -20,7 +20,7 @@ public class Player {
     public bool isFinished = false;
     public Player(string name) {
         this.name = name;
-        score = 0;
+        highestScore = 0;
         scores = new List<int>();
     }
 
@@ -30,21 +30,26 @@ public class Player {
 
 		if (score == 21 || score == 32)
 		{
-			this.score = score;
+			this.highestScore = score;
 			isFinished = true;
 			return;
 		}
 
-		if (score > this.score)
-			this.score = score;
+		if (score > this.highestScore)
+			this.highestScore = score;
 
 		if (scores.Count == 3)
 			isFinished = true;
 	}
 
+    public int GetThrowsLeft()
+    {
+        return 3 - scores.Count;
+	}
+
     public void Reset(){
         scores = new List<int>();
-        score = 0;
+        highestScore = 0;
         isFinished = false;
     }
 }
