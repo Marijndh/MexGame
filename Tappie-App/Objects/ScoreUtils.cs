@@ -1,6 +1,8 @@
 public static class ScoreUtils
 {
-    public static readonly int[] ScoreRanking = new int[]
+	// This array defines the score ranking for the game.
+	// The lower the index, the higher the score.
+	public static readonly int[] ScoreRanking = new int[]
     {
         21,
         600, 500, 400, 300, 200, 100,

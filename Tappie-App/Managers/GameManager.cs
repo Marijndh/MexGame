@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
-	private EventManager _eventManager;
-
 	private Player currentKnight = null;
 	private Player currentPlayer = null;
 	private List<Player> players = new List<Player>();
@@ -17,19 +15,18 @@ public partial class GameManager : Node
 
 	public override void _Ready()
 	{
-		_eventManager = GetNode<EventManager>("/root/EventManager");
-
 		bool isTest = ProjectSettings.HasSetting("test/test_mode") && (bool)ProjectSettings.GetSetting("test/test_mode");
 		if (isTest)
 		{
 			SetPlayers(new List<string> { "Speler 1", "Speler 2", "Speler 3" });
 		}
+		EventManager.Instance.DiceThrown += HandleResult;
 	}
 
 	private void ChangeState(GameState newState, Dictionary context)
 	{
 		CurrentState = newState;
-		_eventManager.EmitSignal(nameof(_eventManager.GameStateChanged), Variant.From(newState), context);
+		EventManager.Instance.EmitSignal(nameof(EventManager.Instance.GameStateChanged), Variant.From(newState), context);
 	}
 
 
@@ -76,9 +73,9 @@ public partial class GameManager : Node
 
 	public List<Player> GetPlayers() => players;
 
-	public void HandleThrow(int result)
+	public void HandleResult(int result)
 	{
-		HandleResult(result);
+		HandleScore(result);
 		currentPlayer.addScore(result);
 
 		if (currentPlayer.isFinished)
@@ -97,6 +94,7 @@ public partial class GameManager : Node
 					{ "Player", currentPlayer.Name },
 					{ "Score", finishedPlayer.Score },
 				});
+				StartRound();
 			}
 			else
 			{
@@ -117,30 +115,30 @@ public partial class GameManager : Node
 		}
 	}
 
-	private void HandleResult(int result)
+	private void HandleScore(int score)
 	{
-		if (result == 21)
+		if (score == 21)
 		{
 			amountMexx++;
 		}
-		else if (result == 31)
+		else if (score == 31)
 		{
 			SendPenaltyPopup(1, new Array<string> { currentPlayer.Name }, true);
 		}
-		else if (result == 100)
+		else if (score == 100)
 		{
 			currentKnight = currentPlayer;
 			SendPopup("KnightPopUp", "Je bent nu de nieuwe ridder!");
 		}
-		else if (result == 600)
+		else if (score == 600)
 		{
 			SendPenaltyPopup(1, new Array<string> {}, true, true, true);
 		}
-		else if (result % 100 == 0)
+		else if (score % 100 == 0)
 		{
 			if (currentKnight != null)
 			{
-				int multiplier = result / 100;
+				int multiplier = score / 100;
 				int penalty = knightStrenght * multiplier;
 				string name = currentKnight.Name;
 				SendPenaltyPopup(penalty, new Array<string> { name }, currentPlayer == currentKnight, true);
@@ -179,7 +177,7 @@ public partial class GameManager : Node
 		});
 
 		if (popup != null)
-			_eventManager.EmitSignal(nameof(_eventManager.PopupRequested), popup);
+			EventManager.Instance.EmitSignal(nameof(EventManager.Instance.PopupRequested), popup);
 	}
 
 	private int CalculatePenalty()

@@ -187,6 +187,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_vqbdq")
 text = "Sluiten"
 
 [node name="Container" parent="Canvas" instance=ExtResource("3_jagrv")]
+visible = false
 offset_left = 90.0
 offset_top = 1300.0
 offset_right = 990.0

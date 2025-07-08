@@ -4,28 +4,16 @@ using System.Collections.Generic;
 
 public partial class Play : Node3D
 {
-	private EventManager _eventManager;
-	private SceneManager _sceneSwitcher;
+	private SceneManager _sceneManager;
 	private GameManager _gameManager;
-
-	private bool popUpIsOpen = false;
+	private GameStateHandler _gameStateHandler;
+	private PopupManager _popupManager;
+	private DiceManager _diceManager;
 
 	private List<Die> dice; 
 
-	private int amountDiceRolled;
-	private int amountDiceWantedToRoll;
-
 	private Vector3 highestRollDiePosition = new Vector3(-0.325f, 3.5f, 0.4f);
 	private Vector3 lowestRollDiePosition = new Vector3(0.325f, 3.5f, 0.4f);
-
-	private Label _scoreLabel;
-	private Label _nameLabel;
-	private Label _infoLabel;
-
-	private Button _closeButton;
-	private Button _continueButton; 
-
-	private ScoreContainer _scoreContainer;
 
 	// Shake detection variables
 	private Vector3 _lastAccel = Vector3.Zero;
@@ -39,51 +27,44 @@ public partial class Play : Node3D
 	private Vector2 dragEndPos;
 	private Camera3D camera;
 
+	// Game state handling variables
+	private Queue<(GameState, Dictionary)> gameStateQueue = new();
+	private float minDisplayTime = 3f;
+	private float currentStateTimer = 0f;
+	private bool waitingForUserInput = false;
+
+
 	public override void _Ready()
 	{
 		camera = GetViewport().GetCamera3D();
 
-		_eventManager = GetNode<EventManager>("/root/EventManager");
-		_sceneSwitcher = GetNode<SceneManager>("/root/SceneManager");
+		_sceneManager = GetNode<SceneManager>("/root/SceneManager");
 		_gameManager = GetNode<GameManager>("/root/GameManager");
 
-		_eventManager.RollFinished += OnRollFinished;
-		_eventManager.PopupRequested += OnPopupRequested;
-		_eventManager.GameStateChanged += OnGameStateChanged;
-		_eventManager.PopupClosed += () => { popUpIsOpen = false; };
-
 		CanvasLayer canvasLayer = GetNode<CanvasLayer>("Canvas");
-		_scoreLabel = canvasLayer.GetNode<Label>("Score");
-		_nameLabel = canvasLayer.GetNode<Label>("Name");
-		_infoLabel = canvasLayer.GetNode<Label>("Info");
-		_closeButton = canvasLayer.GetNode<Button>("Close");
-		_continueButton = canvasLayer.GetNode<Button>("Continue");
-		_scoreContainer = canvasLayer.GetNode<ScoreContainer>("Container");
-
-		SetButtonsVisible(false);
-
-		_closeButton.Pressed += () => _sceneSwitcher.SwitchScene("SelectPlayers");
-		_continueButton.Pressed += () => { 
-			SetButtonsVisible(false);
-			_gameManager.StartRound();
-		};
-
 		LoadDice();
+
+		_diceManager = new DiceManager(dice, highestRollDiePosition, lowestRollDiePosition);
+		_gameStateHandler = new GameStateHandler(canvasLayer, _gameManager, _sceneManager);
+		_popupManager = new PopupManager(this);
+						
 		_gameManager.StartRound();
 	}
 
-	public override void _ExitTree()
-	{
-		_eventManager.RollFinished -= OnRollFinished;
-		_eventManager.PopupRequested -= OnPopupRequested;
-		_eventManager.PopupClosed -= () => { popUpIsOpen = false; };
-	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		bool isMobile = OS.HasFeature("mobile");
 
-		if (_closeButton.Visible || _continueButton.Visible || popUpIsOpen)
+		// Waiting for user input to show next game state
+		if (waitingForUserInput)
+		{
+			currentStateTimer += (float)delta;
+			if (currentStateTimer >= minDisplayTime)
+				ShowNextGameState();
+		}
+
+		if (!_gameStateHandler.CanThrowDice())
 			return;
 
 		if (isMobile)
@@ -94,7 +75,7 @@ public partial class Play : Node3D
 
 			if (deltaAccel.Length() > _shakeThreshold && _shakeTimer <= 0f)
 			{
-				ThrowDice(Vector3.Forward);
+				_diceManager.ThrowDice(Vector3.Forward, 10);
 				_shakeTimer = _shakeCooldown;
 			}
 
@@ -104,47 +85,45 @@ public partial class Play : Node3D
 		{
 			if (Input.IsActionJustPressed("ui_select"))
 			{
-				ThrowDice(Vector3.Forward, 20);
+				_diceManager.ThrowDice(Vector3.Forward, 10);
 			}
 		}
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (_closeButton.Visible || _continueButton.Visible || popUpIsOpen)
+		if (!_gameStateHandler.CanThrowDice())
 			return;
 
-		if (@event is InputEventMouseButton mouseBtn && mouseBtn.ButtonIndex == MouseButton.Left)
+		Vector2 position;
+
+		if (@event is InputEventScreenTouch touch)
 		{
-			if (mouseBtn.Pressed)
-				StartDrag(mouseBtn.Position);
-			else if (isDragging)
-				EndDrag(mouseBtn.Position);
-		}
-		else if (@event is InputEventScreenTouch touch)
-		{
+			position = touch.Position;
+			if (waitingForUserInput)
+				ShowNextGameState();
+
 			if (touch.Pressed)
-				StartDrag(touch.Position);
+				StartDrag(position);
 			else if (isDragging)
-				EndDrag(touch.Position);
+				EndDrag(position);
 		}
-		else if (@event is InputEventScreenDrag drag)
+		else if (!OS.HasFeature("mobile") && @event is InputEventMouseButton mouseBtn && mouseBtn.ButtonIndex == MouseButton.Left)
 		{
-			if (isDragging)
-				UpdateDrag(drag.Position);
+			position = mouseBtn.Position;
+			if (waitingForUserInput)
+				ShowNextGameState();
+
+			if (mouseBtn.Pressed)
+				StartDrag(position);
+			else if (isDragging)
+				EndDrag(position);
 		}
 	}
-
 	private void StartDrag(Vector2 position)
 	{
 		isDragging = true;
 		dragStartPos = position;
-		dragEndPos = position;
-	}
-
-	private void UpdateDrag(Vector2 position)
-	{
-		dragEndPos = position;
 	}
 
 	private void EndDrag(Vector2 position)
@@ -157,45 +136,30 @@ public partial class Play : Node3D
 		{
 			Vector3 throwDir = new Vector3(dragVector.X, 0, dragVector.Y).Normalized();
 			float strength = Mathf.Min(dragVector.Length() * 0.02f, 35f);
-			ThrowDice(throwDir, strength);
+			_diceManager.ThrowDice(throwDir, strength);
 		}
 	}
 
+	private void ShowNextGameState()
+	{
+		if (gameStateQueue.Count == 0)
+		{
+			waitingForUserInput = false;
+			return;
+		}
+
+		_gameStateHandler.HandleGameStateChange(gameStateQueue.Dequeue().Item1, gameStateQueue.Dequeue().Item2);
+
+		// Start waiting again
+		currentStateTimer = 0f;
+		waitingForUserInput = true;
+	}
 	private void OnGameStateChanged(GameState state, Dictionary context)
 	{
-		switch (state)
+		gameStateQueue.Enqueue((state, context));
+		if (!waitingForUserInput)
 		{
-			case GameState.RoundStarting:
-				_nameLabel.Text = $"{context["Player"]},\nJij bent nu aan de beurt!";
-				break;
-
-			case GameState.PlayerFinished:
-				Godot.Collections.Dictionary<int, string> messages = new()
-				{
-					{ 21, "Kassa!\nHet hoogste!" },
-					{ 32, "Jammer!\nLager kan niet\n Je bent wel gelijk klaar!" }
-				};
-
-				int score = context.ContainsKey("Score") ? context["Score"].AsInt32() : 0; // Fix: Convert Variant to int
-				_infoLabel.Text = messages.TryGetValue(score, out string msg)
-				? msg
-				: $"Eindscore: {score}";
-				_nameLabel.Text = $"\nVolgende speler: {context["Player"]}";
-				_scoreContainer.LoadScores();
-				_scoreContainer.Show();
-				break;
-
-			case GameState.RoundFinished:
-				_nameLabel.Text = "De ronde is voorbij.\nWil je opnieuw?";
-				SetButtonsVisible(true);
-				break;
-
-			case GameState.PlayerTurn:
-				_infoLabel.Text = (context["HighScore"].AsInt32() == context["Score"].AsInt32()
-				? "Nieuw record: "
-				: $"Hoogste score: ") + context["Score"];
-				_nameLabel.Text = $"Gooi nog {context["ThrowsLeft"]} keer!";
-				break;
+			ShowNextGameState();
 		}
 	}
 
@@ -212,82 +176,5 @@ public partial class Play : Node3D
 			}
 			dice.Add(dieNode);
 		}
-	}
-
-	private void ThrowDice(Vector3 direction, float strength = 5f)
-	{
-		_scoreLabel.Text = "";
-		_nameLabel.Text = "";
-		_infoLabel.Text = "";
-		_scoreContainer.Hide();
-		foreach (Die die in dice)
-		{
-			if (die.IsRolling) continue;
-
-			die.Reset();
-			die.Throw(direction, strength);
-			amountDiceWantedToRoll++;
-		}
-	}
-
-	private void OnRollFinished()
-	{
-		amountDiceRolled++;
-		if (amountDiceRolled == amountDiceWantedToRoll)
-		{
-			int result = HandleRolledDice();
-			_scoreLabel.Text = result + "";
-			_gameManager.HandleThrow(result);
-		}
-	}
-
-	public int HandleRolledDice()
-	{
-		Die die1 = dice[0];
-		Die die2 = dice[1];
-
-		int result = ScoreUtils.CalculateRollResult(die1.Value, die2.Value);
-
-		if (die1.Value > die2.Value)
-		{
-			die1.Position = highestRollDiePosition;
-			die2.Position = lowestRollDiePosition;
-		}
-		else if (die1.Value < die2.Value)
-		{
-			die2.Position = highestRollDiePosition;
-			die1.Position = lowestRollDiePosition;
-		}
-		else
-		{
-			die1.Position = highestRollDiePosition;
-			die2.Position = lowestRollDiePosition;
-		}
-
-		foreach (Die die in dice)
-		{
-			die.Freeze = true;
-			die.SnapRotation();
-		}
-
-		return result;
-	}
-
-	private void OnPopupRequested(Node popup)
-	{
-		if (popup != null)
-		{
-			popUpIsOpen = true;
-			AddChild(popup);
-		}
-	}
-
-	private void SetButtonsVisible(bool visible)
-	{
-
-		_closeButton.Visible = visible;
-		_continueButton.Visible = visible;
-		_closeButton.Disabled = !visible;
-		_continueButton.Disabled = !visible;
 	}
 }

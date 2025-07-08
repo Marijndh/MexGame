@@ -4,24 +4,22 @@ using Godot.Collections;
 using System.Collections.Generic;
 public partial class SelectPlayers : CanvasLayer
 {
-	private EventManager _eventManager;
 	private SceneManager _sceneSwitcher;
 	private NameInputContainer _container;
 
 	public override void _Ready()
 	{
-		_eventManager = GetNode<EventManager>("/root/EventManager");
 		_sceneSwitcher = GetNode<SceneManager>("/root/SceneManager");
 		_container = GetNode<NameInputContainer>("PlayerInputs");
 
-		_eventManager.PopupClosed += _container.SelectFirstEmpty;
+		EventManager.Instance.PopupClosed += _container.SelectFirstEmpty;
 	}
 
 	public override void _ExitTree()
 	{
 		// Clean up event subscriptions
-		if (_eventManager != null)
-			_eventManager.PopupClosed -= _container.SelectFirstEmpty;
+		if (EventManager.Instance != null)
+			EventManager.Instance.PopupClosed -= _container.SelectFirstEmpty;
 	}
 
 	private void OnContinuePressed()

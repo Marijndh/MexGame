@@ -7,7 +7,6 @@ public partial class Die : RigidBody3D
 	private int value;
 	public int Value => value;
 
-	private EventManager _eventManager;
 	private int _rollStrength = 20;
 
 	private bool _isRolling = false;
@@ -20,7 +19,6 @@ public partial class Die : RigidBody3D
 
 	public override void _Ready()
 	{
-		_eventManager = GetNode<EventManager>("/root/EventManager");
 		Node3D rayParent = GetNode<Node3D>("RayCasts");
 		foreach (Node child in rayParent.GetChildren())
 		{
@@ -42,9 +40,9 @@ public partial class Die : RigidBody3D
 		_rollingTime = 0f;
 
 		Transform3D t = Transform;
-		t.Basis = new Basis(Vector3.Right, GD.Randf() * Mathf.Tau) *
-				  new Basis(Vector3.Up, GD.Randf() * Mathf.Tau) *
-				  new Basis(Vector3.Forward, GD.Randf() * Mathf.Tau);
+		t.Basis = new Basis(Vector3.Right, 90) *
+				  new Basis(Vector3.Up, 90) *
+				  new Basis(Vector3.Forward, 90);
 		Transform = t;
 	}
 
@@ -82,18 +80,14 @@ public partial class Die : RigidBody3D
 
 	public void SnapRotation()
 	{
-		Vector3 rotationDegrees = RotationDegrees;
+		Vector3 newRotation = RotationDegrees;
 		float SnapAngle = 90.0f;
+		
+		newRotation.Y = 0;
+		newRotation.X = Mathf.Round(newRotation.X / SnapAngle) * SnapAngle;
+		newRotation.Z = Mathf.Round(newRotation.Z / SnapAngle) * SnapAngle;
 
-		if (Value == 6)
-			rotationDegrees.Y = 90;
-		else
-			rotationDegrees.Y = 0;
-
-		rotationDegrees.X = Mathf.Round(rotationDegrees.X / SnapAngle) * SnapAngle;
-		rotationDegrees.Z = Mathf.Round(rotationDegrees.Z / SnapAngle) * SnapAngle;
-
-		RotationDegrees = rotationDegrees;
+		RotationDegrees = newRotation;
 	}
 
 	private void OnSleepingStateChanged()
@@ -128,7 +122,7 @@ public partial class Die : RigidBody3D
 		{
 			value = closestRay.opposite_side;
 			_isRolling = false;
-			_eventManager.EmitSignal(nameof(_eventManager.RollFinished));
+			EventManager.Instance.EmitSignal(nameof(EventManager.Instance.DieRolled));
 		}
 	}
 }
