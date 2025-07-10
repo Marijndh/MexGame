@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 using System.Collections.Generic;
 
@@ -7,11 +7,10 @@ public partial class GameManager : Node
 	private Player currentKnight = null;
 	private Player currentPlayer = null;
 	private List<Player> players = new List<Player>();
-	private int playerIndex = 0;
+	private int playerIndex = -1;
 	private int amountMexx = 0;
 	private int knightStrenght = 1;
 	private int penaltyPoints = 2;
-	public GameState CurrentState { get; private set; } = GameState.Idle;
 
 	public override void _Ready()
 	{
@@ -23,24 +22,32 @@ public partial class GameManager : Node
 		EventManager.Instance.DiceThrown += HandleResult;
 	}
 
+	public override void _ExitTree()
+	{
+		EventManager.Instance.DiceThrown -= HandleResult;
+	}
+
 	private void ChangeState(GameState newState, Dictionary context)
 	{
-		CurrentState = newState;
 		EventManager.Instance.EmitSignal(nameof(EventManager.Instance.GameStateChanged), Variant.From(newState), context);
 	}
 
-
 	public void StartRound()
 	{
-		playerIndex = GD.RandRange(0, players.Count - 1);
+		if (playerIndex == -1)
+		{
+			playerIndex = GD.RandRange(0, players.Count - 1); // only random at game start
+		}		
+
 		amountMexx = 0;
 
 		foreach (Player player in players)
 			player.Reset();
 
+		GD.Print("Starting round with players: ", string.Join(", ", players.ConvertAll(p => p.Name)));
+		GD.Print("Current player index: ", playerIndex);
 		currentPlayer = players[playerIndex];
 
-		// Passing the signal that the player can start their turn
 		ChangeState(GameState.RoundStarting, new Dictionary
 		{
 			{ "Player", currentPlayer.Name },
@@ -49,23 +56,14 @@ public partial class GameManager : Node
 
 	public void SetPlayers(List<string> names)
 	{
-		if (players == null)
-			players = new List<Player>();
-
-		var oldNamesSet = new HashSet<string>(players.ConvertAll(p => p.Name));
-		var newNamesSet = new HashSet<string>(names);
-
-		bool playersChanged = !oldNamesSet.SetEquals(newNamesSet);
-		players.RemoveAll(p => !newNamesSet.Contains(p.Name));
+		players = new List<Player>();
 
 		foreach (string name in names)
 		{
-			if (!players.Exists(p => p.Name == name))
-				players.Add(new Player(name));
+			players.Add(new Player(name));
 		}
 
-		if (playersChanged)
-			currentKnight = null;
+		currentKnight = null;
 
 		if (players.Count < 2)
 			throw new System.InvalidOperationException("At least two players are required.");
@@ -73,78 +71,127 @@ public partial class GameManager : Node
 
 	public List<Player> GetPlayers() => players;
 
-	public void HandleResult(int result)
+	public void HandleResult(int result, bool canReroll)
 	{
-		HandleScore(result);
+		result = 32;
+		if (canReroll && currentPlayer.HasRerolled)
+		{
+			// Check if reroll is triggered
+			bool needsReroll = HandleScore(result);
+			if (needsReroll) return;
+		}
+
 		currentPlayer.addScore(result);
 
-		if (currentPlayer.isFinished)
+		if (currentPlayer.IsFinished)
 		{
 			Player finishedPlayer = currentPlayer;
 
-			// Move to the next player index, wrapping around
-			playerIndex = (playerIndex + 1) % players.Count;
-			currentPlayer = players[playerIndex];
-
-			// Check if the next player is also finished
-			if (!currentPlayer.isFinished)
+			// Try to find the next player who is not finished
+			int startIndex = playerIndex;
+			do
 			{
-				ChangeState(GameState.PlayerFinished, new Dictionary
+				playerIndex = (playerIndex + 1) % players.Count;
+				currentPlayer = players[playerIndex];
+
+				// If we've looped all the way around, break
+				if (playerIndex == startIndex)
+					break;
+
+			} while (currentPlayer.IsFinished);
+
+			Dictionary finishedStateData = new()
+			{
+				{ "Score", finishedPlayer.Score }
+			};
+
+			if (!currentPlayer.IsFinished)
+			{
+				finishedStateData.Add("Player", currentPlayer.Name);
+			}
+
+			ChangeState(GameState.PlayerFinished, finishedStateData);
+
+			if (!currentPlayer.IsFinished)
+			{
+				ChangeState(GameState.RoundStarting, new Dictionary
 				{
 					{ "Player", currentPlayer.Name },
-					{ "Score", finishedPlayer.Score },
 				});
-				StartRound();
 			}
 			else
 			{
-				ChangeState(GameState.RoundFinished, new Dictionary { });
+				ChangeState(GameState.RoundFinished, new Dictionary());
 				DetermineLoser();
 			}
-		}
 
+		}
 		else
 		{
 			int throwsLeft = currentPlayer.GetThrowsLeft();
-			ChangeState(GameState.PlayerTurn, new Dictionary 
-			{ 
+			ChangeState(GameState.PlayerTurn, new Dictionary
+			{
 				{ "ThrowsLeft", throwsLeft },
 				{ "Score", result },
-				{ "HighScore", currentPlayer.Score}
+				{ "HighScore", currentPlayer.Score }
 			});
 		}
 	}
 
-	private void HandleScore(int score)
+	private bool HandleScore(int score)
 	{
-		if (score == 21)
+		switch (score)
 		{
-			amountMexx++;
+			case 21:
+				amountMexx++;
+				return false;
+
+			case 32:
+				return false;
+
+			case 31:
+				SendPenaltyPopup(1, new Array<string> { currentPlayer.Name }, true);
+				// Brake because the player can still reroll
+				break;
+
+			case 100:
+				currentKnight = currentPlayer;
+				SendPopup("KnightPopUp", "Je bent nu de nieuwe ridder!");
+				// Brake because the player can still reroll
+				break;
+
+			case 600:
+				SendPenaltyPopup(1, new Array<string> { }, true, true, true);
+				return false;
 		}
-		else if (score == 31)
+		if (score % 10 == 1 || score % 10 == 2)
 		{
-			SendPenaltyPopup(1, new Array<string> { currentPlayer.Name }, true);
-		}
-		else if (score == 100)
-		{
-			currentKnight = currentPlayer;
-			SendPopup("KnightPopUp", "Je bent nu de nieuwe ridder!");
-		}
-		else if (score == 600)
-		{
-			SendPenaltyPopup(1, new Array<string> {}, true, true, true);
-		}
-		else if (score % 100 == 0)
-		{
-			if (currentKnight != null)
+			int tens = score / 10;
+			int ones = score % 10;
+
+			ChangeState(GameState.CanReroll, new Dictionary
 			{
-				int multiplier = score / 100;
-				int penalty = knightStrenght * multiplier;
-				string name = currentKnight.Name;
-				SendPenaltyPopup(penalty, new Array<string> { name }, currentPlayer == currentKnight, true);
-			}
+				{ "Tens", tens },
+				{ "Ones", ones }
+			});
+
+			// Cannot end on 31, so we allow rerolling
+			if (score != 31) currentPlayer.HasRerolled = true;
+
+			return true;
 		}
+		else if (score / 100 > 0 && currentKnight != null)
+		{
+			int multiplier = score / 100;
+			int penalty = knightStrenght * multiplier;
+			string name = currentKnight.Name;
+			SendPenaltyPopup(penalty, new Array<string> { name }, currentPlayer == currentKnight, true);
+			return false;
+		}
+		return false;
 	}
+
+
 
 	private void SendPenaltyPopup(int penalty, Array<string> names, bool give = false, bool knight = false, bool all = false)
 	{
@@ -170,9 +217,9 @@ public partial class GameManager : Node
 		SendPopup(popupType, text);
 	}
 
-	private void SendPopup(string sceneName, string text)
+	private void SendPopup(string popUp, string text)
 	{
-		var popup = NodeCreator.CreateNode(sceneName, new Godot.Collections.Dictionary<string, Variant> {
+		var popup = NodeCreator.CreateNode(popUp, new Godot.Collections.Dictionary<string, Variant> {
 			{ "Text", text }
 		});
 
@@ -210,5 +257,13 @@ public partial class GameManager : Node
 		Array<string> losers = GetLosers();
 		int penalty = CalculatePenalty();
 		SendPenaltyPopup(penalty, losers, false, false);
+
+		// Set the starting player for next round
+		if (losers.Count > 0)
+		{
+			string loserName = losers[0];
+			playerIndex = players.FindIndex(p => p.Name == loserName);
+		}
 	}
+
 }

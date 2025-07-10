@@ -13,6 +13,7 @@ public partial class Die : RigidBody3D
 	public bool IsRolling => _isRolling;
 
 	private List<DieRayCast> _rays = new List<DieRayCast>();
+	CollisionShape3D _collisionBox;
 
 	private float _rollingTimeout = 2.5f; // Seconds
 	private float _rollingTime = 0f;
@@ -20,6 +21,7 @@ public partial class Die : RigidBody3D
 	public override void _Ready()
 	{
 		Node3D rayParent = GetNode<Node3D>("RayCasts");
+		_collisionBox = GetNode<CollisionShape3D>("CollisionShape3D");
 		foreach (Node child in rayParent.GetChildren())
 		{
 			if (child is DieRayCast raycast)
@@ -28,6 +30,22 @@ public partial class Die : RigidBody3D
 			}
 		}
 		SleepingStateChanged += OnSleepingStateChanged;
+	}
+
+	public void Activate()
+	{
+		SetProcess(true);
+		SetPhysicsProcess(true);
+		_collisionBox.SetDeferred("disabled", false);
+		Show();
+	}
+
+	public void Deactivate()
+	{
+		SetProcess(false);
+		SetPhysicsProcess(false);
+		_collisionBox.SetDeferred("disabled", true);
+		Hide();
 	}
 
 	public void Reset()

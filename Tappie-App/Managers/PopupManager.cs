@@ -11,8 +11,20 @@ public class PopupManager
 	public PopupManager(Node parentNode)
 	{
 		parent = parentNode;
-		EventManager.Instance.PopupRequested += popup => EnqueuePopup(popup);
-		EventManager.Instance.PopupClosed += () => OnPopupClosed();
+		EventManager.Instance.PopupRequested += EnqueuePopup;
+		EventManager.Instance.PopupClosed += OnPopupClosed;
+	}
+
+	public void Dispose()
+	{
+		EventManager.Instance.PopupRequested -= EnqueuePopup;
+		EventManager.Instance.PopupClosed -= OnPopupClosed;
+		if (currentPopup != null)
+		{
+			currentPopup.QueueFree();
+			currentPopup = null;
+		}
+		popupQueue.Clear();
 	}
 
 	public void EnqueuePopup(Node popup)
@@ -23,12 +35,7 @@ public class PopupManager
 
 	public void OnPopupClosed()
 	{
-		if (currentPopup != null)
-		{
-			parent.RemoveChild(currentPopup);
-			currentPopup.QueueFree();
-			currentPopup = null;
-		}
+		currentPopup = null;
 		ShowNext();
 	}
 

@@ -27,7 +27,7 @@ public partial class EventManager : Node
     public delegate void DieRolledEventHandler();
 
     [Signal]
-    public delegate void DiceThrownEventHandler(int score);
+    public delegate void DiceThrownEventHandler(int score, bool canReroll = true);
 
 	[Signal]
     public delegate void GameStateChangedEventHandler(GameState newState, Dictionary gameStateContext);

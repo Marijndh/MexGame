@@ -17,8 +17,21 @@ public class Player {
 
 	private List<int> scores;
 
-    public bool isFinished = false;
-    public Player(string name) {
+    private bool isFinished = false;
+
+    public bool IsFinished
+    {
+        get { return isFinished; }
+	}
+
+	private bool hasRerolled = false;
+
+    public bool HasRerolled
+    {
+        get { return hasRerolled; }
+        set { hasRerolled = value; }
+    }
+	public Player(string name) {
         this.name = name;
         highestScore = 0;
         scores = new List<int>();
@@ -27,6 +40,7 @@ public class Player {
 	public void addScore(int score)
 	{
 		scores.Add(score);
+        hasRerolled = false;
 
 		if (score == 21 || score == 32)
 		{
@@ -38,13 +52,13 @@ public class Player {
 		if (score > this.highestScore)
 			this.highestScore = score;
 
-		if (scores.Count == 3)
+		if (scores.Count == 1)
 			isFinished = true;
 	}
 
     public int GetThrowsLeft()
     {
-        return 3 - scores.Count;
+        return 1 - scores.Count;
 	}
 
     public void Reset(){
