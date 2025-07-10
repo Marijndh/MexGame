@@ -113,4 +113,13 @@ public class DiceManager
 
 		EmitRollResult();		
 	}
+
+	public void PrepareThrow()
+	{
+		foreach (Die die in dice)
+		{
+			if (!die.Visible) continue;
+			die.SetThrowRotation();
+		}
+	}
 }

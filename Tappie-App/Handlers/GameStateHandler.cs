@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class GameStateHandler
 {
 	private GameState _currentState = GameState.Idle;
+	public GameState CurrentState => _currentState;
 
 	private Label _scoreLabel;
 	private Label _nameLabel;
@@ -110,6 +111,7 @@ public class GameStateHandler
 	{
 		if (context.TryGetValue("Player", out Variant player))
 			_nameLabel.Text = $"{player},\nJij bent nu aan de beurt!";
+		_diceManager.PrepareThrow();
 	}
 
 	private void HandleRerollDie(Dictionary context)

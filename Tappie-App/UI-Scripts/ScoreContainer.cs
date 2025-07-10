@@ -62,7 +62,7 @@ public partial class ScoreContainer : HBoxContainer
 
 			Player player = players[i];
 			bool isLast = player.Score == lowestScore;
-			scoreBar.SetData(player.Score, i, player.Name, isLast);
+			scoreBar.SetData(player.Score, i, player.Name, isLast, player.IsFinished);
 		}
 
 		// Remove extra children

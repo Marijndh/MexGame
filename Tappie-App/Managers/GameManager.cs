@@ -73,8 +73,7 @@ public partial class GameManager : Node
 
 	public void HandleResult(int result, bool canReroll)
 	{
-		result = 32;
-		if (canReroll && currentPlayer.HasRerolled)
+		if (canReroll && !currentPlayer.HasRerolled)
 		{
 			// Check if reroll is triggered
 			bool needsReroll = HandleScore(result);

@@ -17,18 +17,26 @@ public partial class ScoreBar : Panel
 		_image = GetNode<TextureRect>("Image");
 	}
 
-	public void SetData(int score, int position, string name, bool isLast)
+	public void SetData(int score, int position, string name, bool last, bool finished)
 	{
-		_scoreLabel.Text = score.ToString();
+		_scoreLabel.Text = finished ? score.ToString() : "?";
 		_nameLabel.Text = name;
 
-		SetStyleBox(score);
-		SetImageOrPosition(position, isLast);
+		SetStyleBox(score, last, finished);
+		SetImageOrPosition(position, last, finished);
 	}
 
-	private void SetStyleBox(int score)
+	private void SetStyleBox(int score, bool last, bool finished)
 	{
-		Color color = GetColorFromScore(score);
+		Color color = Colors.Purple; // Default color for unfinished scores
+		if (finished && !last)
+		{
+			color = GetColorFromScore(score);
+		} 
+		else if (finished && last)
+		{
+			color = Colors.Red; // Color for the last unfinished score
+		}
 		StyleBoxFlat styleBox = new StyleBoxFlat
 		{
 			BgColor = color,
@@ -49,9 +57,9 @@ public partial class ScoreBar : Panel
 
 	}
 
-	private void SetImageOrPosition(int position, bool last)
+	private void SetImageOrPosition(int position, bool last, bool finished)
 	{
-		if (last)
+		if (last && finished)
 		{
 			_image.Texture = GD.Load<Texture2D>(_imagePath + "last.svg");
 		}

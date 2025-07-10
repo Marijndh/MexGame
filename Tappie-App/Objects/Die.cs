@@ -108,6 +108,16 @@ public partial class Die : RigidBody3D
 		RotationDegrees = newRotation;
 	}
 
+	public void SetThrowRotation()
+	{
+		// Allowed X-axis rotations for edge-forward pose
+		float[] allowedXRotations = { -135f, 135f, 45f, -45f };
+
+		float selectedX = allowedXRotations[GD.RandRange(0, allowedXRotations.Length - 1)];
+
+		RotationDegrees = new Vector3(selectedX, 90f, 45f);
+	}
+
 	private void OnSleepingStateChanged()
 	{
 		if (Sleeping && _isRolling)
