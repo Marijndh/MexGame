@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 using System.Collections.Generic;
 
@@ -24,6 +24,9 @@ public partial class Play : Node3D
 	private Vector2 dragEndPos;
 	private Camera3D camera;
 
+	private float _lastInputTime = 0f;
+	private float _inputTimeout = 3f; // seconds
+
 	public override void _Ready()
 	{
 		camera = GetViewport().GetCamera3D();
@@ -36,7 +39,7 @@ public partial class Play : Node3D
 
 		_diceManager = new DiceManager(dice);
 		_gameStateHandler = new GameStateHandler(canvasLayer, _gameManager, _sceneManager, _diceManager);
-		_popupManager = new PopupManager(this);
+		_popupManager = new PopupManager(this, _gameStateHandler);
 						
 		_gameManager.StartRound();
 	}
@@ -46,6 +49,20 @@ public partial class Play : Node3D
 		_gameStateHandler.Dispose();
 		_diceManager.Dispose();
 		_popupManager.Dispose();
+	}
+
+	public override void _Process(double delta)
+	{
+		if (_popupManager.CurrentStateHasInstructions() && !_popupManager.PopupIsOpen)
+		{
+			_lastInputTime += (float)delta;
+
+			if (_lastInputTime >= _inputTimeout)
+			{
+				GD.Print("Showing instructions due to inactivity.");
+				_popupManager.ShowInstructions();
+			}
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -60,9 +77,14 @@ public partial class Play : Node3D
 
 			if (deltaAccel.Length() > _shakeThreshold && _shakeTimer <= 0f)
 			{
-				_diceManager.ThrowDice(Vector3.Forward, 10);
+				Vector3 throwDirection = GetRandomThrowVector();
+				float power = (float)GD.RandRange(12f, 18f);
+				_diceManager.ThrowDice(throwDirection, power);
+
 				_shakeTimer = _shakeCooldown;
-				_lastAccel = Vector3.Zero; // Reset last acceleration to avoid multiple triggers
+				_lastAccel = Vector3.Zero;
+
+				_lastInputTime = 0f; // Reset on shake
 			}
 
 			_lastAccel = currentAccel;
@@ -71,7 +93,11 @@ public partial class Play : Node3D
 		{
 			if (Input.IsActionJustPressed("ui_select"))
 			{
-				_diceManager.ThrowDice(Vector3.Forward, 10);
+				Vector3 throwDirection = GetRandomThrowVector();
+				float power = (float)GD.RandRange(12f, 18f);
+				_diceManager.ThrowDice(throwDirection, power);
+
+				_lastInputTime = 0f; // Reset on input
 			}
 		}
 	}
@@ -82,10 +108,11 @@ public partial class Play : Node3D
 
 		if (@event is InputEventScreenTouch touch)
 		{
-			if (!_popupManager.PopupIsOpen) _gameStateHandler.OnUserTouch();
+			_lastInputTime = 0f; // Reset on any touch
 
-			if (!_gameStateHandler.CanThrowDice())
-				return;
+			if (!_popupManager.PopupIsOpen) _gameStateHandler.OnUserTouch();
+			if (!_gameStateHandler.CanThrowDice()) return;
+
 			position = touch.Position;
 			if (touch.Pressed)
 				StartDrag(position);
@@ -94,10 +121,11 @@ public partial class Play : Node3D
 		}
 		else if (@event is InputEventMouseButton mouseBtn && mouseBtn.ButtonIndex == MouseButton.Left)
 		{
-			if (!_popupManager.PopupIsOpen) _gameStateHandler.OnUserTouch();
+			_lastInputTime = 0f; // Reset on any mouse click
 
-			if (!_gameStateHandler.CanThrowDice())
-				return;
+			if (!_popupManager.PopupIsOpen) _gameStateHandler.OnUserTouch();
+			if (!_gameStateHandler.CanThrowDice()) return;
+
 			position = mouseBtn.Position;
 			if (mouseBtn.Pressed)
 				StartDrag(position);
@@ -105,6 +133,7 @@ public partial class Play : Node3D
 				EndDrag(position);
 		}
 	}
+
 	private void StartDrag(Vector2 position)
 	{
 		isDragging = true;
@@ -139,4 +168,18 @@ public partial class Play : Node3D
 			dice.Add(dieNode);
 		}
 	}
+	private Vector3 GetRandomThrowVector()
+	{
+		// ±45 degrees in radians
+		float maxAngle = Mathf.DegToRad(45f);
+
+		// Random angle between -45° and 45°
+		float angle = (float)(GD.RandRange(-maxAngle, maxAngle));
+
+		// Rotate forward vector around the Y-axis
+		Vector3 direction = Vector3.Forward.Rotated(Vector3.Up, angle).Normalized();
+
+		return direction;
+	}
+
 }

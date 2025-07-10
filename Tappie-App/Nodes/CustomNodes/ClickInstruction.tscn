@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlmv0ydc3hrxe"]
+
+[ext_resource type="Texture2D" uid="uid://brxve3uu1336u" path="res://Assets/Sprites/click.png" id="1_ymiby"]
+
+[sub_resource type="Animation" id="Animation_bajbr"]
+resource_name = "Click"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 0.9, 1.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.25, 0.25), Vector2(0.3, 0.3), Vector2(0.3, 0.3), Vector2(0.25, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 0.9, 1.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(900, 1000), Vector2(800, 900), Vector2(800, 900), Vector2(900, 1000)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u7i03"]
+_data = {
+"Click": SubResource("Animation_bajbr")
+}
+
+[node name="ClickInstruction" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(900, 1000)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_ymiby")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u7i03")
+}
+autoplay = "Click"
