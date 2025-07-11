@@ -40,7 +40,8 @@ public partial class Play : Node3D
 		_diceManager = new DiceManager(dice);
 		_gameStateHandler = new GameStateHandler(canvasLayer, _gameManager, _sceneManager, _diceManager);
 		_popupManager = new PopupManager(this, _gameStateHandler);
-						
+
+		_gameManager.Instantiate(_popupManager);
 		_gameManager.StartRound();
 	}
 
@@ -51,17 +52,26 @@ public partial class Play : Node3D
 		_popupManager.Dispose();
 	}
 
+	private bool _instructionsShown = false;
+
 	public override void _Process(double delta)
 	{
 		if (_popupManager.CurrentStateHasInstructions() && !_popupManager.PopupIsOpen)
 		{
 			_lastInputTime += (float)delta;
 
-			if (_lastInputTime >= _inputTimeout)
+			if (_lastInputTime >= _inputTimeout && !_instructionsShown)
 			{
 				GD.Print("Showing instructions due to inactivity.");
 				_popupManager.ShowInstructions();
+				_instructionsShown = true;
 			}
+		}
+		else
+		{
+			// Reset flag when popup is open or state changes
+			_instructionsShown = false;
+			_lastInputTime = 0f;
 		}
 	}
 
@@ -110,27 +120,29 @@ public partial class Play : Node3D
 		{
 			_lastInputTime = 0f; // Reset on any touch
 
-			if (!_popupManager.PopupIsOpen) _gameStateHandler.OnUserTouch();
-			if (!_gameStateHandler.CanThrowDice()) return;
-
-			position = touch.Position;
-			if (touch.Pressed)
-				StartDrag(position);
-			else if (isDragging)
-				EndDrag(position);
+			if (_popupManager.CanClickThruPopUp()) _gameStateHandler.OnUserTouch();
+			if (_gameStateHandler.CanThrowDice())
+			{
+				position = touch.Position;
+				if (touch.Pressed)
+					StartDrag(position);
+				else if (isDragging)
+					EndDrag(position);
+			}
 		}
 		else if (@event is InputEventMouseButton mouseBtn && mouseBtn.ButtonIndex == MouseButton.Left)
 		{
 			_lastInputTime = 0f; // Reset on any mouse click
 
-			if (!_popupManager.PopupIsOpen) _gameStateHandler.OnUserTouch();
-			if (!_gameStateHandler.CanThrowDice()) return;
-
-			position = mouseBtn.Position;
-			if (mouseBtn.Pressed)
-				StartDrag(position);
-			else if (isDragging)
-				EndDrag(position);
+			if (_popupManager.CanClickThruPopUp()) _gameStateHandler.OnUserTouch();
+			if (_gameStateHandler.CanThrowDice())
+			{
+				position = mouseBtn.Position;
+				if (mouseBtn.Pressed)
+					StartDrag(position);
+				else if (isDragging)
+					EndDrag(position);
+			}			
 		}
 	}
 

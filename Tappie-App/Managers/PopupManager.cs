@@ -4,24 +4,22 @@ using System.Collections.Generic;
 
 public class PopupManager
 {
-	private Queue<Node> popupQueue = new();
-	private Node currentPopup;
+	private Queue<PopUp> popupQueue = new();
+	private PopUp currentPopup;
 	private Node parent;
 	private GameStateHandler gameStateHandler;
 	public bool PopupIsOpen => currentPopup != null;
 
-	public PopupManager(Node parent, GameStateHandler gameStateHandler)
+	public PopupManager(Node parent, GameStateHandler gameStateHandler = null)
 	{
 		this.parent = parent;
 		this.gameStateHandler = gameStateHandler;
-		EventManager.Instance.PopupRequested += EnqueuePopup;
 		EventManager.Instance.PopupClosed += OnPopupClosed;
 		EventManager.Instance.GameStateChanged += OnGameStateChanged;
 	}
 
 	public void Dispose()
 	{
-		EventManager.Instance.PopupRequested -= EnqueuePopup;
 		EventManager.Instance.PopupClosed -= OnPopupClosed;
 		EventManager.Instance.GameStateChanged -= OnGameStateChanged;
 		if (currentPopup != null)
@@ -32,7 +30,30 @@ public class PopupManager
 		popupQueue.Clear();
 	}
 
-	private void EnqueuePopup(Node popup)
+	public void AddPopUp(string popUp, string text = "", bool overrides = true)
+	{
+		Node node;
+		Godot.Collections.Dictionary<string, Variant> dict = new();
+
+		if (text != "")
+		{
+			dict.Add("Text", text);
+		}
+		node = NodeCreator.CreateNode(popUp, dict);
+
+		if (node is PopUp popUpNode)
+		{
+			popUpNode.Overrides = overrides;
+			EnqueuePopup(popUpNode);
+		}
+		else
+		{
+			GD.PrintErr($"Node {popUp} is not a PopUp type.");
+		}
+
+	}
+
+	private void EnqueuePopup(PopUp popup)
 	{
 		popupQueue.Enqueue(popup);
 		if (!PopupIsOpen) ShowNext();
@@ -62,6 +83,9 @@ public class PopupManager
 
 	public bool CurrentStateHasInstructions()
 	{
+		if (gameStateHandler == null)
+			return false;
+
 		switch (gameStateHandler.CurrentState)
 		{
 			case GameState.RoundStarting:
@@ -72,15 +96,12 @@ public class PopupManager
 				return false;
 		}
 	}
-	
-	private void InstantiateInstruction(string name)
-	{
-		Node popUp = NodeCreator.CreateNode(name, null);
-		EnqueuePopup(popUp);
-	}
 
 	public void ShowInstructions()
 	{
+		if (gameStateHandler == null)
+			return;
+
 		switch (gameStateHandler.CurrentState)
 		{
 			case GameState.RoundStarting:
@@ -88,10 +109,16 @@ public class PopupManager
 				// TODO add swipe and shake instructions
 				break;
 			case GameState.PlayerFinished:
-				InstantiateInstruction("ClickInstruction"); 
+				AddPopUp("ClickInstruction", overrides: false); 
 				break;
-				
 		}
+	}
+
+	public bool CanClickThruPopUp()
+	{
+		if (currentPopup == null)
+			return true;
+		return !currentPopup.Overrides;
 	}
 }
 

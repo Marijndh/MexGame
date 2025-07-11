@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlmv0ydc3hrxe"]
+[gd_scene load_steps=5 format=3 uid="uid://dlmv0ydc3hrxe"]
 
+[ext_resource type="Script" path="res://UI-Scripts/PopUp.cs" id="1_pq1oa"]
 [ext_resource type="Texture2D" uid="uid://brxve3uu1336u" path="res://Assets/Sprites/click.png" id="1_ymiby"]
 
 [sub_resource type="Animation" id="Animation_bajbr"]
@@ -39,6 +40,7 @@ _data = {
 [node name="ClickInstruction" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_pq1oa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(900, 1000)

@@ -21,9 +21,6 @@ public partial class EventManager : Node
     public delegate void PopupClosedEventHandler();
 
     [Signal]
-    public delegate void PopupRequestedEventHandler(Node popupNode);
-
-    [Signal]
     public delegate void DieRolledEventHandler();
 
     [Signal]

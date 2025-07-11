@@ -2,8 +2,9 @@
 using Godot.Collections;
 using System.Collections.Generic;
 
-public partial class GameManager : Node
+public partial class GameManager: Node
 {
+	private PopupManager popupManager;
 	private Player currentKnight = null;
 	private Player currentPlayer = null;
 	private List<Player> players = new List<Player>();
@@ -20,6 +21,10 @@ public partial class GameManager : Node
 			SetPlayers(new List<string> { "Speler 1", "Speler 2", "Speler 3" });
 		}
 		EventManager.Instance.DiceThrown += HandleResult;
+	}
+	public void Instantiate(PopupManager popupManager)
+	{
+		this.popupManager = popupManager;
 	}
 
 	public override void _ExitTree()
@@ -155,7 +160,7 @@ public partial class GameManager : Node
 
 			case 100:
 				currentKnight = currentPlayer;
-				SendPopup("KnightPopUp", "Je bent nu de nieuwe ridder!");
+				popupManager.AddPopUp("KnightPopUp", "Je bent nu de nieuwe ridder!");
 				// Brake because the player can still reroll
 				break;
 
@@ -213,17 +218,7 @@ public partial class GameManager : Node
 		}
 
 		string popupType = knight ? "KnightPopUp" : "PopUp";
-		SendPopup(popupType, text);
-	}
-
-	private void SendPopup(string popUp, string text)
-	{
-		var popup = NodeCreator.CreateNode(popUp, new Godot.Collections.Dictionary<string, Variant> {
-			{ "Text", text }
-		});
-
-		if (popup != null)
-			EventManager.Instance.EmitSignal(nameof(EventManager.Instance.PopupRequested), popup);
+		popupManager.AddPopUp(popupType, text);
 	}
 
 	private int CalculatePenalty()
