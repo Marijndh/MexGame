@@ -106,10 +106,10 @@ public class PopupManager
 		{
 			case GameState.RoundStarting:
 			case GameState.IsRerolling:
-				// TODO add swipe and shake instructions
+				AddPopUp("ThrowInstruction", overrides: false);
 				break;
 			case GameState.PlayerFinished:
-				AddPopUp("ClickInstruction", overrides: false); 
+				AddPopUp("ClickInstruction", overrides: true); 
 				break;
 		}
 	}
