@@ -1,13 +1,13 @@
 [gd_scene load_steps=7 format=3 uid="uid://bgrhdv60hivwm"]
 
-[ext_resource type="Script" path="res://Scenes/SelectPlayers.cs" id="1_pih5j"]
+[ext_resource type="Script" uid="uid://by2m71pq82cvg" path="res://Scenes/SelectPlayers.cs" id="1_pih5j"]
 [ext_resource type="PackedScene" uid="uid://dg4ax5i8o51fa" path="res://Nodes/UINodes/Background.tscn" id="2_2qw2k"]
 [ext_resource type="FontFile" uid="uid://cuoy8uw4mb52v" path="res://Assets/Fonts/Coffee Spark.ttf" id="2_kr0e8"]
 [ext_resource type="PackedScene" uid="uid://doaruktuv2ec0" path="res://Nodes/CustomNodes/NameInputContainer.tscn" id="4_e5xk7"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ig6jt"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xc5wj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ig6jt"]
 
 [node name="SelectPlayerNames" type="CanvasLayer"]
 script = ExtResource("1_pih5j")
@@ -41,8 +41,8 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_kr0e8")
 theme_override_font_sizes/font_size = 70
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_ig6jt")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xc5wj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ig6jt")
 button_mask = 7
 text = "Ga Verder"
 flat = true

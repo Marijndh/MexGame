@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://qfucrf5i7vbx"]
 
-[ext_resource type="Script" path="res://UI-Scripts/ScoreContainer.cs" id="1_t8hbo"]
+[ext_resource type="Script" uid="uid://b6uhv3rx2m6dm" path="res://UI-Scripts/ScoreContainer.cs" id="1_t8hbo"]
 
 [sub_resource type="Theme" id="Theme_4kl0c"]
 HBoxContainer/constants/separation = 20

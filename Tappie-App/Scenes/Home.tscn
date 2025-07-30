@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://duwmwl38on26w"]
 
 [ext_resource type="FontFile" uid="uid://ciklh6pynu5cb" path="res://Assets/Fonts/This Cafe.ttf" id="1_eailu"]
-[ext_resource type="Script" path="res://Scenes/Home.cs" id="1_h3lei"]
+[ext_resource type="Script" uid="uid://8qyhm4dbitj2" path="res://Scenes/Home.cs" id="1_h3lei"]
 [ext_resource type="Texture2D" uid="uid://dk70wfd0qcwg0" path="res://Assets/Sprites/info.png" id="1_opr3f"]
 [ext_resource type="PackedScene" uid="uid://dg4ax5i8o51fa" path="res://Nodes/UINodes/Background.tscn" id="2_ixo5p"]
 
@@ -123,17 +123,17 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_88l5c"]
 _data = {
-"RESET": SubResource("Animation_fcibs"),
-"Text": SubResource("Animation_k5uef")
+&"RESET": SubResource("Animation_fcibs"),
+&"Text": SubResource("Animation_k5uef")
 }
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_md8y6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5c4hh"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fg1a8"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_md8y6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oftbm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fg1a8"]
 
 [node name="Home" type="CanvasLayer"]
 script = ExtResource("1_h3lei")
@@ -142,7 +142,7 @@ script = ExtResource("1_h3lei")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_88l5c")
+&"": SubResource("AnimationLibrary_88l5c")
 }
 autoplay = "RESET"
 
@@ -156,8 +156,8 @@ offset_left = -150.0
 offset_top = -150.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_md8y6")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_5c4hh")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_md8y6")
 button_mask = 7
 icon = ExtResource("1_opr3f")
 flat = true
@@ -209,8 +209,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_eailu")
 theme_override_font_sizes/font_size = 200
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_fg1a8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_oftbm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fg1a8")
 action_mode = 0
 button_mask = 7
 text = "Start"

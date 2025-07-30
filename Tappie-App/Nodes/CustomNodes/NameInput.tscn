@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bmkwdpjaijeos"]
 
-[ext_resource type="Script" path="res://UI-Scripts/NameInput.cs" id="1_fb2m0"]
-[ext_resource type="Script" path="res://UI-Scripts/CustomLineEdit.cs" id="2_pu7el"]
+[ext_resource type="Script" uid="uid://cd2wxbxdt4fcn" path="res://UI-Scripts/NameInput.cs" id="1_fb2m0"]
+[ext_resource type="Script" uid="uid://cdix12egti701" path="res://UI-Scripts/CustomLineEdit.cs" id="2_pu7el"]
 [ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Assets/Sprites/delete_button.png" id="2_stc5a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvriq"]

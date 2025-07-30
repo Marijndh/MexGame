@@ -21,7 +21,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wfcmm"]
 _data = {
-"pop_out": SubResource("Animation_nb3yn")
+&"pop_out": SubResource("Animation_nb3yn")
 }
 
 [node name="AddPlayerInputButton" type="TextureButton"]

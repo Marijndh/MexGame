@@ -95,7 +95,7 @@ public class PopupManager
 			default:
 				return false;
 		}
-	}
+	} 
 
 	public void ShowInstructions()
 	{

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dlmv0ydc3hrxe"]
 
-[ext_resource type="Script" path="res://UI-Scripts/PopUp.cs" id="1_pq1oa"]
+[ext_resource type="Script" uid="uid://4p60k0aa2rat" path="res://UI-Scripts/PopUp.cs" id="1_pq1oa"]
 [ext_resource type="Texture2D" uid="uid://brxve3uu1336u" path="res://Assets/Sprites/click.png" id="1_ymiby"]
 
 [sub_resource type="Animation" id="Animation_bajbr"]
@@ -34,7 +34,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u7i03"]
 _data = {
-"Click": SubResource("Animation_bajbr")
+&"Click": SubResource("Animation_bajbr")
 }
 
 [node name="ClickInstruction" type="Control"]
@@ -49,6 +49,6 @@ texture = ExtResource("1_ymiby")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_u7i03")
+&"": SubResource("AnimationLibrary_u7i03")
 }
 autoplay = "Click"

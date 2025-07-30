@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bhcdqjrql7133"]
 
-[ext_resource type="Script" path="res://Objects/Die.cs" id="1_clgn6"]
+[ext_resource type="Script" uid="uid://cd3xgpmhh71ea" path="res://Objects/Die.cs" id="1_clgn6"]
 [ext_resource type="PackedScene" uid="uid://dxqyfk0w35mv0" path="res://Assets/3D Models/die.blend" id="2_pr4xb"]
 [ext_resource type="PackedScene" uid="uid://csn4jb2w8v65r" path="res://Nodes/GameNodes/DieRayCast.tscn" id="3_lu6dx"]
 

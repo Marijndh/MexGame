@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dh3af3r7ya32j"]
 
-[ext_resource type="Script" path="res://UI-Scripts/ScoreBar.cs" id="1_ky4tx"]
+[ext_resource type="Script" uid="uid://bed6i2xr2bqms" path="res://UI-Scripts/ScoreBar.cs" id="1_ky4tx"]
 [ext_resource type="FontFile" uid="uid://cka0jccye22n1" path="res://Assets/Fonts/WDXLLubrifontSC-Regular.ttf" id="2_lefhf"]
 
 [sub_resource type="Theme" id="Theme_aqft6"]

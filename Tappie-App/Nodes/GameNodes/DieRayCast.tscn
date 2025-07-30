@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://csn4jb2w8v65r"]
 
-[ext_resource type="Script" path="res://Objects/DieRayCast.cs" id="1_ihwxs"]
+[ext_resource type="Script" uid="uid://bi1ip7gpmw6y7" path="res://Objects/DieRayCast.cs" id="1_ihwxs"]
 
 [node name="DieRayCast" type="RayCast3D"]
 target_position = Vector3(0, -0.1, 0)

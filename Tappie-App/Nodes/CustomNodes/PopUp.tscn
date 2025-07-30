@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c08fjt0pn34o5" path="res://Assets/Sprites/pop-up.png" id="1_rvuvs"]
 [ext_resource type="FontFile" uid="uid://cuoy8uw4mb52v" path="res://Assets/Fonts/Coffee Spark.ttf" id="2_3yy37"]
 [ext_resource type="Texture2D" uid="uid://be8l78ywnny1c" path="res://Assets/Sprites/delete_button.png" id="3_xy6ke"]
-[ext_resource type="Script" path="res://UI-Scripts/PopUp.cs" id="4_yjdai"]
+[ext_resource type="Script" uid="uid://4p60k0aa2rat" path="res://UI-Scripts/PopUp.cs" id="4_yjdai"]
 
 [node name="PopUp" type="CanvasLayer"]
 script = ExtResource("4_yjdai")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=3 uid="uid://dwp8iqbg3evhh"]
 
-[ext_resource type="Script" path="res://Scenes/Play.cs" id="1_corqm"]
+[ext_resource type="Script" uid="uid://cvkfq58j74luk" path="res://Scenes/Play.cs" id="1_corqm"]
 [ext_resource type="FontFile" uid="uid://ciklh6pynu5cb" path="res://Assets/Fonts/This Cafe.ttf" id="2_8dqwo"]
 [ext_resource type="PackedScene" uid="uid://bhcdqjrql7133" path="res://Nodes/GameNodes/Die.tscn" id="3_2k1rp"]
 [ext_resource type="PackedScene" uid="uid://qfucrf5i7vbx" path="res://Nodes/CustomNodes/ScoreContainer.tscn" id="3_jagrv"]
@@ -44,28 +44,28 @@ Label/fonts/font = ExtResource("2_8dqwo")
 [sub_resource type="Theme" id="Theme_7b38r"]
 default_font = ExtResource("2_8dqwo")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5cmj"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tpngu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqx72"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fknnw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pxdvm"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqx72"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tpngu"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5cmj"]
 
 [sub_resource type="Theme" id="Theme_uube7"]
 default_font = ExtResource("2_8dqwo")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4g2h"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqbdq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rvptf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ujf7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e215d"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rvptf"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqbdq"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4g2h"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_js1yn"]
 
@@ -147,15 +147,15 @@ offset_bottom = 647.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_7b38r")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 100
-theme_override_styles/normal = SubResource("StyleBoxEmpty_j5cmj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tpngu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wqx72")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_fknnw")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_pxdvm")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_wqx72")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_tpngu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j5cmj")
 text = "Doorgaan"
 metadata/_edit_use_anchors_ = true
 
@@ -175,15 +175,15 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_uube7")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 100
-theme_override_styles/normal = SubResource("StyleBoxEmpty_q4g2h")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vqbdq")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rvptf")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_5ujf7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_e215d")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_rvptf")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_vqbdq")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_q4g2h")
 text = "Sluiten"
 
 [node name="Yes" type="Button" parent="Canvas"]
@@ -200,15 +200,15 @@ offset_bottom = 647.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_7b38r")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 125
-theme_override_styles/normal = SubResource("StyleBoxEmpty_j5cmj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tpngu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wqx72")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_fknnw")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_pxdvm")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_wqx72")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_tpngu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j5cmj")
 text = "Ja"
 metadata/_edit_use_anchors_ = true
 
@@ -228,15 +228,15 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_uube7")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 125
-theme_override_styles/normal = SubResource("StyleBoxEmpty_q4g2h")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vqbdq")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rvptf")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_5ujf7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_e215d")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_rvptf")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_vqbdq")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_q4g2h")
 text = "Nee"
 
 [node name="Container" parent="Canvas" instance=ExtResource("3_jagrv")]
