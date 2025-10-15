@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://dh3af3r7ya32j"]
+
+[ext_resource type="Script" path="res://UI-Scripts/ScoreBar.cs" id="1_ky4tx"]
+[ext_resource type="FontFile" uid="uid://cka0jccye22n1" path="res://Assets/Fonts/WDXLLubrifontSC-Regular.ttf" id="2_lefhf"]
+
+[sub_resource type="Theme" id="Theme_aqft6"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0.144063, 0.144063, 0.144063, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.941176)
+Label/constants/outline_size = 7
+Label/constants/shadow_offset_x = 2
+Label/constants/shadow_offset_y = 2
+Label/constants/shadow_outline_size = 23
+Label/font_sizes/font_size = 60
+Label/fonts/font = ExtResource("2_lefhf")
+
+[sub_resource type="Theme" id="Theme_bcoco"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0.212305, 0.212305, 0.212305, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 21
+Label/font_sizes/font_size = 60
+Label/fonts/font = ExtResource("2_lefhf")
+
+[sub_resource type="Theme" id="Theme_cm2v3"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(1, 1, 1, 1)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 7
+Label/constants/shadow_offset_x = 3
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 3
+Label/font_sizes/font_size = 50
+Label/fonts/font = ExtResource("2_lefhf")
+
+[node name="Panel" type="Panel"]
+custom_minimum_size = Vector2(400, 100)
+offset_right = 350.0
+offset_bottom = 70.0
+script = ExtResource("1_ky4tx")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -36.0
+offset_right = 100.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_aqft6")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -95.0
+offset_right = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_bcoco")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Position" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -24.0
+offset_right = 90.0
+offset_bottom = 24.0
+grow_vertical = 2
+theme = SubResource("Theme_cm2v3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Image" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -40.0
+offset_right = 105.0
+offset_bottom = 60.0
+grow_vertical = 2
+expand_mode = 1

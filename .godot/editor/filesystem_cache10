@@ -1,0 +1,87 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1753886457
+icon.svg::CompressedTexture2D/CompressedTexture2D::4996056373192913632::1750776747::1753876668::1::::<><><>0<>0<>44efd052aa4b68938a85cf2704e59233<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+::res://Assets/::1750778174
+::res://Assets/3D Models/::1753876678
+die.blend::PackedScene/PackedScene::8808102200506726339::1750776747::1753876678::1::::<><><>0<>0<>87b5a40b21f200f8248936097f3b81e1<>res://.godot/imported/die.blend-9aec5d010e04644dd8a2cdf765ede610.scn::
+::res://Assets/Fonts/::1753876668
+Coffee Spark.ttf::FontFile/FontFile::6207036753515381643::1750790817::1753876668::1::::<><><>0<>0<>35b61a1297594bb71084b61e9cc70253<>res://.godot/imported/Coffee Spark.ttf-4fa35d08979c1e3ebca5aea61917d583.fontdata::
+This Cafe.ttf::FontFile/FontFile::5355677934013388397::1750776747::1753876668::1::::<><><>0<>0<>ac4c315d6aacf3c49ca8eb81f38e3b27<>res://.godot/imported/This Cafe.ttf-136750a72e15b1f144c3c52c8eb14927.fontdata::
+WDXLLubrifontSC-Regular.ttf::FontFile/FontFile::5476263909964029144::1750963447::1753876668::1::::<><><>0<>0<>e52a9ac960c34046c3268d1d9b51ce7f<>res://.godot/imported/WDXLLubrifontSC-Regular.ttf-af780e6e3bcfa2134e39d8182b7f4142.fontdata::
+::res://Assets/Sprites/::1753883188
+AddPlayerBar.png::CompressedTexture2D/CompressedTexture2D::6007296692416785815::1750776747::1753876668::1::::<><><>0<>0<>253ed8362e4bd6d2c89c485dea555fb0<>res://.godot/imported/AddPlayerBar.png-43963608725dbe05303042ea48ff7a76.ctex::
+bar.png::CompressedTexture2D/CompressedTexture2D::6295065804477107885::1753883186::1753883188::1::::<><><>0<>0<>9f6d93afcd656eb3b7e4aed7c843e0ae<>res://.godot/imported/bar.png-6e9cdc03d4f915a6583db77d1c57fcc2.ctex::
+click.png::CompressedTexture2D/CompressedTexture2D::3628395416401221282::1753878271::1753878280::1::::<><><>0<>0<>27602e5893d0ae78f63cd377830c9e87<>res://.godot/imported/click.png-8a72058e926ed7a343f0305219fa66ad.ctex::
+continue.png::CompressedTexture2D/CompressedTexture2D::6998963852183569348::1750776747::1753876668::1::::<><><>0<>0<>b1de8197ebcf4f58e0235723c75dd91d<>res://.godot/imported/continue.png-81e25f2034f95ed603142f7aeaa1ea35.ctex::
+delete_button.png::CompressedTexture2D/CompressedTexture2D::2736027327817942990::1750776747::1753876668::1::::<><><>0<>0<>f21a2bd6dab9f9e02ecf661108a3edb9<>res://.godot/imported/delete_button.png-16c5374e0839672fd47985ba6943573b.ctex::
+game info.png::CompressedTexture2D/CompressedTexture2D::2316241420580986003::1750776747::1753876669::1::::<><><>0<>0<>316051a3e94ae32823fb7cd7d0cae429<>res://.godot/imported/game info.png-e8595ef8d69f6af883f1223564ad4de4.ctex::
+go back.png::CompressedTexture2D/CompressedTexture2D::8228964895713925056::1750776747::1753876668::1::::<><><>0<>0<>5776ec9401209565fbc2c2ee250ec4d5<>res://.godot/imported/go back.png-8d4849532e88a452b5c47385b3eed280.ctex::
+hardcore_mexen.png::CompressedTexture2D/CompressedTexture2D::6188948317211195912::1750776747::1753876668::1::::<><><>0<>0<>b8ef219bd94bf0ba83a188cfb6450776<>res://.godot/imported/hardcore_mexen.png-b6b3dc1adc26282140eb40dbf095c14d.ctex::
+info.png::CompressedTexture2D/CompressedTexture2D::7928768056283144365::1750776747::1753876668::1::::<><><>0<>0<>290ed26e8c79d6e99891e781a5d9f13a<>res://.godot/imported/info.png-d44641b92955a62a59d58bc9b853b605.ctex::
+knight-pop-up.png::CompressedTexture2D/CompressedTexture2D::3023973882389914328::1750776747::1753876669::1::::<><><>0<>0<>111f3609cff7b673781e98246b64b9f8<>res://.godot/imported/knight-pop-up.png-11be372e851add6b7258dd6b81c466df.ctex::
+mexen.png::CompressedTexture2D/CompressedTexture2D::3440302814871591571::1750776747::1753876668::1::::<><><>0<>0<>f3b2d0df9a59ee695a54637cc3a1a5fe<>res://.godot/imported/mexen.png-217d365c265b49ac8a976dd07bb753dd.ctex::
+NameDisplay.png::CompressedTexture2D/CompressedTexture2D::279831120276314661::1750776747::1753876668::1::::<><><>0<>0<>fb078a105a7822393c74dcb7adad6346<>res://.godot/imported/NameDisplay.png-76cf2285e9e9e7dffda5f70f1fafe53b.ctex::
+pop-up.png::CompressedTexture2D/CompressedTexture2D::6596007618593762110::1750776747::1753876669::1::::<><><>0<>0<>b2b8ef1d10a9cd486c8b9749cc456fa4<>res://.godot/imported/pop-up.png-f08de0acbc31ee04b9ce8b21cf93779d.ctex::
+PunishmentPopUp.png::CompressedTexture2D/CompressedTexture2D::2024723893690204470::1750776747::1753876669::1::::<><><>0<>0<>5105a1dfd312bcfa9c9b913733b1c691<>res://.godot/imported/PunishmentPopUp.png-58b6187f7115f70808c2cb44188802ed.ctex::
+shake.png::CompressedTexture2D/CompressedTexture2D::4065575570115190805::1753880806::1753880809::1::::<><><>0<>0<>6e5a423c0284f5fb6c9e375df0dc8142<>res://.godot/imported/shake.png-8ecd3bfbf87bf7fb07de3e9f628480c4.ctex::
+splash.png::CompressedTexture2D/CompressedTexture2D::6494171371556863109::1753880103::1753880106::1::::<><><>0<>0<>31e48ed58454512df1acf54ae675761d<>res://.godot/imported/splash.png-b5ac65a777a4f4ae1cb09a9d6efe8121.ctex::
+::res://Assets/Sprites/Score/::1753876669
+0.svg::CompressedTexture2D/CompressedTexture2D::8924312944235605215::1751031113::1753876669::1::::<><><>0<>0<>0f6ebc4bdcd5c252854ee56a67ed3178<>res://.godot/imported/0.svg-d8a0f24f9f551c96b851f7f157784083.ctex::
+1.svg::CompressedTexture2D/CompressedTexture2D::3075489719060943468::1751031210::1753876669::1::::<><><>0<>0<>4d25c74d8f02c95e6d4dc675aa505150<>res://.godot/imported/1.svg-7997c8c5a74729e351d5bc1dbe0cbac3.ctex::
+2.svg::CompressedTexture2D/CompressedTexture2D::7611154653063907769::1751031219::1753876669::1::::<><><>0<>0<>de90d890725c24551b7e3eed52c20686<>res://.godot/imported/2.svg-faa5d2cc0711fde3c08f0e94a75b045f.ctex::
+last.svg::CompressedTexture2D/CompressedTexture2D::7718125759076236425::1751031182::1753876668::1::::<><><>0<>0<>d33ce3115681ed2678abed79f19f028f<>res://.godot/imported/last.svg-c20b786f924f5f596c9289f447a5639e.ctex::
+::res://Enums/::1753876664
+GameState.cs::CSharpScript/CSharpScript::2868418535811637222::1752156622::0::1::::<><><>0<>0<><>::
+::res://Handlers/::1753876664
+GameStateHandler.cs::CSharpScript/CSharpScript::3296544635396576776::1752156622::0::1::::<><><>0<>0<><>::
+::res://Managers/::1753877229
+DiceManager.cs::CSharpScript/CSharpScript::5369066356288398964::1752156622::0::1::::<><><>0<>0<><>::
+EventManager.cs::CSharpScript::33099272369971537::1752221561::0::1::::<>Node<><>0<>0<><>::
+GameManager.cs::CSharpScript::2275822926812657715::1752222023::0::1::::<>Node<><>0<>0<><>::
+PopupManager.cs::CSharpScript/CSharpScript::1667027177854687333::1753877229::0::1::::<><><>0<>0<><>::
+SceneManager.cs::CSharpScript::2793161120215523561::1750849648::0::1::::<>Node<><>0<>0<><>::
+::res://Nodes/::1750796188
+::res://Nodes/CustomNodes/::1753886428
+AddButton.tscn::PackedScene/PackedScene::3953192297466064166::1753876700::0::1::::<><><>0<>0<><>::uid://crt8kfp5dq7sd::::res://Assets/Sprites/AddPlayerBar.png
+ClickInstruction.tscn::PackedScene::7957432831165495374::1753886177::0::1::::<><><>0<>0<><>::uid://4p60k0aa2rat::::res://UI-Scripts/PopUp.cs<>uid://brxve3uu1336u::::res://Assets/Sprites/click.png<>uid://cyr3b3b2qthqr::::res://Assets/Sprites/splash.png
+CloseButton.tscn::PackedScene/PackedScene::8870990201339259571::1753876700::0::1::::<><><>0<>0<><>::uid://be8l78ywnny1c::::res://Assets/Sprites/delete_button.png<>uid://4p60k0aa2rat::::res://UI-Scripts/PopUp.cs
+KnightPopUp.tscn::PackedScene::5331349458179742638::1753877239::0::1::::<><><>0<>0<><>::uid://4p60k0aa2rat::::res://UI-Scripts/PopUp.cs<>uid://bjc3n4xnwl0vs::::res://Assets/Sprites/knight-pop-up.png<>uid://cuoy8uw4mb52v::::res://Assets/Fonts/Coffee Spark.ttf<>uid://be8l78ywnny1c::::res://Assets/Sprites/delete_button.png
+NameInput.tscn::PackedScene/PackedScene::3250672517877205766::1753876701::0::1::::<><><>0<>0<><>::uid://cd2wxbxdt4fcn::::res://UI-Scripts/NameInput.cs<>uid://cdix12egti701::::res://UI-Scripts/CustomLineEdit.cs<>uid://be8l78ywnny1c::::res://Assets/Sprites/delete_button.png
+NameInputContainer.tscn::PackedScene::8142974322289507157::1753877239::0::1::::<><><>0<>0<><>::uid://df4n7bjn1j7pp::::res://UI-Scripts/NameInputContainer.cs<>uid://bmkwdpjaijeos::::res://Nodes/CustomNodes/NameInput.tscn<>uid://bwk7q8reh8vp3::::res://Nodes/CustomNodes/AddButton.tscn
+PopUp.tscn::PackedScene::6719020279827005763::1753877239::0::1::::<><><>0<>0<><>::uid://c08fjt0pn34o5::::res://Assets/Sprites/pop-up.png<>uid://cuoy8uw4mb52v::::res://Assets/Fonts/Coffee Spark.ttf<>uid://be8l78ywnny1c::::res://Assets/Sprites/delete_button.png<>uid://4p60k0aa2rat::::res://UI-Scripts/PopUp.cs
+ScoreBar.tscn::PackedScene::7708396961030246095::1753877239::0::1::::<><><>0<>0<><>::uid://bed6i2xr2bqms::::res://UI-Scripts/ScoreBar.cs<>uid://cka0jccye22n1::::res://Assets/Fonts/WDXLLubrifontSC-Regular.ttf
+ScoreContainer.tscn::PackedScene::1134562200417966093::1753877239::0::1::::<><><>0<>0<><>::uid://b6uhv3rx2m6dm::::res://UI-Scripts/ScoreContainer.cs
+ThrowInstruction.tscn::PackedScene::4040286782738166949::1753886428::0::1::::<><><>0<>0<><>::uid://4p60k0aa2rat::::res://UI-Scripts/PopUp.cs<>uid://bx6no2u4fahaj::::res://Assets/Sprites/shake.png<>uid://brxve3uu1336u::::res://Assets/Sprites/click.png<>uid://cyr3b3b2qthqr::::res://Assets/Sprites/splash.png<>uid://cvxm2xcthxx3r::::res://Assets/Sprites/bar.png
+::res://Nodes/GameNodes/::1753877239
+Die.tscn::PackedScene::2882082568063006636::1753877239::0::1::::<><><>0<>0<><>::uid://cd3xgpmhh71ea::::res://Objects/Die.cs<>uid://dxqyfk0w35mv0::::res://Assets/3D Models/die.blend<>uid://csn4jb2w8v65r::::res://Nodes/GameNodes/DieRayCast.tscn
+DieRayCast.tscn::PackedScene/PackedScene::6064854423886543681::1753876701::0::1::::<><><>0<>0<><>::uid://bi1ip7gpmw6y7::::res://Objects/DieRayCast.cs
+::res://Nodes/UINodes/::1753876702
+Background.tscn::PackedScene/PackedScene::7640304730613270274::1753876701::0::1::::<><><>0<>0<><>::
+GameInfoPanelTemplate.tscn::PackedScene/PackedScene::6894158295775229340::1753876702::0::1::::<><><>0<>0<><>::uid://8aafmn1jj2vf::::res://Assets/Sprites/game info.png<>uid://dynf6a5178ecx::::res://Nodes/CustomNodes/CloseButton.tscn<>uid://c6yl6ams0n6aq::::res://Assets/Sprites/continue.png<>uid://ccu20bhhfu6pb::::res://Themes And Settings/TextSpacing.tres<>uid://bp6ye4xdkh6y3::::res://Themes And Settings/tab-unselected.tres<>uid://dp7tudlf4om4p::::res://Themes And Settings/Header2.tres<>uid://bjvgeiqcxao4q::::res://Themes And Settings/TextSpacingLeft.tres
+InfoTabContainer.tscn::PackedScene/PackedScene::9167320572087974988::1753876702::0::1::::<><><>0<>0<><>::uid://ccu20bhhfu6pb::::res://Themes And Settings/TextSpacing.tres<>uid://dp7tudlf4om4p::::res://Themes And Settings/Header2.tres<>uid://bjvgeiqcxao4q::::res://Themes And Settings/TextSpacingLeft.tres
+::res://Objects/::1753876665
+Die.cs::CSharpScript::5042618487727626432::1752156622::0::1::::<>RigidBody3D<><>0<>0<><>::
+DieRayCast.cs::CSharpScript::3002119467968119324::1750777978::0::1::::<>RayCast3D<><>0<>0<><>::
+NodeCreator.cs::CSharpScript/CSharpScript::8552611323287659894::1750796822::0::1::::<><><>0<>0<><>::
+Player.cs::CSharpScript/CSharpScript::763081494245391046::1752156622::0::1::::<><><>0<>0<><>::
+ScoreUtils.cs::CSharpScript/CSharpScript::1185699318161749951::1751986897::0::1::::<><><>0<>0<><>::
+::res://Scenes/::1753886177
+Home.cs::CSharpScript::2350732267721263625::1750795104::0::1::::<>CanvasLayer<><>0<>0<><>::
+Home.tscn::PackedScene::8609223748338367368::1753877239::0::1::::<><><>0<>0<><>::uid://ciklh6pynu5cb::::res://Assets/Fonts/This Cafe.ttf<>uid://8qyhm4dbitj2::::res://Scenes/Home.cs<>uid://dk70wfd0qcwg0::::res://Assets/Sprites/info.png<>uid://dg4ax5i8o51fa::::res://Nodes/UINodes/Background.tscn
+Play.cs::CSharpScript::6267784646123675430::1752222966::0::1::::<>Node3D<><>0<>0<><>::
+Play.tscn::PackedScene::8736401066768063145::1753886177::0::1::::<><><>0<>0<><>::uid://cvkfq58j74luk::::res://Scenes/Play.cs<>uid://ciklh6pynu5cb::::res://Assets/Fonts/This Cafe.ttf<>uid://bhcdqjrql7133::::res://Nodes/GameNodes/Die.tscn<>uid://qfucrf5i7vbx::::res://Nodes/CustomNodes/ScoreContainer.tscn
+SelectPlayers.cs::CSharpScript::4127478269234946560::1752222255::0::1::::<>CanvasLayer<><>0<>0<><>::
+SelectPlayers.tscn::PackedScene::2843079695696260828::1753877239::0::1::::<><><>0<>0<><>::uid://by2m71pq82cvg::::res://Scenes/SelectPlayers.cs<>uid://dg4ax5i8o51fa::::res://Nodes/UINodes/Background.tscn<>uid://cuoy8uw4mb52v::::res://Assets/Fonts/Coffee Spark.ttf<>uid://doaruktuv2ec0::::res://Nodes/CustomNodes/NameInputContainer.tscn
+::res://Themes And Settings/::1750776747
+Header2.tres::LabelSettings/LabelSettings::8279344307349757497::1750776747::0::1::::<><><>0<>0<><>::uid://cuoy8uw4mb52v::::res://Fonts/Coffee Spark.ttf
+tab-unselected.tres::StyleBoxFlat/StyleBoxFlat::3504714958499091776::1750776747::0::1::::<><><>0<>0<><>::
+tabbar.tres::Theme/Theme::7301362732191403589::1750776747::0::1::::<><><>0<>0<><>::uid://bp6ye4xdkh6y3::::res://Themes And Settings/tab-unselected.tres
+TextSpacing.tres::Theme/Theme::4956190677058312459::1750776747::0::1::::<><><>0<>0<><>::
+TextSpacingLeft.tres::Theme/Theme::3061844099428161746::1750776747::0::1::::<><><>0<>0<><>::
+::res://UI-Scripts/::1753876665
+CustomLineEdit.cs::CSharpScript::5001367266415960220::1750847532::0::1::::<>LineEdit<><>0<>0<><>::
+NameInput.cs::CSharpScript::5040523032977282077::1750878380::0::1::::<>Control<><>0<>0<><>::
+NameInputContainer.cs::CSharpScript::7570919757500505685::1750879132::0::1::::<>VBoxContainer<><>0<>0<><>::
+PopUp.cs::CSharpScript::2068369567291911279::1752223627::0::1::::<>Node<><>0<>0<><>::
+ScoreBar.cs::CSharpScript::2675267159103906434::1752156622::0::1::::<>Panel<><>0<>0<><>::
+ScoreContainer.cs::CSharpScript::4604026410171751070::1752156622::0::1::::<>HBoxContainer<><>0<>0<><>::

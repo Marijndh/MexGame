@@ -1,0 +1,201 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\managers\\popupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:managers\\popupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\ui-scripts\\popup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:ui-scripts\\popup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\scenes\\play.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:scenes\\play.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\scenes\\selectplayers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:scenes\\selectplayers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\enums\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:enums\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\objects\\die.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:objects\\die.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\ui-scripts\\scorebar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:ui-scripts\\scorebar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\ui-scripts\\scorecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:ui-scripts\\scorecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\objects\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:objects\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|c:\\users\\marij\\documents\\github\\tappie\\tappie-app\\objects\\scoreutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F13FE02-65FB-418C-859F-9F07966E2ED7}|Tappie.csproj|solutionrelative:objects\\scoreutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SelectPlayers.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Scenes\\SelectPlayers.cs",
+              "RelativeDocumentMoniker": "Scenes\\SelectPlayers.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Scenes\\SelectPlayers.cs",
+              "RelativeToolTip": "Scenes\\SelectPlayers.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-11T08:21:22.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PopUp.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\UI-Scripts\\PopUp.cs",
+              "RelativeDocumentMoniker": "UI-Scripts\\PopUp.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\UI-Scripts\\PopUp.cs",
+              "RelativeToolTip": "UI-Scripts\\PopUp.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwBYAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-11T08:09:20.451Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GameState.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Enums\\GameState.cs",
+              "RelativeDocumentMoniker": "Enums\\GameState.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Enums\\GameState.cs",
+              "RelativeToolTip": "Enums\\GameState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T13:13:36.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Die.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Objects\\Die.cs",
+              "RelativeDocumentMoniker": "Objects\\Die.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Objects\\Die.cs",
+              "RelativeToolTip": "Objects\\Die.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAADwv3UAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T12:47:26.832Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ScoreBar.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\UI-Scripts\\ScoreBar.cs",
+              "RelativeDocumentMoniker": "UI-Scripts\\ScoreBar.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\UI-Scripts\\ScoreBar.cs",
+              "RelativeToolTip": "UI-Scripts\\ScoreBar.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCUAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T12:38:29.354Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Objects\\Player.cs",
+              "RelativeDocumentMoniker": "Objects\\Player.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Objects\\Player.cs",
+              "RelativeToolTip": "Objects\\Player.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T12:37:27.92Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ScoreUtils.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Objects\\ScoreUtils.cs",
+              "RelativeDocumentMoniker": "Objects\\ScoreUtils.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Objects\\ScoreUtils.cs",
+              "RelativeToolTip": "Objects\\ScoreUtils.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T09:39:09.517Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ScoreContainer.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\UI-Scripts\\ScoreContainer.cs",
+              "RelativeDocumentMoniker": "UI-Scripts\\ScoreContainer.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\UI-Scripts\\ScoreContainer.cs",
+              "RelativeToolTip": "UI-Scripts\\ScoreContainer.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAawEYAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T09:37:19.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PopupManager.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Managers\\PopupManager.cs",
+              "RelativeDocumentMoniker": "Managers\\PopupManager.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Managers\\PopupManager.cs",
+              "RelativeToolTip": "Managers\\PopupManager.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAiwGEAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T18:51:34.323Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Managers\\GameManager.cs",
+              "RelativeDocumentMoniker": "Managers\\GameManager.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Managers\\GameManager.cs",
+              "RelativeToolTip": "Managers\\GameManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T14:52:01.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Play.cs",
+              "DocumentMoniker": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Scenes\\Play.cs",
+              "RelativeDocumentMoniker": "Scenes\\Play.cs",
+              "ToolTip": "C:\\Users\\marij\\Documents\\GitHub\\Tappie\\Tappie-App\\Scenes\\Play.cs",
+              "RelativeToolTip": "Scenes\\Play.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAIAwwIgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-26T19:41:19.926Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,0 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ccu20bhhfu6pb"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xyqi6"]
-content_margin_left = 40.0
-content_margin_top = 5.0
-draw_center = false
-
-[resource]
-Label/styles/normal = SubResource("StyleBoxFlat_xyqi6")

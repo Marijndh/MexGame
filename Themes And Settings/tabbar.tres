@@ -1,0 +1,60 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dca3m3ltblswj"]
+
+[ext_resource type="StyleBox" uid="uid://bp6ye4xdkh6y3" path="res://Themes And Settings/tab-unselected.tres" id="1_h7lpy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hdcv2"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nx072"]
+content_margin_left = 40.0
+content_margin_top = 5.0
+content_margin_right = 40.0
+border_width_left = 2
+border_width_top = 2
+border_width_right = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+expand_margin_left = 7.0
+expand_margin_top = 2.0
+expand_margin_right = 7.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83tqp"]
+content_margin_left = 40.0
+content_margin_top = 5.0
+content_margin_right = 40.0
+border_width_left = 2
+border_width_top = 2
+border_width_right = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+expand_margin_left = 7.0
+expand_margin_top = 2.0
+expand_margin_right = 7.0
+expand_margin_bottom = 7.0
+
+[resource]
+TabContainer/colors/drop_mark_color = Color(1, 1, 1, 0)
+TabContainer/colors/font_hovered_color = Color(0, 0, 0, 1)
+TabContainer/colors/font_outline_color = Color(1, 1, 1, 0)
+TabContainer/colors/font_selected_color = Color(0, 0, 0, 1)
+TabContainer/colors/font_unselected_color = Color(0.151276, 0.151276, 0.151276, 1)
+TabContainer/styles/panel = SubResource("StyleBoxFlat_hdcv2")
+TabContainer/styles/tab_disabled = ExtResource("1_h7lpy")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_nx072")
+TabContainer/styles/tab_hovered = ExtResource("1_h7lpy")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_83tqp")
+TabContainer/styles/tab_unselected = ExtResource("1_h7lpy")

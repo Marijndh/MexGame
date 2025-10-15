@@ -1,0 +1,83 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1752221284
+icon.svg::CompressedTexture2D::4996056373192913632::1750776747::1750791169::1::::<><>::
+::res://Assets/::1750778174
+::res://Assets/3D Models/::1750791172
+die.blend::PackedScene::8808102200506726339::1750776747::1750791172::1::::<><>::
+::res://Assets/Fonts/::1750963455
+Coffee Spark.ttf::FontFile::6207036753515381643::1750790817::1750791169::1::::<><>::
+This Cafe.ttf::FontFile::5355677934013388397::1750776747::1750791169::1::::<><>::
+WDXLLubrifontSC-Regular.ttf::FontFile::5476263909964029144::1750963447::1750963455::1::::<><>::
+::res://Assets/Sprites/::1752156622
+AddPlayerBar.png::CompressedTexture2D::6007296692416785815::1750776747::1750791169::1::::<><>::
+click.png::CompressedTexture2D::3628395416401221282::1752156622::1752156622::1::::<><>::
+continue.png::CompressedTexture2D::6998963852183569348::1750776747::1750791169::1::::<><>::
+delete_button.png::CompressedTexture2D::2736027327817942990::1750776747::1750791169::1::::<><>::
+game info.png::CompressedTexture2D::2316241420580986003::1750776747::1750791169::1::::<><>::
+go back.png::CompressedTexture2D::8228964895713925056::1750776747::1750791169::1::::<><>::
+hardcore_mexen.png::CompressedTexture2D::6188948317211195912::1750776747::1750791169::1::::<><>::
+info.png::CompressedTexture2D::7928768056283144365::1750776747::1750791169::1::::<><>::
+knight-pop-up.png::CompressedTexture2D::3023973882389914328::1750776747::1750791169::1::::<><>::
+mexen.png::CompressedTexture2D::3440302814871591571::1750776747::1750791169::1::::<><>::
+NameDisplay.png::CompressedTexture2D::279831120276314661::1750776747::1750791169::1::::<><>::
+pop-up.png::CompressedTexture2D::6596007618593762110::1750776747::1750791169::1::::<><>::
+PunishmentPopUp.png::CompressedTexture2D::2024723893690204470::1750776747::1750791169::1::::<><>::
+::res://Assets/Sprites/Score/::1751031265
+0.svg::CompressedTexture2D::8924312944235605215::1751031113::1751031265::1::::<><>::
+1.svg::CompressedTexture2D::3075489719060943468::1751031210::1751031265::1::::<><>::
+2.svg::CompressedTexture2D::7611154653063907769::1751031219::1751031265::1::::<><>::
+last.svg::CompressedTexture2D::7718125759076236425::1751031182::1751031265::1::::<><>::
+::res://Enums/::1752156622
+GameState.cs::CSharpScript::-1::1752156622::0::1::::<><>::
+::res://Handlers/::1752156622
+GameStateHandler.cs::CSharpScript::-1::1752156622::0::1::::<><>::
+::res://Managers/::1752156622
+DiceManager.cs::CSharpScript::-1::1752156622::0::1::::<><>::
+EventManager.cs::CSharpScript::-1::1752156622::0::1::::<>Node<>::
+GameManager.cs::CSharpScript::-1::1752156622::0::1::::<>Node<>::
+PopupManager.cs::CSharpScript::-1::1752156622::0::1::::<><>::
+SceneManager.cs::CSharpScript::-1::1750849648::0::1::::<>Node<>::
+::res://Nodes/::1750796188
+::res://Nodes/CustomNodes/::1752156622
+AddButton.tscn::PackedScene::3953192297466064166::1750844501::0::1::::<><>::uid://crt8kfp5dq7sd::::res://Assets/Sprites/AddPlayerBar.png
+ClickInstruction.tscn::PackedScene::7957432831165495374::1752156622::0::1::::<><>::uid://brxve3uu1336u::::res://Assets/Sprites/click.png
+CloseButton.tscn::PackedScene::8870990201339259571::1750847018::0::1::::<><>::uid://be8l78ywnny1c::::res://Assets/Sprites/delete_button.png<>res://UI-Scripts/PopUp.cs
+KnightPopUp.tscn::PackedScene::5331349458179742638::1750962175::0::1::::<><>::res://UI-Scripts/PopUp.cs<>uid://bjc3n4xnwl0vs::::res://Assets/Sprites/knight-pop-up.png<>uid://cuoy8uw4mb52v::::res://Assets/Fonts/Coffee Spark.ttf<>uid://be8l78ywnny1c::::res://Assets/Sprites/delete_button.png
+NameInput.tscn::PackedScene::3250672517877205766::1750930614::0::1::::<><>::res://UI-Scripts/NameInput.cs<>res://UI-Scripts/CustomLineEdit.cs<>uid://be8l78ywnny1c::::res://Assets/Sprites/delete_button.png
+NameInputContainer.tscn::PackedScene::8142974322289507157::1752156304::0::1::::<><>::res://UI-Scripts/NameInputContainer.cs<>uid://bmkwdpjaijeos::::res://Nodes/CustomNodes/NameInput.tscn<>uid://bwk7q8reh8vp3::::res://Nodes/CustomNodes/AddButton.tscn
+PopUp.tscn::PackedScene::6719020279827005763::1750962167::0::1::::<><>::uid://c08fjt0pn34o5::::res://Assets/Sprites/pop-up.png<>uid://cuoy8uw4mb52v::::res://Assets/Fonts/Coffee Spark.ttf<>uid://be8l78ywnny1c::::res://Assets/Sprites/delete_button.png<>res://UI-Scripts/PopUp.cs
+ScoreBar.tscn::PackedScene::7708396961030246095::1752156304::0::1::::<><>::res://UI-Scripts/ScoreBar.cs<>uid://cka0jccye22n1::::res://Assets/Fonts/WDXLLubrifontSC-Regular.ttf
+ScoreContainer.tscn::PackedScene::1134562200417966093::1752156304::0::1::::<><>::res://UI-Scripts/ScoreContainer.cs
+::res://Nodes/GameNodes/::1752156622
+Die.tscn::PackedScene::2882082568063006636::1752156622::0::1::::<><>::res://Objects/Die.cs<>uid://dxqyfk0w35mv0::::res://Assets/3D Models/die.blend<>uid://csn4jb2w8v65r::::res://Nodes/GameNodes/DieRayCast.tscn
+DieRayCast.tscn::PackedScene::6064854423886543681::1750847731::0::1::::<><>::res://Objects/DieRayCast.cs
+::res://Nodes/UINodes/::1750796188
+Background.tscn::PackedScene::7640304730613270274::1750776747::0::1::::<><>::
+GameInfoPanelTemplate.tscn::PackedScene::6894158295775229340::1750796188::0::1::::<><>::res://Windows/UINodes/InfoPanel.cs<>uid://8aafmn1jj2vf::::res://Assets/Sprites/game info.png<>uid://dynf6a5178ecx::::res://Nodes/CustomNodes/CloseButton.tscn<>uid://c6yl6ams0n6aq::::res://Assets/Sprites/continue.png<>res://Fonts/Coffee Spark.ttf<>res://Fonts/coolvetica rg.otf<>uid://ccu20bhhfu6pb::::res://Themes And Settings/TextSpacing.tres<>uid://bp6ye4xdkh6y3::::res://Themes And Settings/tab-unselected.tres<>uid://dp7tudlf4om4p::::res://Themes And Settings/Header2.tres<>uid://bjvgeiqcxao4q::::res://Themes And Settings/TextSpacingLeft.tres
+InfoTabContainer.tscn::PackedScene::9167320572087974988::1750776747::0::1::::<><>::uid://clrpyhnn6lcxh::::res://Fonts/coolvetica rg.otf<>uid://ccu20bhhfu6pb::::res://Themes And Settings/TextSpacing.tres<>uid://dp7tudlf4om4p::::res://Themes And Settings/Header2.tres<>uid://bjvgeiqcxao4q::::res://Themes And Settings/TextSpacingLeft.tres
+::res://Objects/::1752156622
+Die.cs::CSharpScript::-1::1752156622::0::1::::<>RigidBody3D<>::
+DieRayCast.cs::CSharpScript::-1::1750777978::0::1::::<>RayCast3D<>::
+NodeCreator.cs::CSharpScript::-1::1750796822::0::1::::<><>::
+Player.cs::CSharpScript::-1::1752156622::0::1::::<><>::
+ScoreUtils.cs::CSharpScript::-1::1751986897::0::1::::<><>::
+::res://Scenes/::1752156622
+Home.cs::CSharpScript::-1::1750795104::0::1::::<>CanvasLayer<>::
+Home.tscn::PackedScene::8609223748338367368::1752156304::0::1::::<><>::uid://ciklh6pynu5cb::::res://Assets/Fonts/This Cafe.ttf<>res://Scenes/Home.cs<>uid://dk70wfd0qcwg0::::res://Assets/Sprites/info.png<>uid://dg4ax5i8o51fa::::res://Nodes/UINodes/Background.tscn
+Play.cs::CSharpScript::-1::1752156622::0::1::::<>Node3D<>::
+Play.tscn::PackedScene::8736401066768063145::1752156622::0::1::::<><>::res://Scenes/Play.cs<>uid://ciklh6pynu5cb::::res://Assets/Fonts/This Cafe.ttf<>uid://bhcdqjrql7133::::res://Nodes/GameNodes/Die.tscn<>uid://qfucrf5i7vbx::::res://Nodes/CustomNodes/ScoreContainer.tscn
+SelectPlayers.cs::CSharpScript::-1::1751986897::0::1::::<>CanvasLayer<>::
+SelectPlayers.tscn::PackedScene::2843079695696260828::1752156622::0::1::::<><>::res://Scenes/SelectPlayers.cs<>uid://dg4ax5i8o51fa::::res://Nodes/UINodes/Background.tscn<>uid://cuoy8uw4mb52v::::res://Assets/Fonts/Coffee Spark.ttf<>uid://doaruktuv2ec0::::res://Nodes/CustomNodes/NameInputContainer.tscn
+::res://Themes And Settings/::1750776747
+Header2.tres::LabelSettings::8279344307349757497::1750776747::0::1::::<><>::uid://cuoy8uw4mb52v::::res://Fonts/Coffee Spark.ttf
+tab-unselected.tres::StyleBoxFlat::3504714958499091776::1750776747::0::1::::<><>::
+tabbar.tres::Theme::7301362732191403589::1750776747::0::1::::<><>::uid://bp6ye4xdkh6y3::::res://Themes And Settings/tab-unselected.tres
+TextSpacing.tres::Theme::4956190677058312459::1750776747::0::1::::<><>::
+TextSpacingLeft.tres::Theme::3061844099428161746::1750776747::0::1::::<><>::
+::res://UI-Scripts/::1752156622
+CustomLineEdit.cs::CSharpScript::-1::1750847532::0::1::::<>LineEdit<>::
+NameInput.cs::CSharpScript::-1::1750878380::0::1::::<>Control<>::
+NameInputContainer.cs::CSharpScript::-1::1750879132::0::1::::<>VBoxContainer<>::
+PopUp.cs::CSharpScript::-1::1751986897::0::1::::<>Node<>::
+ScoreBar.cs::CSharpScript::-1::1752156622::0::1::::<>Panel<>::
+ScoreContainer.cs::CSharpScript::-1::1752156622::0::1::::<>HBoxContainer<>::

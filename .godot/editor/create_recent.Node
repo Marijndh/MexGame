@@ -1,0 +1,15 @@
+AnimationPlayer
+Sprite2D
+Control
+ColorRect
+VBoxContainer
+HBoxContainer
+TextureRect
+Label
+Panel
+DirectionalLight3D
+WorldEnvironment
+Button
+CanvasLayer
+PopupPanel
+TextureButton

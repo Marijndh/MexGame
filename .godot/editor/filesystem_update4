@@ -1,0 +1,3 @@
+res://Scenes/Play.tscn
+res://Nodes/CustomNodes/ClickInstruction.tscn
+res://Nodes/CustomNodes/ThrowInstruction.tscn
